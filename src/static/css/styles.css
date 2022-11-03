@@ -1,0 +1,76 @@
+.paginationPage {
+  text-align: center;
+}
+.paginationPage li:hover {
+  background: #006fa2;
+  border-color: #006fa2;
+}
+.paginationPage li:hover a {
+  color: #fff !important;
+}
+.paginationPage li {
+  width: 38px;
+  height: 38px;
+  margin: 0;
+  border-color: #006fa2;
+  border-radius: 0;
+}
+.paginationPage li a {
+  line-height: 38px;
+  color: #006fa2;
+}
+.paginationPage li:first-child {
+  display: none;
+}
+.paginationPage .ant-pagination-next button {
+  border-color: #006fa2;
+  border-left: none;
+}
+.paginationPage .ant-pagination-next button span svg {
+  color: #006fa2;
+}
+.paginationPage .ant-pagination-next.ant-pagination-disabled button {
+  border-color: gray;
+}
+.paginationPage .ant-pagination-next.ant-pagination-disabled button span svg {
+  color: gray;
+}
+.paginationPage .ant-pagination-item-active {
+  background: #006fa2;
+  border-color: #006fa2;
+}
+.paginationPage .ant-pagination-item-active a {
+  color: #fff;
+}
+.filterRadio span {
+  font-size: 16px;
+  line-height: 24px;
+}
+.filterRadio span:hover {
+  color: #006fa2;
+}
+.filterRadio .ant-radio-inner {
+  width: 20px;
+  height: 20px;
+}
+.filterRadio .ant-radio-inner::after {
+  top: 4px;
+  left: 4px;
+  width: 10px;
+  height: 10px;
+  background: #006fa2;
+}
+.collapseInfo {
+  width: 100%;
+}
+.collapseInfo .ant-collapse-header {
+  color: #006fa2 !important;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 5px 5px 0px 0px !important;
+}
+.collapseInfo p span {
+  color: #f00;
+  font-weight: bold;
+}
+/*# sourceMappingURL=styles.css.map */

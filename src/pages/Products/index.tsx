@@ -1,0 +1,393 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+// THIRD IMPORT
+import { useState, useEffect } from "react";
+import { Row, Col, Radio, Space, Pagination } from "antd";
+import { Link, useParams, useNavigate } from "react-router-dom";
+
+// PROJECT IMPORT
+import BreadCrumb from "layout/BreadCrumb";
+import article1 from "static/images/home/articles-1.jpg";
+import article2 from "static/images/home/articles-2.jpg";
+import article3 from "static/images/home/articles-3.jpeg";
+import article4 from "static/images/home/articles-4.jpg";
+import filter from "static/images/product/filter.png";
+import closeFilter from "static/images/product/filter_close.png";
+import { ProductType, PaginationType } from "types/product";
+import { CategoryType } from "types/category";
+import { ProducerType } from "types/producer";
+import { formatPrice, getSale } from "utils/utils";
+import { useDispatch } from "app/store";
+import Loading from "components/Extended/Loading";
+
+const END_POINT = process.env.REACT_APP_SERVER;
+
+const Products = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const params = useParams();
+
+  const [type, setType] = useState("");
+  const [price, setPrice] = useState("");
+  const [brand, setBrand] = useState("");
+  const [sort, setSort] = useState("");
+  const [openFilter, setOpenFilter] = useState(false);
+  const [products, setProducts] = useState<ProductType[]>([]);
+  const [category, setCategory] = useState<CategoryType>({});
+  const [producers, setProducers] = useState<ProducerType[]>([]);
+  const [pagination, setPagination] = useState<PaginationType>({});
+  const [categoryChild, setCategoryChild] = useState<CategoryType[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const { url, urlChild } = params;
+
+  useEffect(() => {
+    getDetailCategory();
+  }, [url, urlChild]);
+
+  useEffect(() => {
+    if (category?.id) {
+      getList();
+      getListProducer();
+    } else {
+      setProducts([]);
+      setProducers([]);
+    }
+  }, [category]);
+
+  const getDetailCategory = () => {
+    dispatch({
+      type: "category/getOneUrl",
+      payload: { id: urlChild || url, params: { findChild: true } },
+      callback: (res) => {
+        if (res?.success) {
+          const {
+            results: {
+              list: { category, children },
+            },
+          } = res;
+          setCategory(category);
+          setCategoryChild(children);
+        }
+      },
+    });
+  };
+
+  const getList = () => {
+    let params = {
+      filter: JSON.stringify({
+        status: 1,
+        websiteId: 1,
+        categoryId: category?.id,
+      }),
+      range: JSON.stringify([0, 12]),
+      sort: JSON.stringify(["createdAt", "DESC"]),
+      attributes: "id,name,price,isSale,images,negotiablePrice,createdAt,url",
+    };
+
+    dispatch({
+      type: "product/fetch",
+      payload: params,
+      callback: (res) => {
+        setLoading(false);
+        if (res?.success) {
+          const {
+            results: { list, pagination },
+          } = res;
+
+          setProducts(list);
+          setPagination(pagination);
+        }
+      },
+    });
+  };
+
+  const getListProducer = () => {
+    let params = {
+      filter: JSON.stringify({
+        websiteId: 1,
+        categoryId: category.id,
+      }),
+    };
+
+    dispatch({
+      type: "product/producer",
+      payload: params,
+      callback: (res) => {
+        if (res?.success) {
+          const {
+            results: { list },
+          } = res;
+          setProducers(list);
+        }
+      },
+    });
+  };
+
+  return (
+    <>
+      <BreadCrumb node1={category?.text} />
+      <section className="products_page container">
+        <h1 className="page_title type_2">{category?.text}</h1>
+        <p>{category?.description}</p>
+        {!urlChild && (
+          <div className="categories_box">
+            {categoryChild?.map((item) => (
+              <div
+                className="category"
+                key={item?.id}
+                onClick={() =>
+                  navigate(`/products${category?.url}${item?.url}`)
+                }
+              >
+                <p>{item?.text}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        <div className="main_section" style={{ marginTop: "20px" }}>
+          <div className="left_side">
+            <div className="filter_box">
+              <div className="brand">
+                <p className="main_title">Thương hiệu</p>
+                <Radio.Group
+                  onChange={(e) => setBrand(e.target.value)}
+                  value={brand}
+                >
+                  <Space direction="vertical">
+                    <Radio value="">Tất cả</Radio>
+                    {producers?.map((item) => (
+                      <Radio value={item?.id} key={item?.id}>
+                        {item?.name}
+                      </Radio>
+                    ))}
+                  </Space>
+                </Radio.Group>
+              </div>
+
+              <div className="price">
+                <p className="main_title">Lọc giá</p>
+                <Radio.Group
+                  onChange={(e) => setPrice(e.target.value)}
+                  value={price}
+                >
+                  <Space direction="vertical">
+                    <Radio value="">Tất cả</Radio>
+                    <Radio value={1}>Giá dưới 100.000đ</Radio>
+                    <Radio value={2}>100.000đ - 200.000đ</Radio>
+                    <Radio value={3}>200.000đ - 500.000đ</Radio>
+                    <Radio value={4}>500.000đ - 1.000.000đ</Radio>
+                    <Radio value={5}>1.000.000đ - 2.000.000đ</Radio>
+                    <Radio value={6}>Giá trên 2.000.000đ</Radio>
+                  </Space>
+                </Radio.Group>
+              </div>
+            </div>
+
+            <div className="articles_box">
+              <div className="main_title">BÀI VIẾT NỐI BẬT</div>
+              <div className="article">
+                <div className="image_box">
+                  <img src={article4} alt="" />
+                </div>
+                <div className="content">
+                  <div className="article_title">
+                    Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và
+                    Hàn
+                  </div>
+                  <p className="date">Ngày đăng: 05/05/2021</p>
+                </div>
+              </div>
+              <div className="article">
+                <div className="image_box">
+                  <img src={article1} alt="" />
+                </div>
+                <div className="content">
+                  <div className="article_title">
+                    Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và
+                    Hàn
+                  </div>
+                  <p className="date">Ngày đăng: 05/05/2021</p>
+                </div>
+              </div>
+              <div className="article">
+                <div className="image_box">
+                  <img src={article3} alt="" />
+                </div>
+                <div className="content">
+                  <div className="article_title">
+                    Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và
+                    Hàn
+                  </div>
+                  <p className="date">Ngày đăng: 05/05/2021</p>
+                </div>
+              </div>
+              <div className="article">
+                <div className="image_box">
+                  <img src={article2} alt="" />
+                </div>
+                <div className="content">
+                  <div className="article_title">
+                    Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và
+                    Hàn
+                  </div>
+                  <p className="date">Ngày đăng: 05/05/2021</p>
+                </div>
+              </div>
+              <div className="article">
+                <div className="image_box">
+                  <img src={article3} alt="" />
+                </div>
+                <div className="content">
+                  <div className="article_title">
+                    Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và
+                    Hàn
+                  </div>
+                  <p className="date">Ngày đăng: 05/05/2021</p>
+                </div>
+              </div>
+              <Link to="/articles">Xem thêm</Link>
+            </div>
+          </div>
+
+          <div className="right_side">
+            <div className="sort">
+              <p className="main_title">Sắp xếp: </p>
+              <div className="box">
+                <Radio.Group
+                  onChange={(e) => setSort(e.target.value)}
+                  value={sort}
+                >
+                  <Radio value={1}>A ➞ Z</Radio>
+                  <Radio value={2}>Z ➞ A</Radio>
+                  <Radio value={3}>Giá tăng dần</Radio>
+                  <Radio value={4}>Giá giảm dần</Radio>
+                  <Radio value={5}>Hàng mới nhất</Radio>
+                  <Radio value={6}>Hàng cũ nhất</Radio>
+                </Radio.Group>
+              </div>
+            </div>
+            <Row gutter={[32, 5]} className="products">
+              {products?.map((item) => (
+                <Col xs={12} md={8} lg={8} xl={6} key={item?.id}>
+                  <div className="product">
+                    <Link
+                      to={`${category?.url}/${item?.url}`}
+                      className="image_box"
+                    >
+                      <div className="ct">Chi tiết</div>
+                      <img
+                        src={`${END_POINT}${item?.images?.split(",")[0]}`}
+                        alt={item?.name}
+                      />
+                      <img
+                        src={`${END_POINT}${item?.images?.split(",")[1]}`}
+                        alt={item?.name}
+                      />
+                    </Link>
+                    {item?.isSale && (
+                      <div className="sale_box">
+                        <p>-{getSale(item?.price, item?.negotiablePrice)}%</p>
+                      </div>
+                    )}
+                    <div className="content">
+                      <Link to={`${category?.url}/${item?.url}`}>
+                        {item?.name}{" "}
+                      </Link>
+                      <p className="price">
+                        {item?.isSale
+                          ? formatPrice(item?.negotiablePrice)
+                          : formatPrice(item?.price)}{" "}
+                        {item?.isSale && <del>{formatPrice(item?.price)}</del>}
+                      </p>
+                    </div>
+                  </div>
+                </Col>
+              ))}
+              {products?.length === 0 && (
+                <Col xl={24} lg={24} md={24} xs={24}>
+                  <p style={{ textAlign: "center", color: "#ff0000" }}>
+                    Không có sản phẩm nào trong danh mục này.
+                  </p>
+                </Col>
+              )}
+              {products?.length > 0 && (
+                <Col xl={24} lg={24} md={24} xs={24}>
+                  <Pagination
+                    defaultCurrent={pagination?.current}
+                    size="default"
+                    pageSize={3}
+                    total={pagination?.total}
+                    className="paginationPage"
+                    style={{ marginTop: "30px" }}
+                  />
+                </Col>
+              )}
+            </Row>
+          </div>
+          <div
+            className={openFilter ? "filter_mobile active" : "filter_mobile"}
+          >
+            <img
+              src={openFilter ? closeFilter : filter}
+              alt=""
+              onClick={() => setOpenFilter(!openFilter)}
+            />
+            <div className="filter_box">
+              <div className="brand">
+                <p className="main_title">Thương hiệu</p>
+                <Radio.Group
+                  onChange={(e) => setBrand(e.target.value)}
+                  value={brand}
+                  className="filterRadio"
+                >
+                  <Space direction="vertical">
+                    <Radio value={1}>VGA Fashion</Radio>
+                  </Space>
+                </Radio.Group>
+              </div>
+
+              <div className="price">
+                <p className="main_title">Lọc giá</p>
+                <Radio.Group
+                  onChange={(e) => setPrice(e.target.value)}
+                  value={price}
+                  className="price_filter filterRadio"
+                >
+                  <Space direction="vertical">
+                    <Radio value={1}>Giá dưới 100.000đ</Radio>
+                    <Radio value={2}>100.000đ - 200.000đ</Radio>
+                    <Radio value={3}>200.000đ - 500.000đ</Radio>
+                    <Radio value={4}>500.000đ - 1.000.000đ</Radio>
+                    <Radio value={5}>1.000.000đ - 2.000.000đ</Radio>
+                    <Radio value={6}>Giá trên 2.000.000đ</Radio>
+                  </Space>
+                </Radio.Group>
+              </div>
+              <div className="type">
+                <p className="main_title">Thể loại</p>
+                <Radio.Group
+                  onChange={(e) => setType(e.target.value)}
+                  value={type}
+                  className="filterRadio"
+                >
+                  <Space direction="vertical">
+                    <Radio value={1}>Áo thun</Radio>
+                    <Radio value={2}>Quần sort</Radio>
+                    <Radio value={3}>Sơ mi</Radio>
+                  </Space>
+                </Radio.Group>
+              </div>
+            </div>
+            <div
+              className={openFilter ? "bg active" : "bg"}
+              onClick={() => setOpenFilter(false)}
+            ></div>
+          </div>
+        </div>
+      </section>
+      <Loading loading={loading} />
+    </>
+  );
+};
+
+export default Products;

@@ -1,58 +1,38 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+// THIRD IMPORT
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-function App() {
+// PROJECT IMPORT
+import Header from "layout/Header";
+import Footer from "layout/Footer";
+
+import Home from "pages/Home";
+import Introduce from "pages/Introduce";
+import ArticleDetail from "pages/ArticleDetail";
+import Products from "pages/Products";
+import Article from "pages/Article";
+import Location from "pages/Location";
+import Contact from "pages/Contact";
+import ProductDetail from "pages/ProductDetail";
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Router>
+      <Header></Header>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/introduce" element={<Introduce />} />
+        <Route path="/article/:url" element={<ArticleDetail />} />
+        <Route path="/articles/:url" element={<Article />} />
+        <Route path="/articles" element={<Article />} />
+        <Route path="/products/:url" element={<Products />} />
+        <Route path="/products/:url/:urlChild" element={<Products />} />
+        <Route path="/:url/:urlProduct" element={<ProductDetail />} />
+        <Route path="/location" element={<Location />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+      <Footer></Footer>
+    </Router>
   );
-}
+};
 
 export default App;
