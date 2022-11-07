@@ -338,10 +338,14 @@ const Products = () => {
                 <Radio.Group
                   onChange={(e) => setBrand(e.target.value)}
                   value={brand}
-                  className="filterRadio"
                 >
                   <Space direction="vertical">
-                    <Radio value={1}>VGA Fashion</Radio>
+                    <Radio value="">Tất cả</Radio>
+                    {producers?.map((item) => (
+                      <Radio value={item?.id} key={item?.id}>
+                        {item?.name}
+                      </Radio>
+                    ))}
                   </Space>
                 </Radio.Group>
               </div>
@@ -351,7 +355,6 @@ const Products = () => {
                 <Radio.Group
                   onChange={(e) => setPrice(e.target.value)}
                   value={price}
-                  className="price_filter filterRadio"
                 >
                   <Space direction="vertical">
                     <Radio value={1}>Giá dưới 100.000đ</Radio>
@@ -360,20 +363,6 @@ const Products = () => {
                     <Radio value={4}>500.000đ - 1.000.000đ</Radio>
                     <Radio value={5}>1.000.000đ - 2.000.000đ</Radio>
                     <Radio value={6}>Giá trên 2.000.000đ</Radio>
-                  </Space>
-                </Radio.Group>
-              </div>
-              <div className="type">
-                <p className="main_title">Thể loại</p>
-                <Radio.Group
-                  onChange={(e) => setType(e.target.value)}
-                  value={type}
-                  className="filterRadio"
-                >
-                  <Space direction="vertical">
-                    <Radio value={1}>Áo thun</Radio>
-                    <Radio value={2}>Quần sort</Radio>
-                    <Radio value={3}>Sơ mi</Radio>
                   </Space>
                 </Radio.Group>
               </div>

@@ -19,8 +19,32 @@ export interface ProductType {
   supplier?: Linkedin;
   createdAt?: string | Date;
   status?: number;
+  productClass1s: ProductClass[];
+  productClass2s: ProductClass[];
+  productPrices: ProductPricesType[];
 }
 
+export interface ProductClass {
+  id: number;
+  name: string;
+  images?: string;
+  flag: string;
+  productClass1s?: any;
+  productClass2s?: any;
+}
+
+export interface ProductPricesType {
+  id: number;
+  price: number;
+  negotiablePrice: number;
+  amount: number;
+  productClass1Id: number;
+  productClass2Id: number;
+  productId: number;
+  createdAt: string;
+  updatedAt: string;
+  flag: "add" | "delete";
+}
 export interface Linkedin {
   id: number;
   name?: string;

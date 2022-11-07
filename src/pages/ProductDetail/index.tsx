@@ -47,7 +47,12 @@ const ProductDetails = () => {
     images: "",
     price: 0,
     negotiablePrice: 0,
+    productClass1s: [],
+    productClass2s: [],
+    productPrices: [],
   });
+  const [colorSelected, setColorSelected] = useState(0);
+  const [sizeSelected, setSizeSelected] = useState(0);
 
   const { url, urlProduct } = params;
 
@@ -85,7 +90,8 @@ const ProductDetails = () => {
           const {
             results: { list },
           } = res;
-
+          setColorSelected(list?.productClass1s?.[0]?.id || 0);
+          setSizeSelected(list?.productClass2s?.[0]?.id || 0);
           setProduct(list);
         }
       },
@@ -107,6 +113,26 @@ const ProductDetails = () => {
       setQuantity(quantity - 1);
     }
   };
+
+  const renderPrice = (price?: boolean) => {
+    if (colorSelected === 0 || sizeSelected === 0)
+      return product?.isSale && !price
+        ? formatPrice(product?.negotiablePrice)
+        : formatPrice(product?.price);
+
+    const productPrice = product?.productPrices?.find(
+      (item) =>
+        item?.productClass1Id === colorSelected &&
+        item?.productClass2Id === sizeSelected
+    );
+
+    return formatPrice(
+      product?.isSale && !price
+        ? productPrice?.negotiablePrice || 0
+        : productPrice?.price || 0
+    );
+  };
+
   return (
     <>
       <BreadCrumb node1={"Sản phẩm"} node2={product?.name} />
@@ -166,49 +192,48 @@ const ProductDetails = () => {
               <p className="type">
                 Loại: <span>{category?.text}</span>
               </p>
-              <div className="size">
-                <p>Kích thước: </p>
-                <ul>
-                  <li className="active">
-                    <p>
-                      M<span>✓</span>
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      L<span>✓</span>
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      XL<span>✓</span>
-                    </p>
-                  </li>
-                </ul>
-              </div>
-              <div className="color">
-                <p>Màu sắc: </p>
-                <ul>
-                  <li>
-                    <p>Đỏ</p>
-                  </li>
-                  <li>
-                    <p>Xanh</p>
-                  </li>
-                  <li className="active">
-                    <p>Vàng</p>
-                  </li>
-                  <li>
-                    <p>Hồng</p>
-                  </li>
-                </ul>
-              </div>
+              {product?.productClass1s?.length > 0 && (
+                <div className="color">
+                  <p>Màu sắc: </p>
+                  <ul>
+                    {product?.productClass1s?.map((item) => (
+                      <li
+                        key={item?.id}
+                        onClick={() => setColorSelected(item?.id)}
+                        className={item?.id === colorSelected ? "active" : ""}
+                      >
+                        <p>
+                          {item?.name}
+                          <span>✓</span>
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {product?.productClass2s?.length > 0 && (
+                <div className="size">
+                  <p>Kích thước: </p>
+                  <ul>
+                    {product?.productClass2s?.map((item) => (
+                      <li
+                        key={item?.id}
+                        onClick={() => setSizeSelected(item?.id)}
+                        className={item?.id === sizeSelected ? "active" : ""}
+                      >
+                        <p>
+                          {item?.name}
+                          <span>✓</span>
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               <p className="price">
-                Giá:{" "}
-                {product?.isSale
-                  ? formatPrice(product?.negotiablePrice)
-                  : formatPrice(product?.price)}{" "}
-                {product?.isSale && <del>{formatPrice(product?.price)}</del>}
+                Giá: {renderPrice()}{" "}
+                {product?.isSale && <del>{renderPrice(true)}</del>}
               </p>
               <button className="btn buy">
                 <div className="bg"></div>
