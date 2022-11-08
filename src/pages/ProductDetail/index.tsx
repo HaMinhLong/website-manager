@@ -2,13 +2,11 @@
 // THIRD IMPORT
 import { useEffect, useState } from "react";
 import { Row, Col, Modal, Collapse, Space } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import OwlCarousel from "react-owl-carousel";
 
 // PROJECT IMPORT
 import BreadCrumb from "layout/BreadCrumb";
-import somi1 from "static/images/home/somi-1.jpg";
-import somi2 from "static/images/home/somi-2.jpg";
-import somi3 from "static/images/home/somi-3.jpg";
 
 import { ReactComponent as Grid } from "static/images/product_details/grid.svg";
 import { ReactComponent as Search } from "static/images/product_details/search.svg";
@@ -19,7 +17,7 @@ import right from "static/images/product_details/right.svg";
 import left from "static/images/product_details/left.svg";
 import { ProductType } from "types/product";
 import { CategoryType } from "types/category";
-import { formatPrice } from "utils/utils";
+import { formatPrice, getSale } from "utils/utils";
 import { useDispatch } from "app/store";
 import Loading from "components/Extended/Loading";
 
@@ -29,6 +27,7 @@ const { Panel } = Collapse;
 const END_POINT = process.env.REACT_APP_SERVER;
 
 const ProductDetails = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
 
@@ -53,6 +52,7 @@ const ProductDetails = () => {
   });
   const [colorSelected, setColorSelected] = useState(0);
   const [sizeSelected, setSizeSelected] = useState(0);
+  const [products, setProducts] = useState<any>([]);
 
   const { url, urlProduct } = params;
 
@@ -63,6 +63,10 @@ const ProductDetails = () => {
   useEffect(() => {
     getDetailCategory();
   }, [url]);
+
+  useEffect(() => {
+    if (category?.id) getList();
+  }, [category]);
 
   const getDetailCategory = () => {
     dispatch({
@@ -75,6 +79,32 @@ const ProductDetails = () => {
           } = res;
 
           setCategory(list);
+        }
+      },
+    });
+  };
+
+  const getList = () => {
+    let params = {
+      filter: JSON.stringify({
+        status: 1,
+        websiteId: 1,
+        categoryId: category?.id,
+      }),
+      range: JSON.stringify([0, 10]),
+      sort: JSON.stringify(["createdAt", "DESC"]),
+      attributes: "id,name,images,price,negotiablePrice,isSale,createdAt,url",
+    };
+
+    dispatch({
+      type: "product/fetch",
+      payload: params,
+      callback: (res) => {
+        if (res?.success) {
+          const {
+            results: { list },
+          } = res;
+          setProducts(list);
         }
       },
     });
@@ -270,7 +300,7 @@ const ProductDetails = () => {
                     <div className="descriptions">
                       <div
                         dangerouslySetInnerHTML={{
-                          __html: product?.content?.split("//")?.[0],
+                          __html: product?.content?.split("///")?.[0],
                         }}
                       />
                     </div>
@@ -281,7 +311,7 @@ const ProductDetails = () => {
                     <div className="descriptions">
                       <div
                         dangerouslySetInnerHTML={{
-                          __html: product?.content?.split("//")?.[1],
+                          __html: product?.content?.split("///")?.[1],
                         }}
                       />
                     </div>
@@ -386,66 +416,75 @@ const ProductDetails = () => {
             </div>
           </div>
           <div className="list">
-            <div className="product">
-              <div className="image_box">
-                <div className="ct">Chi tiết</div>
-                <img src={somi1} alt="" />
-              </div>
-              <div className="sale_box">
-                <p>-10%</p>
-              </div>
-              <div className="content">
-                <Link to="/products">Sơ mi ngắn tay M-F 08 </Link>
-                <p className="price">
-                  199.000₫ <del>250.000₫</del>
-                </p>
-              </div>
-            </div>
-            <div className="product">
-              <div className="image_box">
-                <div className="ct">Chi tiết</div>
-                <img src={somi2} alt="" />
-              </div>
-              <div className="sale_box">
-                <p>-10%</p>
-              </div>
-              <div className="content">
-                <Link to="/products">Sơ mi ngắn tay M-F 08 </Link>
-                <p className="price">
-                  199.000₫ <del>250.000₫</del>
-                </p>
-              </div>
-            </div>
-            <div className="product">
-              <div className="image_box">
-                <div className="ct">Chi tiết</div>
-                <img src={somi3} alt="" />
-              </div>
-              <div className="sale_box">
-                <p>-10%</p>
-              </div>
-              <div className="content">
-                <Link to="/products">Sơ mi ngắn tay M-F 08 </Link>
-                <p className="price">
-                  199.000₫ <del>250.000₫</del>
-                </p>
-              </div>
-            </div>
-            <div className="product">
-              <div className="image_box">
-                <div className="ct">Chi tiết</div>
-                <img src={somi2} alt="" />
-              </div>
-              <div className="sale_box">
-                <p>-10%</p>
-              </div>
-              <div className="content">
-                <Link to="/products">Sơ mi ngắn tay M-F 08 </Link>
-                <p className="price">
-                  199.000₫ <del>250.000₫</del>
-                </p>
-              </div>
-            </div>
+            <OwlCarousel
+              className="owl-theme"
+              dots={false}
+              items={4}
+              margin={10}
+              autoplay
+              loop
+              touchDrag={true}
+              responsive={{
+                0: {
+                  items: 2,
+                  stagePadding: 0,
+                },
+                600: {
+                  items: 2,
+                  stagePadding: 0,
+                },
+                1024: {
+                  items: 3,
+                  stagePadding: 0,
+                },
+                1300: {
+                  items: 4,
+                  stagePadding: 0,
+                },
+              }}
+              key={`carousel_shirt`}
+            >
+              {products
+                ?.filter((item) => item?.id !== product?.id)
+                ?.map((item) => (
+                  <div
+                    className="product"
+                    style={{ width: "100%" }}
+                    key={item?.id}
+                  >
+                    <Link
+                      className="image_box"
+                      to={`${category?.url}/${item?.url}`}
+                    >
+                      <div className="ct">Chi tiết</div>
+                      <img
+                        src={`${END_POINT}${item?.images?.split(",")[0]}`}
+                        alt={item?.name}
+                      />
+                      <img
+                        src={`${END_POINT}${item?.images?.split(",")[1]}`}
+                        alt={item?.name}
+                      />
+                    </Link>
+                    {item?.isSale && (
+                      <div className="sale_box">
+                        <p>-{getSale(item?.price, item?.negotiablePrice)}%</p>
+                      </div>
+                    )}
+                    <div className="content">
+                      <Link to={`${category?.url}/${item?.url}`}>
+                        {item?.name}{" "}
+                      </Link>
+                      <p className="price">
+                        {item?.isSale
+                          ? formatPrice(item?.negotiablePrice)
+                          : formatPrice(item?.price)}{" "}
+                        {item?.isSale && <del>{formatPrice(item?.price)}</del>}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+            </OwlCarousel>
           </div>
         </div>
       </section>

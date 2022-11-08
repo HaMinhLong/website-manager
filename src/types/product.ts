@@ -50,6 +50,7 @@ export interface Linkedin {
   name?: string;
   text?: string;
   title?: string;
+  url?: string;
 }
 
 export interface PaginationType {

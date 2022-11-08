@@ -18,7 +18,7 @@ import article4 from "static/images/home/articles-4.jpg";
 import { ArticleType } from "types/articles";
 
 const END_POINT = process.env.REACT_APP_SERVER;
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 5;
 
 const Index = () => {
   const navigate = useNavigate();
@@ -29,10 +29,17 @@ const Index = () => {
   const [article, setArticle] = useState<ArticleType[]>([]);
   const [pagination, setPagination] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(true);
+  const [filters, setFilters] = useState<any>({
+    page: 1,
+  });
 
   useEffect(() => {
     getList();
   }, [url]);
+
+  useEffect(() => {
+    getList();
+  }, [filters]);
 
   const getList = () => {
     let params = {
@@ -42,7 +49,10 @@ const Index = () => {
         url: url || "",
         categoryId: url ? "" : 3,
       }),
-      range: JSON.stringify([0, 3]),
+      range: JSON.stringify([
+        filters?.page * PAGE_SIZE - PAGE_SIZE,
+        filters?.page * PAGE_SIZE,
+      ]),
       sort: JSON.stringify(["createdAt", "DESC"]),
       attributes: "id,title,images,description,createdAt,url",
     };
@@ -52,35 +62,6 @@ const Index = () => {
       payload: params,
       callback: (res) => {
         setLoading(false);
-        if (res?.success) {
-          const {
-            results: { list, pagination },
-          } = res;
-          setArticle(list);
-
-          setPagination(pagination);
-        }
-      },
-    });
-  };
-
-  const handleTableChange = (page: number) => {
-    const query = {
-      filter: JSON.stringify({
-        status: 1,
-        websiteId: 1,
-        url: url || "",
-        categoryId: url ? "" : 3,
-      }),
-      range: JSON.stringify([page * PAGE_SIZE - PAGE_SIZE, page * PAGE_SIZE]),
-      sort: JSON.stringify(["createdAt", "DESC"]),
-      attributes: "id,title,images,description,createdAt,url",
-    };
-
-    dispatch({
-      type: "article/fetch",
-      payload: query,
-      callback: (res) => {
         if (res?.success) {
           const {
             results: { list, pagination },
@@ -146,10 +127,10 @@ const Index = () => {
                   <Pagination
                     defaultCurrent={pagination?.current}
                     size="default"
-                    pageSize={3}
+                    pageSize={PAGE_SIZE}
                     total={pagination?.total}
                     className="paginationPage"
-                    onChange={(page) => handleTableChange(page)}
+                    onChange={(page) => setFilters({ ...filters, page: page })}
                   />
                 </Col>
               )}

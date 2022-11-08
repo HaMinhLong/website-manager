@@ -6,6 +6,7 @@ import { locationSaga } from "features/location/locationSaga";
 import { messageSaga } from "features/message/messageSaga";
 import { menuSaga } from "features/menu/menuSaga";
 import { productSaga } from "features/product/productSaga";
+import { collectionSaga } from "features/collection/collectionSaga";
 
 export default function* rootSaga() {
   yield all([
@@ -15,5 +16,6 @@ export default function* rootSaga() {
     messageSaga(),
     menuSaga(),
     productSaga(),
+    collectionSaga(),
   ]);
 }

@@ -1,3 +1,5 @@
+import { Linkedin } from "./product";
+
 export interface CategoryType {
   id?: number | string;
   text?: string;
@@ -12,4 +14,5 @@ export interface CategoryType {
   categoryGroupId?: number;
   createdAt?: string | Date;
   status?: number;
+  collections?: Linkedin[];
 }

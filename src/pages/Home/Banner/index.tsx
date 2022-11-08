@@ -1,6 +1,7 @@
 // THIRD IMPORT
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import OwlCarousel from "react-owl-carousel";
 
 // PROJECT IMPORT
 
@@ -40,10 +41,26 @@ const Index = () => {
 
   return (
     <section className="banner_home">
-      <img
-        src={`${END_POINT}${detail?.images?.split(",")?.[0]}`}
-        alt="banner"
-      />
+      <OwlCarousel
+        className="owl-theme"
+        dots={false}
+        items={1}
+        margin={10}
+        autoplay
+        loop
+        touchDrag={true}
+        responsive={{
+          0: {
+            items: 1,
+            stagePadding: 0,
+          },
+        }}
+        key={`carousel_article`}
+      >
+        {detail?.images?.split(",")?.map((item) => (
+          <img src={`${END_POINT}${item}`} alt="banner" key={item} />
+        ))}
+      </OwlCarousel>
     </section>
   );
 };

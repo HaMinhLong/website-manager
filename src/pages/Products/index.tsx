@@ -20,6 +20,7 @@ import { useDispatch } from "app/store";
 import Loading from "components/Extended/Loading";
 
 const END_POINT = process.env.REACT_APP_SERVER;
+const PAGE_SIZE = 12;
 
 const Products = () => {
   const navigate = useNavigate();
@@ -37,15 +38,18 @@ const Products = () => {
   const [pagination, setPagination] = useState<PaginationType>({});
   const [categoryChild, setCategoryChild] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [filters, setFilters] = useState<any>({
+    page: 1,
+  });
 
-  const { url, urlChild } = params;
+  const { url, urlChild, collection } = params;
 
   useEffect(() => {
     getDetailCategory();
-  }, [url, urlChild]);
+  }, [url, urlChild, collection]);
 
   useEffect(() => {
-    if (category?.id) {
+    if (category?.id && !collection) {
       getList();
       getListProducer();
     } else {
@@ -54,10 +58,18 @@ const Products = () => {
     }
   }, [category]);
 
+  useEffect(() => {
+    getList();
+  }, [filters]);
+
   const getDetailCategory = () => {
+    setLoading(true);
     dispatch({
       type: "category/getOneUrl",
-      payload: { id: urlChild || url, params: { findChild: true } },
+      payload: {
+        id: urlChild || url || collection,
+        params: { findChild: !collection },
+      },
       callback: (res) => {
         if (res?.success) {
           const {
@@ -79,7 +91,10 @@ const Products = () => {
         websiteId: 1,
         categoryId: category?.id,
       }),
-      range: JSON.stringify([0, 12]),
+      range: JSON.stringify([
+        filters?.page * PAGE_SIZE - PAGE_SIZE,
+        filters?.page * PAGE_SIZE,
+      ]),
       sort: JSON.stringify(["createdAt", "DESC"]),
       attributes: "id,name,price,isSale,images,negotiablePrice,createdAt,url",
     };
@@ -93,7 +108,6 @@ const Products = () => {
           const {
             results: { list, pagination },
           } = res;
-
           setProducts(list);
           setPagination(pagination);
         }
@@ -269,9 +283,11 @@ const Products = () => {
             <Row gutter={[32, 5]} className="products">
               {products?.map((item) => (
                 <Col xs={12} md={8} lg={8} xl={6} key={item?.id}>
-                  <div className="product">
+                  <div className="product" style={{ marginBottom: "10px" }}>
                     <Link
-                      to={`${category?.url}/${item?.url}`}
+                      to={`${
+                        collection ? item?.category?.url : category?.url
+                      }/${item?.url}`}
                       className="image_box"
                     >
                       <div className="ct">Chi tiết</div>
@@ -290,7 +306,11 @@ const Products = () => {
                       </div>
                     )}
                     <div className="content">
-                      <Link to={`${category?.url}/${item?.url}`}>
+                      <Link
+                        to={`${
+                          collection ? item?.category?.url : category?.url
+                        }/${item?.url}`}
+                      >
                         {item?.name}{" "}
                       </Link>
                       <p className="price">
@@ -315,10 +335,11 @@ const Products = () => {
                   <Pagination
                     defaultCurrent={pagination?.current}
                     size="default"
-                    pageSize={3}
+                    pageSize={PAGE_SIZE}
                     total={pagination?.total}
                     className="paginationPage"
                     style={{ marginTop: "30px" }}
+                    onChange={(page) => setFilters({ ...filters, page: page })}
                   />
                 </Col>
               )}

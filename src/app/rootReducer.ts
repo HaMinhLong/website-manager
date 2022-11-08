@@ -6,6 +6,7 @@ import locationReducer from "features/location/locationSlice";
 import messageReducer from "features/message/messageSlice";
 import menuReducer from "features/menu/menuSlice";
 import productReducer from "features/product/productSlice";
+import collectionReducer from "features/collection/collectionSlice";
 
 const rootReducer = combineReducers({
   article: articleReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   message: messageReducer,
   menu: menuReducer,
   product: productReducer,
+  collection: collectionReducer,
 });
 
 export default rootReducer;
