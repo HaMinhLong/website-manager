@@ -1,12 +1,21 @@
-import { useState } from "react";
-import BreadCrumb from "layout/BreadCrumb";
+// THIRD IMPORT
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col } from "antd";
-import somi1 from "static/images/home/somi-1.jpg";
-import somi2 from "static/images/home/somi-2.jpg";
-import somi3 from "static/images/home/somi-3.jpg";
+
+// PROJECT IMPORT
+import { formatPrice } from "utils/utils";
+import BreadCrumb from "layout/BreadCrumb";
+
+const END_POINT = process.env.REACT_APP_SERVER;
 
 const Cart = () => {
+  const [products, setProducts] = useState<any>([]);
+
+  useEffect(() => {
+    setProducts(JSON.parse(localStorage.getItem("cart") || "[]"));
+  }, []);
+
   const [quantity, setQuantity] = useState(1);
 
   const changeItem = (e) => {
@@ -24,118 +33,116 @@ const Cart = () => {
       setQuantity(quantity - 1);
     }
   };
+
+  const changeQuantity = (
+    id: number,
+    type: "increase" | "decrease",
+    amount = 0
+  ) => {
+    const newData = products?.map((item) =>
+      item?.id === id
+        ? {
+            ...item,
+            quantity: amount
+              ? amount
+              : type === "increase"
+              ? item.quantity + 1
+              : item.quantity + 1,
+          }
+        : item
+    );
+    localStorage.setItem("cart", JSON.stringify(newData));
+    setProducts(newData);
+  };
+
+  const deleteItem = (id: number) => {
+    const newData = products?.filter((item) => item?.id !== id);
+    localStorage.setItem("cart", JSON.stringify(newData));
+    setProducts(newData);
+  };
+
+  const renderTotal = () => {
+    let total = 0;
+    products?.forEach((e) => {
+      total += e?.price * e?.quantity;
+    });
+    return total;
+  };
+
   return (
     <>
-      <BreadCrumb node1={"Giỏ hàng"} />
+      <BreadCrumb node1="Giỏ hàng" />
       <section className="cart_page container">
         <Row gutter={[32, 32]}>
           <Col xs={24} md={14} lg={16} className="left_side">
-            <div className="cart_item">
-              <div className="image_box">
-                <img src={somi1} alt="" />
-              </div>
-              <div className="content">
-                <div className="name_price">
-                  <p>Áo thun T-shirt M-F 08</p>
-                  <p>249.000 ₫</p>
+            {products?.map((item) => (
+              <div className="cart_item" key={item?.id}>
+                <div className="image_box">
+                  <img
+                    src={`${END_POINT}${item?.images?.split(",")[0]}`}
+                    alt=""
+                  />
                 </div>
-                <p className="type">M / Vàng</p>
-                <p>
-                  <span>Giá: 249.000 ₫</span>
-                </p>
-                <div className="box">
-                  <div className="amount">
-                    <div className="tru" onClick={() => decreaseItem()}>
-                      -
-                    </div>
-                    <input
-                      type="text"
-                      maxLength={3}
-                      value={quantity !== 0 ? quantity : 1}
-                      onChange={(e) => changeItem(e)}
-                    />
-                    <div className="cong" onClick={() => increaseItem()}>
-                      +
-                    </div>
+                <div className="content">
+                  <div className="name_price">
+                    <p>{item?.name}</p>
+                    <p>{formatPrice(item?.price)}</p>
                   </div>
-                  <button type="button">Xóa</button>
-                </div>
-              </div>
-            </div>
-            <div className="cart_item">
-              <div className="image_box">
-                <img src={somi2} alt="" />
-              </div>
-              <div className="content">
-                <div className="name_price">
-                  <p>Áo thun T-shirt M-F 08</p>
-                  <p>249.000 ₫</p>
-                </div>
-                <p className="type">M / Vàng</p>
-                <p>
-                  <span>Giá: 249.000 ₫</span>
-                </p>
-                <div className="box">
-                  <div className="amount">
-                    <div className="tru" onClick={() => decreaseItem()}>
-                      -
+                  <p className="type">
+                    {item?.size} / {item?.color}
+                  </p>
+                  <p>
+                    <span>Giá: {formatPrice(item?.price)}</span>
+                  </p>
+                  <div className="box">
+                    <div className="amount">
+                      <div
+                        className="tru"
+                        onClick={() => changeQuantity(item?.id, "decrease")}
+                      >
+                        -
+                      </div>
+                      <input
+                        type="text"
+                        maxLength={3}
+                        value={item?.quantity > 0 ? item?.quantity : 1}
+                        onChange={(e) =>
+                          changeQuantity(
+                            item?.id,
+                            "increase",
+                            Number(e.target.value)
+                          )
+                        }
+                      />
+                      <div
+                        className="cong"
+                        onClick={() => changeQuantity(item?.id, "increase")}
+                      >
+                        +
+                      </div>
                     </div>
-                    <input
-                      type="text"
-                      maxLength={3}
-                      value={quantity !== 0 ? quantity : 1}
-                      onChange={(e) => changeItem(e)}
-                    />
-                    <div className="cong" onClick={() => increaseItem()}>
-                      +
-                    </div>
+                    <button onClick={() => deleteItem(item?.id)} type="button">
+                      Xóa
+                    </button>
                   </div>
-                  <button type="button">Xóa</button>
                 </div>
               </div>
-            </div>
-            <div className="cart_item">
-              <div className="image_box">
-                <img src={somi3} alt="" />
-              </div>
-              <div className="content">
-                <div className="name_price">
-                  <p>Áo thun T-shirt M-F 08</p>
-                  <p>249.000 ₫</p>
-                </div>
-                <p className="type">M / Vàng</p>
-                <p>
-                  <span>Giá: 249.000 ₫</span>
-                </p>
-                <div className="box">
-                  <div className="amount">
-                    <div className="tru" onClick={() => decreaseItem()}>
-                      -
-                    </div>
-                    <input
-                      type="text"
-                      maxLength={3}
-                      value={quantity !== 0 ? quantity : 1}
-                      onChange={(e) => changeItem(e)}
-                    />
-                    <div className="cong" onClick={() => increaseItem()}>
-                      +
-                    </div>
-                  </div>
-                  <button type="button">Xóa</button>
-                </div>
-              </div>
-            </div>
+            ))}
+            {products?.length === 0 && (
+              <p style={{ color: "#ff0000", textAlign: "center" }}>
+                Không có sản phẩm nào trong giỏ hàng
+              </p>
+            )}
           </Col>
           <Col xs={24} md={10} lg={8} className="right_side">
             <div className="total">
               <p>TỔNG</p>
-              <p>1.245.000 ₫</p>
+              <p>{formatPrice(renderTotal())}</p>
             </div>
             <Link to="/cart" className="checkout">
               Thanh toán
             </Link>
-            <Link to="/">Tiếp thục mua hàng</Link>
+            <Link to="/">Tiếp tục mua hàng</Link>
           </Col>
         </Row>
       </section>

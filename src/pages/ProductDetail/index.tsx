@@ -17,12 +17,17 @@ import right from "static/images/product_details/right.svg";
 import left from "static/images/product_details/left.svg";
 import { ProductType } from "types/product";
 import { CategoryType } from "types/category";
-import { formatPrice, getSale } from "utils/utils";
+import { addToCart, formatPrice, getSale } from "utils/utils";
 import { useDispatch } from "app/store";
 import Loading from "components/Extended/Loading";
 
 const SIZE_IMAGE = 6;
 const { Panel } = Collapse;
+
+interface ProductClass {
+  id: number;
+  name: string;
+}
 
 const END_POINT = process.env.REACT_APP_SERVER;
 
@@ -50,8 +55,14 @@ const ProductDetails = () => {
     productClass2s: [],
     productPrices: [],
   });
-  const [colorSelected, setColorSelected] = useState(0);
-  const [sizeSelected, setSizeSelected] = useState(0);
+  const [colorSelected, setColorSelected] = useState<ProductClass>({
+    id: 0,
+    name: "",
+  });
+  const [sizeSelected, setSizeSelected] = useState<ProductClass>({
+    id: 0,
+    name: "",
+  });
   const [products, setProducts] = useState<any>([]);
 
   const { url, urlProduct } = params;
@@ -120,8 +131,14 @@ const ProductDetails = () => {
           const {
             results: { list },
           } = res;
-          setColorSelected(list?.productClass1s?.[0]?.id || 0);
-          setSizeSelected(list?.productClass2s?.[0]?.id || 0);
+          setColorSelected({
+            id: list?.productClass1s?.[0]?.id || 0,
+            name: list?.productClass1s?.[0]?.name || "",
+          });
+          setSizeSelected({
+            id: list?.productClass2s?.[0]?.id || 0,
+            name: list?.productClass2s?.[0]?.name || "",
+          });
           setProduct(list);
         }
       },
@@ -145,15 +162,15 @@ const ProductDetails = () => {
   };
 
   const renderPrice = (price?: boolean) => {
-    if (colorSelected === 0 || sizeSelected === 0)
+    if (colorSelected?.id === 0 || sizeSelected?.id === 0)
       return product?.isSale && !price
         ? formatPrice(product?.negotiablePrice)
         : formatPrice(product?.price);
 
     const productPrice = product?.productPrices?.find(
       (item) =>
-        item?.productClass1Id === colorSelected &&
-        item?.productClass2Id === sizeSelected
+        item?.productClass1Id === colorSelected?.id &&
+        item?.productClass2Id === sizeSelected?.id
     );
 
     return formatPrice(
@@ -161,6 +178,37 @@ const ProductDetails = () => {
         ? productPrice?.negotiablePrice || 0
         : productPrice?.price || 0
     );
+  };
+
+  const renderPriceAddToCart = (price?: boolean) => {
+    if (colorSelected?.id === 0 || sizeSelected?.id === 0)
+      return product?.isSale && !price
+        ? product?.negotiablePrice
+        : product?.price;
+
+    const productPrice = product?.productPrices?.find(
+      (item) =>
+        item?.productClass1Id === colorSelected?.id &&
+        item?.productClass2Id === sizeSelected?.id
+    );
+
+    return product?.isSale && !price
+      ? productPrice?.negotiablePrice || 0
+      : productPrice?.price || 0;
+  };
+
+  const buyProduct = () => {
+    const newProduct = {
+      id: product?.id,
+      name: product?.name,
+      price: renderPriceAddToCart(),
+      images: product?.images,
+      quantity: quantity,
+      color: colorSelected?.name,
+      size: sizeSelected?.name,
+    };
+    addToCart(newProduct);
+    setQuantity(1);
   };
 
   return (
@@ -229,8 +277,12 @@ const ProductDetails = () => {
                     {product?.productClass1s?.map((item) => (
                       <li
                         key={item?.id}
-                        onClick={() => setColorSelected(item?.id)}
-                        className={item?.id === colorSelected ? "active" : ""}
+                        onClick={() =>
+                          setColorSelected({ id: item?.id, name: item?.name })
+                        }
+                        className={
+                          item?.id === colorSelected?.id ? "active" : ""
+                        }
                       >
                         <p>
                           {item?.name}
@@ -248,8 +300,12 @@ const ProductDetails = () => {
                     {product?.productClass2s?.map((item) => (
                       <li
                         key={item?.id}
-                        onClick={() => setSizeSelected(item?.id)}
-                        className={item?.id === sizeSelected ? "active" : ""}
+                        onClick={() =>
+                          setSizeSelected({ id: item?.id, name: item?.name })
+                        }
+                        className={
+                          item?.id === sizeSelected?.id ? "active" : ""
+                        }
                       >
                         <p>
                           {item?.name}
@@ -268,7 +324,13 @@ const ProductDetails = () => {
               <button className="btn buy">
                 <div className="bg"></div>
                 <Cart />
-                <span>Mua hàng</span>
+                <span
+                  onClick={() => {
+                    buyProduct();
+                  }}
+                >
+                  Mua hàng
+                </span>
                 <div className="amount">
                   <div className="tru" onClick={() => decreaseItem()}>
                     -
