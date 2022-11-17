@@ -16,24 +16,6 @@ const Cart = () => {
     setProducts(JSON.parse(localStorage.getItem("cart") || "[]"));
   }, []);
 
-  const [quantity, setQuantity] = useState(1);
-
-  const changeItem = (e) => {
-    const check = e.target.value;
-    if ((check <= 999 && check >= 1) || check === "") {
-      setQuantity(e.target.value ? Number(e.target.value) : e.target.value);
-    }
-  };
-  const increaseItem = () => {
-    if (quantity < 999) setQuantity((quantity || 1) + 1);
-  };
-
-  const decreaseItem = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
   const changeQuantity = (
     id: number,
     type: "increase" | "decrease",
@@ -46,8 +28,12 @@ const Cart = () => {
             quantity: amount
               ? amount
               : type === "increase"
-              ? item.quantity + 1
-              : item.quantity + 1,
+              ? item.quantity < 999
+                ? item.quantity + 1
+                : item.quantity
+              : item.quantity > 1
+              ? item.quantity - 1
+              : item.quantity,
           }
         : item
     );
@@ -139,7 +125,7 @@ const Cart = () => {
               <p>TỔNG</p>
               <p>{formatPrice(renderTotal())}</p>
             </div>
-            <Link to="/cart" className="checkout">
+            <Link to="/checkout" className="checkout">
               Thanh toán
             </Link>
             <Link to="/">Tiếp tục mua hàng</Link>

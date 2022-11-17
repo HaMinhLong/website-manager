@@ -15,6 +15,7 @@ import Location from "pages/Location";
 import Contact from "pages/Contact";
 import ProductDetail from "pages/ProductDetail";
 import Cart from "pages/Cart";
+import Checkout from "pages/Checkout";
 
 const App = () => {
   return (
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/location" element={<Location />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       <Footer></Footer>
       <BackTop />
