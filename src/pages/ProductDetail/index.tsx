@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // THIRD IMPORT
 import { useEffect, useState } from "react";
-import { Row, Col, Modal, Collapse, Space } from "antd";
+import { Col, Collapse, Modal, Row, Space } from "antd";
 import { Link, useParams } from "react-router-dom";
 import OwlCarousel from "react-owl-carousel";
 
@@ -21,6 +21,7 @@ import { CategoryType } from "types/category";
 import { addToCart, formatPrice, getSale } from "utils/utils";
 import { useDispatch } from "app/store";
 import Loading from "components/Extended/Loading";
+import { updateCart } from "../../features/order/orderSlice";
 
 const SIZE_IMAGE = 6;
 const { Panel } = Collapse;
@@ -207,7 +208,10 @@ const ProductDetails = () => {
       color: colorSelected?.name,
       size: sizeSelected?.name,
     };
-    addToCart(newProduct);
+    const newCart = addToCart(newProduct);
+
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    dispatch(updateCart(newCart?.length || 0));
     createNotification(
       "success",
       "Bạn đã thêm sản phẩm vào giỏ hàng thành công!"
@@ -492,7 +496,7 @@ const ProductDetails = () => {
               touchDrag={true}
               responsive={{
                 0: {
-                  items: 2,
+                  items: 1,
                   stagePadding: 0,
                 },
                 600: {

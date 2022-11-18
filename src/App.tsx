@@ -19,27 +19,28 @@ import Cart from "pages/Cart";
 import Checkout from "pages/Checkout";
 
 const App = () => {
+
   return (
     <Router>
-      <NotificationContainer />
+      <NotificationContainer/>
       <Header></Header>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/introduce" element={<Introduce />} />
-        <Route path="/article/:url" element={<ArticleDetail />} />
-        <Route path="/articles/:url" element={<Article />} />
-        <Route path="/articles" element={<Article />} />
-        <Route path="/collection/:collection" element={<Products />} />
-        <Route path="/products/:url" element={<Products />} />
-        <Route path="/products/:url/:urlChild" element={<Products />} />
-        <Route path="/:url/:urlProduct" element={<ProductDetail />} />
-        <Route path="/location" element={<Location />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/" element={<Home/>}/>
+        <Route path="/introduce" element={<Introduce/>}/>
+        <Route path="/article/:url" element={<ArticleDetail/>}/>
+        <Route path="/articles/:url" element={<Article/>}/>
+        <Route path="/articles" element={<Article/>}/>
+        <Route path="/collection/:collection" element={<Products/>}/>
+        <Route path="/products/:url" element={<Products/>}/>
+        <Route path="/products/:url/:urlChild" element={<Products/>}/>
+        <Route path="/:url/:urlProduct" element={<ProductDetail/>}/>
+        <Route path="/location" element={<Location/>}/>
+        <Route path="/contact" element={<Contact/>}/>
+        <Route path="/cart" element={<Cart/>}/>
+        <Route path="/checkout" element={<Checkout/>}/>
       </Routes>
       <Footer></Footer>
-      <BackTop />
+      <BackTop/>
     </Router>
   );
 };

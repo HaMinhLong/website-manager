@@ -28,5 +28,5 @@ export const addToCart = (product: any) => {
   } else {
     newCart = [{ ...product }].concat(products);
   }
-  localStorage.setItem("cart", JSON.stringify(newCart));
+  return newCart;
 };

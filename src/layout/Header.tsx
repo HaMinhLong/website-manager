@@ -1,5 +1,5 @@
 // THIRD IMPORT
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Drawer } from "antd";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -19,13 +19,29 @@ import iconMenu2 from "static/images/home/icon_menu_2.png";
 import iconMenu3 from "static/images/home/icon_menu_3.png";
 import iconMenu4 from "static/images/home/icon_menu_4.png";
 import iconMenu5 from "static/images/home/icon_menu_5.png";
+import { useSelector } from "app/store";
+import { order, updateCart } from "features/order/orderSlice";
 
 import { MenuType } from "types/menu";
+import { Box } from "@mui/material";
 
 const Header = () => {
   const dispatch = useDispatch();
 
+  const orderState = useSelector(order);
+
   const [menus, setMenus] = useState<MenuType[]>([]);
+  const [toggleChildNews, setToggleChildNews] = useState<boolean>(false);
+  const [toggleChildProducts, setToggleChildProducts] =
+    useState<boolean>(false);
+  const [toggleSearch, setToggleSearch] = useState<boolean>(false);
+  const [openMenu, setOpenMenu] = useState<boolean>(false);
+
+  const cart = useRef(JSON.parse(localStorage.getItem("cart") || "[]"));
+
+  useEffect(() => {
+    dispatch(updateCart(cart.current.length || 0));
+  }, []);
 
   useEffect(() => {
     getList();
@@ -50,12 +66,6 @@ const Header = () => {
       },
     });
   };
-
-  const [toggleChildNews, setToggleChildNews] = useState<boolean>(false);
-  const [toggleChildProducts, setToggleChildProducts] =
-    useState<boolean>(false);
-  const [toggleSearch, setToggleSearch] = useState<boolean>(false);
-  const [openMenu, setOpenMenu] = useState<boolean>(false);
 
   window.addEventListener("scroll", () => {
     const header = document.querySelector("header");
@@ -159,6 +169,24 @@ const Header = () => {
               </div>
               <Link to="/cart" className="cart_header">
                 <CartTwo />
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: "0px",
+                    right: "0px",
+                    width: "20px",
+                    height: "20px",
+                    bgcolor: "#f88e11",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "50%",
+                    fontSize: "12px",
+                    color: "#fff",
+                  }}
+                >
+                  {orderState?.totalProduct}
+                </Box>
               </Link>
             </div>
           </div>

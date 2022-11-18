@@ -400,6 +400,7 @@ header .part_2 .search_cart_box {
 }
 header .part_2 .search_cart_box .search_header,
 header .part_2 .search_cart_box .cart_header {
+  position: relative;
   padding: 8px;
   cursor: pointer;
   transition: all 0.3s ease;

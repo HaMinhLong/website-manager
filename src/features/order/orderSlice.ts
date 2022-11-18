@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState: any = {
   dataAll: [],
+  totalProduct: 0,
   data: {
     list: [],
     pagination: [],
@@ -23,6 +24,12 @@ export const orderSlice = createSlice({
           pagination: action.payload.pagination,
         },
         info: {},
+      };
+    },
+    updateCart(state, action) {
+      return {
+        ...state,
+        totalProduct: action.payload,
       };
     },
     saveAll(state, action) {
@@ -82,6 +89,7 @@ export const orderSlice = createSlice({
 export const {
   filter,
   save,
+  updateCart,
   saveAll,
   updateStatusSlice,
   removeAndSave,

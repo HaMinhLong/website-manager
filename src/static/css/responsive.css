@@ -564,9 +564,6 @@
   .product_details .related_products .list .product {
     width: 32%;
   }
-  .product_details .related_products .list .product:last-child {
-    display: none;
-  }
 
   .cart_page .left_side .cart_item .image_box {
     display: none;

@@ -1,15 +1,19 @@
 // THIRD IMPORT
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Row, Col } from "antd";
+import { Col, Row } from "antd";
 
 // PROJECT IMPORT
 import { formatPrice } from "utils/utils";
 import BreadCrumb from "layout/BreadCrumb";
+import { updateCart } from "features/order/orderSlice";
+import { useDispatch } from "app/store";
 
 const END_POINT = process.env.REACT_APP_SERVER;
 
 const Cart = () => {
+  const dispatch = useDispatch();
+
   const [products, setProducts] = useState<any>([]);
 
   useEffect(() => {
@@ -45,6 +49,7 @@ const Cart = () => {
     const newData = products?.filter((item) => item?.id !== id);
     localStorage.setItem("cart", JSON.stringify(newData));
     setProducts(newData);
+    dispatch(updateCart(newData?.length || 0));
   };
 
   const renderTotal = () => {
