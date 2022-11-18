@@ -7,6 +7,7 @@ import { messageSaga } from "features/message/messageSaga";
 import { menuSaga } from "features/menu/menuSaga";
 import { productSaga } from "features/product/productSaga";
 import { collectionSaga } from "features/collection/collectionSaga";
+import { orderSaga } from "features/order/orderSaga";
 
 export default function* rootSaga() {
   yield all([
@@ -17,5 +18,6 @@ export default function* rootSaga() {
     menuSaga(),
     productSaga(),
     collectionSaga(),
+    orderSaga(),
   ]);
 }

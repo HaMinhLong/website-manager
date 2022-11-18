@@ -2,11 +2,12 @@
 // THIRD IMPORT
 import { useEffect, useState } from "react";
 import { Row, Col, Modal, Collapse, Space } from "antd";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import OwlCarousel from "react-owl-carousel";
 
 // PROJECT IMPORT
 import BreadCrumb from "layout/BreadCrumb";
+import createNotification from "components/Extended/Notification";
 
 import { ReactComponent as Grid } from "static/images/product_details/grid.svg";
 import { ReactComponent as Search } from "static/images/product_details/search.svg";
@@ -32,7 +33,6 @@ interface ProductClass {
 const END_POINT = process.env.REACT_APP_SERVER;
 
 const ProductDetails = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
 
@@ -208,6 +208,10 @@ const ProductDetails = () => {
       size: sizeSelected?.name,
     };
     addToCart(newProduct);
+    createNotification(
+      "success",
+      "Bạn đã thêm sản phẩm vào giỏ hàng thành công!"
+    );
     setQuantity(1);
   };
 

@@ -7,6 +7,7 @@ import messageReducer from "features/message/messageSlice";
 import menuReducer from "features/menu/menuSlice";
 import productReducer from "features/product/productSlice";
 import collectionReducer from "features/collection/collectionSlice";
+import orderReducer from "features/order/orderSlice";
 
 const rootReducer = combineReducers({
   article: articleReducer,
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   menu: menuReducer,
   product: productReducer,
   collection: collectionReducer,
+  order: orderReducer,
 });
 
 export default rootReducer;

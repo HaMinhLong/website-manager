@@ -1,6 +1,7 @@
 // THIRD IMPORT
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { BackTop } from "antd";
+import { NotificationContainer } from "react-notifications";
 
 // PROJECT IMPORT
 import Header from "layout/Header";
@@ -20,6 +21,7 @@ import Checkout from "pages/Checkout";
 const App = () => {
   return (
     <Router>
+      <NotificationContainer />
       <Header></Header>
       <Routes>
         <Route path="/" element={<Home />} />

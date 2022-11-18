@@ -12,6 +12,7 @@ import "antd/dist/antd.css";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import "owl.carousel";
+import "react-notifications/lib/notifications.css";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
