@@ -17,6 +17,11 @@ import ProductDetail from "pages/MewShop/ProductDetail";
 import Cart from "pages/MewShop/Cart";
 import Checkout from "pages/MewShop/Checkout";
 
+// STATIC IMPORT
+import "static/MewShop/css/main.css";
+import "static/MewShop/css/responsive.css";
+import "static/MewShop/css/styles.css";
+
 const MewShop = () => {
   return (
     <>
