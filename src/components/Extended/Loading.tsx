@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import logo from "static/images/home/logo.png";
+import logo from "static/MewShop/images/home/logo.png";
 
 interface Props {
   loading: boolean;

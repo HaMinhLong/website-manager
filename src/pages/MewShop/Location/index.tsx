@@ -5,7 +5,7 @@ import { Row, Col } from "antd";
 import { useDispatch } from "react-redux";
 
 // PROJECT IMPORT
-import BreadCrumb from "layout/BreadCrumb";
+import BreadCrumb from "layout/MewShop/BreadCrumb";
 import Loading from "components/Extended/Loading";
 import { LocationType } from "types/location";
 import { CategoryType } from "types/category";

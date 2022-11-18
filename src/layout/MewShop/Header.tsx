@@ -5,20 +5,20 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 // PROJECT IMPORT
-import logo from "static/images/home/logo.png";
-import { ReactComponent as ToRight } from "static/images/home/to-right.svg";
-import { ReactComponent as CartTwo } from "static/images/home/cart_2.svg";
-import quanDai from "static/images/home/quan-dai.jpg";
-import searchIcon from "static/images/home/search-icon.png";
-import { ReactComponent as HomeIcon } from "static/images/home/home-icon.svg";
-import { ReactComponent as PhoneIcon } from "static/images/home/phone-icon.svg";
-import { ReactComponent as CartIcon } from "static/images/home/cart-icon.svg";
-import { ReactComponent as MenuIcon } from "static/images/home/menu-icon.svg";
-import iconMenu1 from "static/images/home/icon_menu_1.png";
-import iconMenu2 from "static/images/home/icon_menu_2.png";
-import iconMenu3 from "static/images/home/icon_menu_3.png";
-import iconMenu4 from "static/images/home/icon_menu_4.png";
-import iconMenu5 from "static/images/home/icon_menu_5.png";
+import logo from "static/MewShop/images/home/logo.png";
+import { ReactComponent as ToRight } from "static/MewShop/images/home/to-right.svg";
+import { ReactComponent as CartTwo } from "static/MewShop/images/home/cart_2.svg";
+import quanDai from "static/MewShop/images/home/quan-dai.jpg";
+import searchIcon from "static/MewShop/images/home/search-icon.png";
+import { ReactComponent as HomeIcon } from "static/MewShop/images/home/home-icon.svg";
+import { ReactComponent as PhoneIcon } from "static/MewShop/images/home/phone-icon.svg";
+import { ReactComponent as CartIcon } from "static/MewShop/images/home/cart-icon.svg";
+import { ReactComponent as MenuIcon } from "static/MewShop/images/home/menu-icon.svg";
+import iconMenu1 from "static/MewShop/images/home/icon_menu_1.png";
+import iconMenu2 from "static/MewShop/images/home/icon_menu_2.png";
+import iconMenu3 from "static/MewShop/images/home/icon_menu_3.png";
+import iconMenu4 from "static/MewShop/images/home/icon_menu_4.png";
+import iconMenu5 from "static/MewShop/images/home/icon_menu_5.png";
 import { useSelector } from "app/store";
 import { order, updateCart } from "features/order/orderSlice";
 

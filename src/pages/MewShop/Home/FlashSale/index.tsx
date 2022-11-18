@@ -6,8 +6,8 @@ import OwlCarousel from "react-owl-carousel";
 // PROJECT IMPORT
 import { useDispatch } from "app/store";
 
-import hotSale from "static/images/home/hot-sale.png";
-import { ReactComponent as Time } from "static/images/home/time.svg";
+import hotSale from "static/MewShop/images/home/hot-sale.png";
+import { ReactComponent as Time } from "static/MewShop/images/home/time.svg";
 import { CategoryType } from "types/category";
 import { formatPrice, getSale } from "utils/utils";
 

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 // TYPES IMPORT
 import { ArticleType } from "types/articles";
-import BreadCrumb from "layout/BreadCrumb";
+import BreadCrumb from "layout/MewShop/BreadCrumb";
 import Loading from "components/Extended/Loading";
 
 const Introduce = () => {

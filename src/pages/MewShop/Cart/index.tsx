@@ -5,7 +5,7 @@ import { Col, Row } from "antd";
 
 // PROJECT IMPORT
 import { formatPrice } from "utils/utils";
-import BreadCrumb from "layout/BreadCrumb";
+import BreadCrumb from "layout/MewShop/BreadCrumb";
 import { updateCart } from "features/order/orderSlice";
 import { useDispatch } from "app/store";
 

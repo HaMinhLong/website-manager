@@ -4,10 +4,10 @@ import { Box, Button, Divider, Grid, Typography } from "@mui/material";
 import { Radio, Space } from "antd";
 
 // PROJECT IMPORT
-import BreadCrumb from "layout/BreadCrumb";
+import BreadCrumb from "layout/MewShop/BreadCrumb";
 import { useNavigate } from "react-router-dom";
 import { formatPrice } from "utils/utils";
-import { useDispatch } from 'app/store'
+import { useDispatch } from "app/store";
 import createNotification from "components/Extended/Notification";
 
 const END_POINT = process.env.REACT_APP_SERVER;
@@ -43,73 +43,86 @@ const Index = () => {
       paymentMethodId: 2,
       websiteId: 1,
       status: 1,
-      totalPrice: renderTotal()
-    }
-    const productOrders = products?.map(item => {
+      totalPrice: renderTotal(),
+    };
+    const productOrders = products?.map((item) => {
       return {
         amount: item?.quantity,
         price: item?.price,
         negotiablePrice: item?.price,
         totalPrice: item?.price * item?.quantity,
         productId: item?.id,
-        category: item?.color + ' / ' + item?.size,
-        flag: "add"
-      }
-    })
+        category: item?.color + " / " + item?.size,
+        flag: "add",
+      };
+    });
 
     dispatch({
       type: "order/add",
       payload: {
         ...addItem,
-        productOrders
+        productOrders,
       },
-      callback: res => {
+      callback: (res) => {
         if (res?.success) {
           createNotification(
             "success",
             "Bạn đã đặt hàng thành công! Chúng tôi sẽ sớm liên hệ với bạn!"
           );
-          localStorage.removeItem('cart')
-          navigate('/')
+          localStorage.removeItem("cart");
+          navigate("/");
         } else {
-          createNotification(
-            "error",
-            "Xảy ra lỗi khi đặt hàng!"
-          );
+          createNotification("error", "Xảy ra lỗi khi đặt hàng!");
         }
-      }
-    })
-  }
+      },
+    });
+  };
 
   return (
     <>
-      <BreadCrumb node1="Thanh toán"/>
+      <BreadCrumb node1="Thanh toán" />
       <section className="checkout container">
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={8}>
-            <form className="contact_form" style={{ width: "100%" }} onSubmit={e => handleSubmit(e)}>
+            <form
+              className="contact_form"
+              style={{ width: "100%" }}
+              onSubmit={(e) => handleSubmit(e)}
+            >
               <Box>
                 <Typography>Thông tin giao hàng</Typography>
                 <Grid container columnSpacing={3} sx={{ mt: 1 }}>
                   <Grid item xs={12}>
-                    <input name='name' type="text" required placeholder="Họ tên *"/>
+                    <input
+                      name="name"
+                      type="text"
+                      required
+                      placeholder="Họ tên *"
+                    />
                   </Grid>
                   <Grid item xs={12} md={7}>
-                    <input name='email' type="email" placeholder="Email"/>
+                    <input name="email" type="email" placeholder="Email" />
                   </Grid>
                   <Grid item xs={12} md={5}>
                     <input
-                      name='phone'
+                      name="phone"
                       type="number"
                       required
                       placeholder="Số điện thoại *"
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <textarea name='address' required placeholder="Địa chỉ*"></textarea>
+                    <textarea
+                      name="address"
+                      required
+                      placeholder="Địa chỉ*"
+                    ></textarea>
                   </Grid>
                   <Grid item xs={12}>
-                    <textarea name='description' placeholder="Ghi chú (tùy chọn)"></textarea>
+                    <textarea
+                      name="description"
+                      placeholder="Ghi chú (tùy chọn)"
+                    ></textarea>
                   </Grid>
                 </Grid>
               </Box>
@@ -160,7 +173,7 @@ const Index = () => {
             <Typography variant="h6">
               Đơn hàng - {products?.length || 0} sản phẩm
             </Typography>
-            <Divider/>
+            <Divider />
 
             <Grid sx={{ mt: "0px", mb: "15px" }} container spacing={2}>
               {products?.map((item) => (
@@ -194,7 +207,7 @@ const Index = () => {
               ))}
             </Grid>
 
-            <Divider/>
+            <Divider />
             <div className="box_description">
               <div className="box">
                 <p>Tạm tính</p>
@@ -205,7 +218,7 @@ const Index = () => {
                 <p>40.000 đ</p>
               </div>
             </div>
-            <Divider/>
+            <Divider />
             <div className="total">
               <p>Tổng cộng</p>
               <Typography color="primary">
