@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import rightArraw from "static/images/home/right-arrow.png";
+import rightArraw from "static/MewShop/images/home/right-arrow.png";
 
 interface Props {
   node1?: string;

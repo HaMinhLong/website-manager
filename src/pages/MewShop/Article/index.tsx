@@ -1,44 +1,74 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // THIRD IMPORT
-import { useEffect, useState } from "react";
-import { Row, Col } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import BreadCrumb from "layout/MewShop/BreadCrumb";
+import { Pagination, Row, Col } from "antd";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import moment from "moment";
 
 // PROJECT IMPORT
-import BreadCrumb from "layout/BreadCrumb";
 import Loading from "components/Extended/Loading";
-import article1 from "static/images/home/articles-1.jpg";
-import article2 from "static/images/home/articles-2.jpg";
-import article3 from "static/images/home/articles-3.jpeg";
-import article4 from "static/images/home/articles-4.jpg";
+import article1 from "static/MewShop/images/home/articles-1.jpg";
+import article2 from "static/MewShop/images/home/articles-2.jpg";
+import article3 from "static/MewShop/images/home/articles-3.jpeg";
+import article4 from "static/MewShop/images/home/articles-4.jpg";
 
 // TYPES IMPORT
 import { ArticleType } from "types/articles";
 
-const Index = () => {
-  const params = useParams();
-  const dispatch = useDispatch();
+const END_POINT = process.env.REACT_APP_SERVER;
+const PAGE_SIZE = 5;
 
+const Index = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const params = useParams();
   const { url } = params;
 
-  const [detail, setDetail] = useState<ArticleType>({ content: "" });
+  const [article, setArticle] = useState<ArticleType[]>([]);
+  const [pagination, setPagination] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(true);
+  const [filters, setFilters] = useState<any>({
+    page: 1,
+  });
 
   useEffect(() => {
-    getOne();
-  }, []);
+    getList();
+  }, [url]);
 
-  const getOne = () => {
+  useEffect(() => {
+    getList();
+  }, [filters]);
+
+  const getList = () => {
+    let params = {
+      filter: JSON.stringify({
+        status: 1,
+        websiteId: 1,
+        url: url || "",
+        categoryId: url ? "" : 3,
+      }),
+      range: JSON.stringify([
+        filters?.page * PAGE_SIZE - PAGE_SIZE,
+        filters?.page * PAGE_SIZE,
+      ]),
+      sort: JSON.stringify(["createdAt", "DESC"]),
+      attributes: "id,title,images,description,createdAt,url",
+    };
+
     dispatch({
-      type: "article/getOneUrl",
-      payload: { id: url },
+      type: "article/fetch",
+      payload: params,
       callback: (res) => {
         setLoading(false);
         if (res?.success) {
           const {
-            results: { list },
+            results: { list, pagination },
           } = res;
-          setDetail(list);
+          setArticle(list);
+
+          setPagination(pagination);
         }
       },
     });
@@ -46,19 +76,65 @@ const Index = () => {
 
   return (
     <>
-      <BreadCrumb
-        node1={"Tin tức"}
-        type2
-        urlNode1={"/articles"}
-        node2={detail?.title}
-      />
-      <section className="article_details_page container">
-        <Row gutter={[48, 32]}>
-          <Col xl={16} lg={16} md={24} xs={24} className="details">
-            <p className="title_article_details">{detail?.title}</p>
-            <div className="descriptions">
-              <div dangerouslySetInnerHTML={{ __html: detail?.content }} />
-            </div>
+      <BreadCrumb node1={"Tin tức"} />
+      <section className="articles_page container">
+        <Row gutter={[32, 32]}>
+          <Col xl={16} lg={16} md={24} xs={24} className="articles_container">
+            <Row gutter={[32, 32]}>
+              {article?.map((item, index) => (
+                <Col
+                  xl={index === 0 ? 24 : 12}
+                  lg={index === 0 ? 24 : 12}
+                  md={index === 0 ? 24 : 12}
+                  xs={24}
+                  key={item?.id}
+                >
+                  <div className={index === 0 ? "article first" : "article"}>
+                    <div
+                      className="image_box"
+                      onClick={() => {
+                        navigate(`/article/${item?.url}`);
+                      }}
+                      style={{ cursor: "pointer" }}
+                    >
+                      <img
+                        src={`${END_POINT}${item?.images?.split(",")[0]}`}
+                        alt={item?.title}
+                      />
+                      <div className="overlay"></div>
+                    </div>
+
+                    <div className="content">
+                      <Link
+                        to={`/article/${item?.url}`}
+                        className="article_title"
+                      >
+                        {item?.title}
+                      </Link>
+                      <p className="date">
+                        {moment(item?.createdAt).format("DD/MM/YYYY")}
+                      </p>
+                      <p className="article_short_description">
+                        {item?.description}
+                      </p>
+                    </div>
+                  </div>
+                </Col>
+              ))}
+
+              {article?.length > 0 && (
+                <Col xl={24} lg={24} md={24} xs={24}>
+                  <Pagination
+                    defaultCurrent={pagination?.current}
+                    size="default"
+                    pageSize={PAGE_SIZE}
+                    total={pagination?.total}
+                    className="paginationPage"
+                    onChange={(page) => setFilters({ ...filters, page: page })}
+                  />
+                </Col>
+              )}
+            </Row>
           </Col>
           <Col xl={8} lg={8} md={24} xs={24}>
             <div className="part_one">
@@ -116,7 +192,6 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <Link to="/articles">Xem thêm</Link>
             </div>
             <div className="part_two">
               <p className="articles_page_title">Bài viết nổi bật</p>
@@ -183,7 +258,6 @@ const Index = () => {
                   </div>
                 </div>
               </div>
-              <Link to="/articles">Xem thêm</Link>
             </div>
           </Col>
         </Row>

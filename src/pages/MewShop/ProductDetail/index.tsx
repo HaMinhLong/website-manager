@@ -6,22 +6,22 @@ import { Link, useParams } from "react-router-dom";
 import OwlCarousel from "react-owl-carousel";
 
 // PROJECT IMPORT
-import BreadCrumb from "layout/BreadCrumb";
+import BreadCrumb from "layout/MewShop/BreadCrumb";
 import createNotification from "components/Extended/Notification";
 
-import { ReactComponent as Grid } from "static/images/product_details/grid.svg";
-import { ReactComponent as Search } from "static/images/product_details/search.svg";
-import { ReactComponent as Close } from "static/images/product_details/close.svg";
-import { ReactComponent as Cart } from "static/images/home/cart.svg";
-import sizeOption from "static/images/product_details/size_option.png";
-import right from "static/images/product_details/right.svg";
-import left from "static/images/product_details/left.svg";
+import { ReactComponent as Grid } from "static/MewShop/images/product_details/grid.svg";
+import { ReactComponent as Search } from "static/MewShop/images/product_details/search.svg";
+import { ReactComponent as Close } from "static/MewShop/images/product_details/close.svg";
+import { ReactComponent as Cart } from "static/MewShop/images/home/cart.svg";
+import sizeOption from "static/MewShop/images/product_details/size_option.png";
+import right from "static/MewShop/images/product_details/right.svg";
+import left from "static/MewShop/images/product_details/left.svg";
 import { ProductType } from "types/product";
 import { CategoryType } from "types/category";
 import { addToCart, formatPrice, getSale } from "utils/utils";
 import { useDispatch } from "app/store";
 import Loading from "components/Extended/Loading";
-import { updateCart } from "../../features/order/orderSlice";
+import { updateCart } from "features/order/orderSlice";
 
 const SIZE_IMAGE = 6;
 const { Panel } = Collapse;

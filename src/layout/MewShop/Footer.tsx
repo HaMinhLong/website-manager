@@ -2,15 +2,15 @@
 import { Link } from "react-router-dom";
 
 // PROJECT IMPORT
-import logo from "static/images/home/logo.png";
-import facebook from "static/images/home/facebook.png";
-import twitter from "static/images/home/twitter.png";
-import instagram from "static/images/home/instagram.png";
-import youtube from "static/images/home/youtube.png";
-import shopee from "static/images/home/shopee.png";
-import tiki from "static/images/home/tiki.png";
-import lazada from "static/images/home/lazada.png";
-import sendo from "static/images/home/sendo.png";
+import logo from "static/MewShop/images/home/logo.png";
+import facebook from "static/MewShop/images/home/facebook.png";
+import twitter from "static/MewShop/images/home/twitter.png";
+import instagram from "static/MewShop/images/home/instagram.png";
+import youtube from "static/MewShop/images/home/youtube.png";
+import shopee from "static/MewShop/images/home/shopee.png";
+import tiki from "static/MewShop/images/home/tiki.png";
+import lazada from "static/MewShop/images/home/lazada.png";
+import sendo from "static/MewShop/images/home/sendo.png";
 
 const Footer = () => {
   return (

@@ -5,13 +5,13 @@ import { Row, Col, Radio, Space, Pagination } from "antd";
 import { Link, useParams, useNavigate } from "react-router-dom";
 
 // PROJECT IMPORT
-import BreadCrumb from "layout/BreadCrumb";
-import article1 from "static/images/home/articles-1.jpg";
-import article2 from "static/images/home/articles-2.jpg";
-import article3 from "static/images/home/articles-3.jpeg";
-import article4 from "static/images/home/articles-4.jpg";
-import filter from "static/images/product/filter.png";
-import closeFilter from "static/images/product/filter_close.png";
+import BreadCrumb from "layout/MewShop/BreadCrumb";
+import article1 from "static/MewShop/images/home/articles-1.jpg";
+import article2 from "static/MewShop/images/home/articles-2.jpg";
+import article3 from "static/MewShop/images/home/articles-3.jpeg";
+import article4 from "static/MewShop/images/home/articles-4.jpg";
+import filter from "static/MewShop/images/product/filter.png";
+import closeFilter from "static/MewShop/images/product/filter_close.png";
 import { ProductType, PaginationType } from "types/product";
 import { CategoryType } from "types/category";
 import { ProducerType } from "types/producer";
