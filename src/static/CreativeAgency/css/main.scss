@@ -70,13 +70,6 @@ span {
     border-radius: 40px;
 }
 
-.title {
-    height: 22px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
 .description {
     overflow: hidden;
 }
@@ -1020,6 +1013,10 @@ footer {
                 margin-top: 10px;
                 .title {
                     font-weight: 700;
+                    height: 22px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
                 }
                 .description {
                     height: 44px;
