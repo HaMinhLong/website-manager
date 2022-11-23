@@ -37,7 +37,7 @@ const Index = () => {
       </p>
       <Grid container spacing="30px" className="contact__list">
         {contactData?.map((item, index) => (
-          <Grid item xs={4} key={item?.id} data-aos="fade-up" data-aos-delay={(index + 1) * 200}>
+          <Grid item xs={12} md={4} key={item?.id} data-aos="fade-up" data-aos-delay={(index + 1) * 200}>
             <div className="contact">
               {index === 0 ? <SettingsIcon /> : index === 1 ? <LocalPrintshopIcon /> : <TheatersIcon />}
               <p className="title">{item?.name}</p>

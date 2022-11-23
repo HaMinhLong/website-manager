@@ -23,11 +23,12 @@ const Index = () => {
       description: 'Highly experienced professional that is going to make amazing things for you'
     }
   ];
+
   return (
     <section className="team__home container">
       <Grid container spacing="30px">
         {teamData?.map((item, index) => (
-          <Grid item xs={12} md={6} key={item?.id}>
+          <Grid item xs={12} md={6} lg={6} key={item?.id}>
             <div className="team" data-aos="fade-up" data-aos-delay={(index + 1) * 200}>
               <Grid container columnSpacing="30px">
                 <Grid item xs={6} className="image__box">

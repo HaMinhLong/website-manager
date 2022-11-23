@@ -45,14 +45,14 @@ const Index = () => {
   return (
     <section className="master__crew container">
       <Grid container spacing="50px">
-        <Grid item xs={12} md={6} className="left__side" data-aos="fade-right">
+        <Grid item xs={12} md={4} lg={6} className="left__side" data-aos="fade-right">
           <h2 className="title__home sz-60 dark-color text-uppercase">
             Master <br />
             crew
           </h2>
           <p className="description">Our professional team will be happy to bring amazing ideas and projects to life</p>
         </Grid>
-        <Grid item xs={12} md={6} className="right__side">
+        <Grid item xs={12} md={8} lg={6} className="right__side">
           <OwlCarousel
             className="owl-theme"
             items={4}

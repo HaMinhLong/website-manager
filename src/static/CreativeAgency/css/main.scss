@@ -21,22 +21,26 @@ $greyColor: #f4f4f4;
     line-height: 160%;
 }
 
-body {
-    scroll-behavior: smooth !important;
-    font-family: 'Poppins' !important;
-    background: $greyColor !important;
-    p,
-    a,
-    li,
-    span,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        margin-bottom: 0px;
-    }
+#root {
+    scroll-behavior: smooth;
+    font-family: 'Poppins';
+    background: $greyColor;
+    overflow-x: hidden;
+}
+
+p,
+a,
+ul,
+ol,
+li,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-bottom: 0px;
 }
 
 a,
@@ -134,26 +138,37 @@ img {
     }
     .header__box {
         .navigation {
-            li {
-                list-style: none;
-                a {
-                    font-weight: 500;
+            ul {
+                .form__search {
+                    display: none;
+                }
+                margin-bottom: 0px;
+                display: flex;
+                align-items: center;
+                li {
+                    list-style: none;
                     margin-left: 34px;
-                    color: $textColor;
-                    &:nth-child(1) {
+                    a {
+                        font-weight: 700;
+                        color: $textColor;
+                        &:nth-child(1) {
+                            margin-left: 0px;
+                        }
+                    }
+                    .icon {
                         margin-left: 0px;
                     }
-                }
-                .icon {
-                    margin-left: 0px;
-                }
-                svg {
-                    position: relative;
-                    top: 5px;
-                    color: $textColor;
-                    margin-left: 10px;
+                    svg {
+                        position: relative;
+                        top: 5px;
+                        color: $textColor;
+                        margin-left: 10px;
+                    }
                 }
             }
+        }
+        .nav__icon {
+            display: none;
         }
     }
 }
@@ -318,6 +333,7 @@ img {
 }
 
 .project__home {
+    width: 100%;
     position: relative;
     min-height: 100vh;
     .bg__main {
@@ -327,7 +343,6 @@ img {
         width: 100%;
         height: 300px;
         background: $mainColor;
-        z-index: -1;
     }
     .bg__dark {
         position: absolute;
@@ -336,7 +351,6 @@ img {
         width: 100%;
         height: calc(100% - 300px);
         background: $textColor;
-        z-index: -1;
     }
     button {
         position: relative;
@@ -666,14 +680,6 @@ img {
     position: relative;
     height: 350px;
     margin-top: 100px;
-    .bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-    }
     .container {
         height: 100%;
         form {
@@ -691,7 +697,6 @@ img {
                 height: 60px;
                 background: $highlightColor;
                 color: $paperColor;
-                width: 100px;
                 font-weight: 500;
                 width: 15%;
             }
@@ -825,6 +830,9 @@ footer {
 
 // CONTACT PAGE
 .contact__page {
+    .map {
+        height: 600px;
+    }
     .right__side {
         position: relative;
         top: 50%;

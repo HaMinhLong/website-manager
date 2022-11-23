@@ -6,17 +6,16 @@ import Subscribe from 'static/CreativeAgency/images/home/subscribe.jpg';
 
 const Index = () => {
   return (
-    <section className="subscribe__home ">
-      <img src={Subscribe} alt="bg" className="bg" />
+    <section className="subscribe__home" style={{ background: `url(${Subscribe})`, backgroundPosition: 'center' }}>
       <div className="container">
         <Grid sx={{ height: '100%' }} container columnSpacing="50px" display="flex" alignItems="center">
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <h2 className="title__home sz-48" data-aos="fade-right">
               Subscribe to <br />
               our newsletter
             </h2>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <form data-aos="fade-left">
               <input required type="text" name="name" placeholder="Enter your email" />
               <button type="submit" className="btn">

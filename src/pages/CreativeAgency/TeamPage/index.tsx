@@ -1,6 +1,5 @@
 // THIRD IMPORT
-import { Grid } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Grid, useMediaQuery, useTheme } from '@mui/material';
 
 // IMAGES IMPORT
 import Team1 from 'static/CreativeAgency/images/home/team-1.png';
@@ -16,6 +15,9 @@ import Master3 from 'static/CreativeAgency/images/home/master-3.jpg';
 import Master4 from 'static/CreativeAgency/images/home/master-4.jpg';
 
 const Index = () => {
+  const theme = useTheme();
+  const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
+
   const teamData = [
     {
       id: 1,
@@ -98,7 +100,7 @@ const Index = () => {
     <section className="team__page page container">
       <h2 className="title__home dark-color sz-48 text-uppercase">Master Crew</h2>
       <h3 className="sub__title">Our professional team will be happy to bring amazing ideas and projects to life</h3>
-      <Grid container columnSpacing="50px" rowSpacing="100px" className="teams">
+      <Grid container columnSpacing="50px" rowSpacing={matchDownMD ? '30px' : '100px'} className="teams">
         {teamData?.map((item) => (
           <Grid item xs={12} md={6} key={item?.id}>
             <div className="team">
@@ -118,7 +120,7 @@ const Index = () => {
       </Grid>
       <h2 className="title__home dark-color sz-48 text-uppercase">join our team</h2>
       <h3 className="sub__title">Be part of an amazing team that lives to create and make world more beautiful</h3>
-      <Grid container columnSpacing="50px" rowSpacing="100px" className="teams">
+      <Grid container columnSpacing="50px" rowSpacing={matchDownMD ? '30px' : '100px'} className="teams">
         {mastersData?.map((item) => (
           <Grid item xs={12} md={6} key={item?.id}>
             <div className="team">
