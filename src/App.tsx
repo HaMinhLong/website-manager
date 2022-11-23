@@ -6,7 +6,6 @@ import 'aos/dist/aos.css';
 
 // PROJECT IMPORT
 
-import MewShop from 'website/MewShop';
 import CreativeAgency from 'website/CreativeAgency';
 
 const App = () => {
