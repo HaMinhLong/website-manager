@@ -1,5 +1,5 @@
 // THIRD IMPORT
-import { Box, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 // ICONS IMPORT
@@ -23,17 +23,17 @@ const Footer = () => {
         <h2 className="title__footer">follow us</h2>
         <p className="username">#jevelincreative</p>
         <Grid container spacing="30px" sx={{ mt: '30px' }}>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={3} data-aos="fade-up">
             <p className="title__box--footer">Office</p>
             <p className="description">
               Office San Diego — 845 15th Street, Suite 906 San Diego, CA 92120 Mountain View — 1398 Villa St Mountain View, CA 96841
             </p>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={3} data-aos="fade-up">
             <p className="title__box--footer">Start a conversation</p>
             <p className="description">hi@creativeagency.com +1.858.755.6922 </p>
           </Grid>
-          <Grid item xs={12} md={6} lg={3}>
+          <Grid item xs={12} md={6} lg={3} data-aos="fade-up">
             <p className="title__box--footer">Social</p>
             <Grid container spacing="20px">
               <Grid item xs={3}>
@@ -59,24 +59,26 @@ const Footer = () => {
             </Grid>
           </Grid>
           <Grid item xs={12} md={6} lg={3} className="latest__project">
-            <p className="title__box--footer">Latest Projects</p>
+            <p className="title__box--footer" data-aos="zoom-in">
+              Latest Projects
+            </p>
             <Grid container spacing="10px">
-              <Grid item xs={4}>
+              <Grid item xs={4} data-aos="zoom-in">
                 <img src={ImageFooterOne} alt="project one" />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={4} data-aos="zoom-in">
                 <img src={ImageFooterTwo} alt="project one" />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={4} data-aos="zoom-in">
                 <img src={ImageFooterThree} alt="project one" />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={4} data-aos="zoom-in">
                 <img src={ImageFooterFour} alt="project one" />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={4} data-aos="zoom-in">
                 <img src={ImageFooterFive} alt="project one" />
               </Grid>
-              <Grid item xs={4}>
+              <Grid item xs={4} data-aos="zoom-in">
                 <img src={ImageFooterSix} alt="project one" />
               </Grid>
             </Grid>

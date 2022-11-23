@@ -28,11 +28,11 @@ const Index = () => {
         <div className="circle w30"></div>
         <div className="circle w30"></div>
         <p>CR</p>
-        <h1>
+        <h1 data-aos="fade-right" data-aos-delay="300">
           Creative <br />
           Agency
         </h1>
-        <a href="https://www.youtube.com/watch?v=wQX8_nwylTY" target="_blank">
+        <a href="https://www.youtube.com/watch?v=wQX8_nwylTY" target="_blank" data-aos="fade-right" data-aos-delay="300">
           <div className="flex__center">
             <ChangeHistoryIcon />
           </div>
@@ -40,7 +40,7 @@ const Index = () => {
         </a>
       </div>
       <div className="right__side">
-        <img src={BannerImage} alt="banner home" id="banner__image" />
+        <img src={BannerImage} alt="banner home" id="banner__image" data-aos="fade-left" data-aos-delay="300" />
       </div>
     </section>
   );

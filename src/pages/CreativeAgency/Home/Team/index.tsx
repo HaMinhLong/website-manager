@@ -26,18 +26,20 @@ const Index = () => {
   return (
     <section className="team__home container">
       <Grid container spacing="30px">
-        {teamData?.map((item) => (
-          <Grid item xs={12} md={6} key={item?.id} className="team">
-            <Grid container columnSpacing="30px">
-              <Grid item xs={6} className="image__box">
-                <img src={item?.image} alt={item?.name} />
+        {teamData?.map((item, index) => (
+          <Grid item xs={12} md={6} key={item?.id}>
+            <div className="team" data-aos="fade-up" data-aos-delay={(index + 1) * 200}>
+              <Grid container columnSpacing="30px">
+                <Grid item xs={6} className="image__box">
+                  <img src={item?.image} alt={item?.name} />
+                </Grid>
+                <Grid item xs={6} className="content">
+                  <p className="name">{item?.name}</p>
+                  <p className="job">{item?.job}</p>
+                  <p className="description">{item?.description}</p>
+                </Grid>
               </Grid>
-              <Grid item xs={6} className="content">
-                <p className="name">{item?.name}</p>
-                <p className="job">{item?.job}</p>
-                <p className="description">{item?.description}</p>
-              </Grid>
-            </Grid>
+            </div>
           </Grid>
         ))}
       </Grid>

@@ -12,7 +12,7 @@ import Project7 from 'static/CreativeAgency/images/Project/project-7.jpg';
 import Project8 from 'static/CreativeAgency/images/Project/project-8.jpg';
 import Project9 from 'static/CreativeAgency/images/Project/project-9.jpg';
 
-const Project = () => {
+const Index = () => {
   const navigate = useNavigate();
   const projectData = [
     {
@@ -71,14 +71,44 @@ const Project = () => {
     }
   ];
 
+  const category = [
+    {
+      id: 1,
+      name: 'All'
+    },
+    {
+      id: 2,
+      name: 'Apparel'
+    },
+    {
+      id: 3,
+      name: 'Brading'
+    },
+    {
+      id: 4,
+      name: 'Packaging'
+    },
+    {
+      id: 5,
+      name: 'Prints'
+    }
+  ];
+
   return (
-    <section className="project__home">
-      <div className="bg__main"></div>
-      <div className="bg__dark"></div>
-      <div className="project__container container">
+    <section className="project__page page container">
+      <h2 className="title__home dark-color text-uppercase sz-48">Projects</h2>
+      <h3 className="sub__title">See our latest projects that we where proud to work on</h3>
+      <div className="category__filter">
+        {category?.map((item) => (
+          <div className="category" key={item?.id}>
+            {item?.name}
+          </div>
+        ))}
+      </div>
+      <div className="project__container">
         <div className="projects">
           {projectData?.map((item) => (
-            <div className="project" key={item?.id} data-aos="fade-up" onClick={() => navigate('/project-detail')}>
+            <div className="project" key={item?.id} onClick={() => navigate('/project-detail')}>
               <img src={item?.image} alt={item?.title} />
               <div className="content flex__center">
                 <p className="title">{item?.title}</p>
@@ -88,9 +118,8 @@ const Project = () => {
           ))}
         </div>
       </div>
-      <button className="btn">View All Project</button>
     </section>
   );
 };
 
-export default Project;
+export default Index;

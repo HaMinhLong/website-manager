@@ -11,13 +11,13 @@ import DesignServicesIcon from '@mui/icons-material/DesignServices';
 
 const Index = () => {
   return (
-    <section className="service__home">
+    <section className="service__home" id="service__home">
       <div className="service__container container">
-        <h2 className="title__home sz-60 text-uppercase">
+        <h2 className="title__home sz-60 text-uppercase" data-aos="fade-right">
           Services <br />& PORTFOLIO
         </h2>
         <Grid className="services" container spacing={'40px'} sx={{ mt: '30px' }}>
-          <Grid className="service" item xs={12} md={6} lg={4}>
+          <Grid className="service" item xs={12} md={6} lg={4} data-aos="fade-up">
             <div className="icon">
               <BrandingWatermarkIcon />
             </div>
@@ -27,7 +27,7 @@ const Index = () => {
             </div>
           </Grid>
 
-          <Grid className="service" item xs={12} md={6} lg={4}>
+          <Grid className="service" item xs={12} md={6} lg={4} data-aos="fade-up">
             <div className="icon">
               <LoyaltyIcon />
             </div>
@@ -37,7 +37,7 @@ const Index = () => {
             </div>
           </Grid>
 
-          <Grid className="service" item xs={12} md={6} lg={4}>
+          <Grid className="service" item xs={12} md={6} lg={4} data-aos="fade-up">
             <div className="icon">
               <DirectionsTransitIcon />
             </div>
@@ -47,7 +47,7 @@ const Index = () => {
             </div>
           </Grid>
 
-          <Grid className="service" item xs={12} md={6} lg={4}>
+          <Grid className="service" item xs={12} md={6} lg={4} data-aos="fade-up">
             <div className="icon">
               <LaptopIcon />
             </div>
@@ -57,7 +57,7 @@ const Index = () => {
             </div>
           </Grid>
 
-          <Grid className="service" item xs={12} md={6} lg={4}>
+          <Grid className="service" item xs={12} md={6} lg={4} data-aos="fade-up">
             <div className="icon">
               <MobileFriendlyIcon />
             </div>
@@ -67,7 +67,7 @@ const Index = () => {
             </div>
           </Grid>
 
-          <Grid className="service" item xs={12} md={6} lg={4}>
+          <Grid className="service" item xs={12} md={6} lg={4} data-aos="fade-up">
             <div className="icon">
               <DesignServicesIcon />
             </div>

@@ -11,13 +11,13 @@ const Index = () => {
       <div className="container">
         <Grid sx={{ height: '100%' }} container columnSpacing="50px" display="flex" alignItems="center">
           <Grid item xs={6}>
-            <h2 className="title__home sz-48">
+            <h2 className="title__home sz-48" data-aos="fade-right">
               Subscribe to <br />
               our newsletter
             </h2>
           </Grid>
           <Grid item xs={6}>
-            <form>
+            <form data-aos="fade-left">
               <input required type="text" name="name" placeholder="Enter your email" />
               <button type="submit" className="btn">
                 Send

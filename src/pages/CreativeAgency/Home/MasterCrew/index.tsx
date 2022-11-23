@@ -6,6 +6,7 @@ import OwlCarousel from 'react-owl-carousel';
 import Master1 from 'static/CreativeAgency/images/home/master-1.jpg';
 import Master2 from 'static/CreativeAgency/images/home/master-2.jpg';
 import Master3 from 'static/CreativeAgency/images/home/master-3.jpg';
+import Master4 from 'static/CreativeAgency/images/home/master-4.jpg';
 
 const Index = () => {
   const mastersData = [
@@ -30,13 +31,21 @@ const Index = () => {
       subTitle: 'front end',
       description: `If you are enthusiastic person with a pinch of talent don’t hesitate to join our team
       `
+    },
+    {
+      id: 4,
+      image: Master4,
+      title: 'Photographer',
+      subTitle: 'photojourmalist',
+      description: `If you are enthusiastic person with a pinch of talent don’t hesitate to join our team
+      `
     }
   ];
 
   return (
     <section className="master__crew container">
       <Grid container spacing="50px">
-        <Grid item xs={12} md={6} className="left__side">
+        <Grid item xs={12} md={6} className="left__side" data-aos="fade-right">
           <h2 className="title__home sz-60 dark-color text-uppercase">
             Master <br />
             crew
@@ -53,18 +62,6 @@ const Index = () => {
             touchDrag={true}
             responsive={{
               0: {
-                items: 1,
-                stagePadding: 0
-              },
-              600: {
-                items: 1,
-                stagePadding: 0
-              },
-              1024: {
-                items: 1,
-                stagePadding: 0
-              },
-              1300: {
                 items: 1,
                 stagePadding: 0
               }

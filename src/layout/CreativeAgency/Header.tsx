@@ -22,10 +22,10 @@ const Header = () => {
         <ul className="navigation">
           <li>
             <Link to="/">Home</Link>
-            <Link to="/services">Services</Link>
+            <Link to="/#service__home">Services</Link>
             <Link to="/project">Projects</Link>
             <Link to="/team">Team</Link>
-            <Link to="/partner">Partners</Link>
+            <Link to="/#client">Partners</Link>
             <Link to="/contact">Contacts</Link>
             <Link to="/" className="icon">
               <InstagramIcon />

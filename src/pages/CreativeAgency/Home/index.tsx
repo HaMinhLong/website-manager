@@ -8,6 +8,8 @@ import Project from 'pages/CreativeAgency/Home/Project';
 import Achievement from 'pages/CreativeAgency/Home/Achievement';
 import MasterCrew from 'pages/CreativeAgency/Home/MasterCrew';
 import Team from 'pages/CreativeAgency/Home/Team';
+import Step from 'pages/CreativeAgency/Home/Step';
+import Client from 'pages/CreativeAgency/Home/Client';
 import Brand from 'pages/CreativeAgency/Home/Brand';
 import Subscribe from 'pages/CreativeAgency/Home/Subscribe';
 import Contact from 'pages/CreativeAgency/Home/Contact';
@@ -21,6 +23,8 @@ const Index = () => {
       <Achievement />
       <MasterCrew />
       <Team />
+      <Step />
+      <Client />
       <Brand />
       <Subscribe />
       <Contact />

@@ -29,17 +29,24 @@ const Index = () => {
   ];
   return (
     <section className="contact__home container">
-      <h2 className="title__home sz-48 dark-color">Contact US</h2>
-      <p className="sub__title--home">& let us help you</p>
+      <h2 className="title__home sz-48 dark-color" data-aos="fade-up">
+        Contact US
+      </h2>
+      <p className="sub__title" data-aos="fade-up">
+        & let us help you
+      </p>
       <Grid container spacing="30px" className="contact__list">
         {contactData?.map((item, index) => (
-          <Grid item xs={4} className="contact" key={item?.id}>
-            {index === 0 ? <SettingsIcon /> : index === 1 ? <LocalPrintshopIcon /> : <TheatersIcon />}
-            <p className="title">{item?.name}</p>
-            <p className="description">{item?.description}</p>
+          <Grid item xs={4} key={item?.id} data-aos="fade-up" data-aos-delay={(index + 1) * 200}>
+            <div className="contact">
+              {index === 0 ? <SettingsIcon /> : index === 1 ? <LocalPrintshopIcon /> : <TheatersIcon />}
+              <p className="title">{item?.name}</p>
+              <p className="description">{item?.description}</p>
+            </div>
           </Grid>
         ))}
       </Grid>
+      <button className="btn">Get in touch!</button>
     </section>
   );
 };
