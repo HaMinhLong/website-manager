@@ -1,43 +1,43 @@
 // THIRD IMPORT
-import { useEffect, useRef, useState } from "react";
-import { Drawer } from "antd";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useEffect, useRef, useState } from 'react';
+import { Drawer } from 'antd';
+import { Link, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 // PROJECT IMPORT
-import logo from "static/MewShop/images/home/logo.png";
-import { ReactComponent as ToRight } from "static/MewShop/images/home/to-right.svg";
-import { ReactComponent as CartTwo } from "static/MewShop/images/home/cart_2.svg";
-import quanDai from "static/MewShop/images/home/quan-dai.jpg";
-import searchIcon from "static/MewShop/images/home/search-icon.png";
-import { ReactComponent as HomeIcon } from "static/MewShop/images/home/home-icon.svg";
-import { ReactComponent as PhoneIcon } from "static/MewShop/images/home/phone-icon.svg";
-import { ReactComponent as CartIcon } from "static/MewShop/images/home/cart-icon.svg";
-import { ReactComponent as MenuIcon } from "static/MewShop/images/home/menu-icon.svg";
-import iconMenu1 from "static/MewShop/images/home/icon_menu_1.png";
-import iconMenu2 from "static/MewShop/images/home/icon_menu_2.png";
-import iconMenu3 from "static/MewShop/images/home/icon_menu_3.png";
-import iconMenu4 from "static/MewShop/images/home/icon_menu_4.png";
-import iconMenu5 from "static/MewShop/images/home/icon_menu_5.png";
-import { useSelector } from "app/store";
-import { order, updateCart } from "features/order/orderSlice";
+import logo from 'static/MewShop/images/home/logo.png';
+import { ReactComponent as ToRight } from 'static/MewShop/images/home/to-right.svg';
+import { ReactComponent as CartTwo } from 'static/MewShop/images/home/cart_2.svg';
+import quanDai from 'static/MewShop/images/home/quan-dai.jpg';
+import searchIcon from 'static/MewShop/images/home/search-icon.png';
+import { ReactComponent as HomeIcon } from 'static/MewShop/images/home/home-icon.svg';
+import { ReactComponent as PhoneIcon } from 'static/MewShop/images/home/phone-icon.svg';
+import { ReactComponent as CartIcon } from 'static/MewShop/images/home/cart-icon.svg';
+import { ReactComponent as MenuIcon } from 'static/MewShop/images/home/menu-icon.svg';
+import iconMenu1 from 'static/MewShop/images/home/icon_menu_1.png';
+import iconMenu2 from 'static/MewShop/images/home/icon_menu_2.png';
+import iconMenu3 from 'static/MewShop/images/home/icon_menu_3.png';
+import iconMenu4 from 'static/MewShop/images/home/icon_menu_4.png';
+import iconMenu5 from 'static/MewShop/images/home/icon_menu_5.png';
+import { useSelector } from 'app/store';
+import { order, updateCart } from 'features/order/orderSlice';
 
-import { MenuType } from "types/menu";
-import { Box } from "@mui/material";
+import { MenuType } from 'types/menu';
+import { Box } from '@mui/material';
 
 const Header = () => {
+  const location = useLocation();
   const dispatch = useDispatch();
 
   const orderState = useSelector(order);
 
   const [menus, setMenus] = useState<MenuType[]>([]);
   const [toggleChildNews, setToggleChildNews] = useState<boolean>(false);
-  const [toggleChildProducts, setToggleChildProducts] =
-    useState<boolean>(false);
+  const [toggleChildProducts, setToggleChildProducts] = useState<boolean>(false);
   const [toggleSearch, setToggleSearch] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
-  const cart = useRef(JSON.parse(localStorage.getItem("cart") || "[]"));
+  const cart = useRef(JSON.parse(localStorage.getItem('cart') || '[]'));
 
   useEffect(() => {
     dispatch(updateCart(cart.current.length || 0));
@@ -52,29 +52,43 @@ const Header = () => {
       filter: JSON.stringify({
         status: 1,
         websiteId: 1,
-        getParentChild: 1,
+        getParentChild: 1
       }),
       range: JSON.stringify([0, 50]),
-      attributes: "id,text,parent,url,icon",
+      attributes: 'id,text,parent,url,icon'
     };
 
     dispatch({
-      type: "menu/fetch",
+      type: 'menu/fetch',
       payload: params,
       callback: (res) => {
         setMenus(res);
-      },
+      }
     });
   };
 
-  window.addEventListener("scroll", () => {
-    const header = document.querySelector("header");
-    header?.classList.toggle("active", window.scrollY > 0);
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    header?.classList.toggle('active', window.scrollY > 0);
   });
+
+  const handleClickScroll = (name: string) => {
+    const element = document.getElementById(name);
+    if (element) {
+      // 👇 Will scroll smoothly to the top of the next section
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    if (location.hash) handleClickScroll(location.hash.split('#')[1]);
+    else handleClickScroll('home');
+  }, [location.pathname]);
 
   return (
     <>
-      <header className={"header"}>
+      <div id="home" style={{ overflow: 'hidden' }}></div>
+      <header className={'header'}>
         <div className="container">
           <div className="logo_header">
             <Link to="/">
@@ -87,45 +101,31 @@ const Header = () => {
                 <li
                   key={item?.id}
                   className={
-                    (toggleChildNews && item?.url === "/articles") ||
-                    (toggleChildProducts && item?.url === "/products")
-                      ? "active"
-                      : ""
+                    (toggleChildNews && item?.url === '/articles') || (toggleChildProducts && item?.url === '/products') ? 'active' : ''
                   }
                   onMouseEnter={() => {
-                    if (item?.url === "/articles") setToggleChildNews(true);
-                    if (item?.url === "/products") setToggleChildProducts(true);
+                    if (item?.url === '/articles') setToggleChildNews(true);
+                    if (item?.url === '/products') setToggleChildProducts(true);
                   }}
                   onMouseLeave={() => {
-                    if (item?.url === "/articles") setToggleChildNews(false);
-                    if (item?.url === "/products")
-                      setToggleChildProducts(false);
+                    if (item?.url === '/articles') setToggleChildNews(false);
+                    if (item?.url === '/products') setToggleChildProducts(false);
                   }}
                 >
-                  {item?.url !== "/products" ? (
-                    <Link to={item?.url}>{item?.text}</Link>
-                  ) : (
-                    <a>{item?.text}</a>
-                  )}
+                  {item?.url !== '/products' ? <Link to={item?.url}>{item?.text}</Link> : <a>{item?.text}</a>}
 
-                  {item?.children?.length > 0 && item?.url === "/products" && (
+                  {item?.children?.length > 0 && item?.url === '/products' && (
                     <ul className="child child_product">
                       {item?.children?.map((child) => (
                         <li key={child?.id}>
                           <img src={child?.icon} alt="" />
-                          <Link
-                            to={`${item?.url}${child?.url}`}
-                            onClick={() => setToggleChildProducts(false)}
-                          >
+                          <Link to={`${item?.url}${child?.url}`} onClick={() => setToggleChildProducts(false)}>
                             {child?.text}
                           </Link>
                           <ul>
                             {child?.children?.map((grandchildren) => (
                               <li key={grandchildren?.id}>
-                                <Link
-                                  to={`${item?.url}${child?.url}${grandchildren?.url}`}
-                                  onClick={() => setToggleChildProducts(false)}
-                                >
+                                <Link to={`${item?.url}${child?.url}${grandchildren?.url}`} onClick={() => setToggleChildProducts(false)}>
                                   <ToRight />
                                   {grandchildren?.text}
                                 </Link>
@@ -137,14 +137,11 @@ const Header = () => {
                     </ul>
                   )}
 
-                  {item?.children?.length > 0 && item?.url !== "/products" && (
+                  {item?.children?.length > 0 && item?.url !== '/products' && (
                     <ul className="child">
                       {item?.children?.map((child) => (
                         <li key={child?.id}>
-                          <Link
-                            to={`${item?.url}${child?.url}`}
-                            onClick={() => setToggleChildNews(false)}
-                          >
+                          <Link to={`${item?.url}${child?.url}`} onClick={() => setToggleChildNews(false)}>
                             {child?.text}
                           </Link>
                         </li>
@@ -171,18 +168,18 @@ const Header = () => {
                 <CartTwo />
                 <Box
                   sx={{
-                    position: "absolute",
-                    top: "0px",
-                    right: "0px",
-                    width: "20px",
-                    height: "20px",
-                    bgcolor: "#f88e11",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: "50%",
-                    fontSize: "12px",
-                    color: "#fff",
+                    position: 'absolute',
+                    top: '0px',
+                    right: '0px',
+                    width: '20px',
+                    height: '20px',
+                    bgcolor: '#f88e11',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '50%',
+                    fontSize: '12px',
+                    color: '#fff'
                   }}
                 >
                   {orderState?.totalProduct}
@@ -190,18 +187,10 @@ const Header = () => {
               </Link>
             </div>
           </div>
-          <div
-            className={
-              toggleSearch ? "search_container active" : "search_container"
-            }
-          >
-            <div className={toggleSearch ? "search_box active" : "search_box"}>
+          <div className={toggleSearch ? 'search_container active' : 'search_container'}>
+            <div className={toggleSearch ? 'search_box active' : 'search_box'}>
               <form>
-                <input
-                  type="text"
-                  placeholder="Nhập từ khóa tìm kiếm..."
-                  required
-                />
+                <input type="text" placeholder="Nhập từ khóa tìm kiếm..." required />
                 <button type="submit">
                   <img src={searchIcon} alt="" />
                 </button>
