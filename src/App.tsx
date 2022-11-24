@@ -6,7 +6,7 @@ import 'aos/dist/aos.css';
 
 // PROJECT IMPORT
 
-import CreativeAgency from 'website/CreativeAgency';
+import Foodie from 'website/Foodie';
 
 const App = () => {
   AOS.init();
@@ -36,8 +36,7 @@ const App = () => {
   return (
     <Router>
       <NotificationContainer />
-      {/* <MewShop /> */}
-      <CreativeAgency />
+      <Foodie />
     </Router>
   );
 };
