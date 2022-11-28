@@ -11,11 +11,27 @@ $descriptionColor: #646464;
 $backgroundGrey: #f9f9f9;
 $orangeColor: #ff7417;
 $borderInput: #8d8d8d;
+$darkColor2: #393939;
+:export {
+    $paperColor: $paperColor;
+    $darkColor: $darkColor;
+    $titleColor: $titleColor;
+    $descriptionColor: $descriptionColor;
+    $backgroundGrey: $backgroundGrey;
+    $orangeColor: $orangeColor;
+    $borderInput: $borderInput;
+    $darkColor2: $darkColor2;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
+}
+
+*::selection {
+    background-color: $orangeColor !important;
 }
 
 #root {
@@ -124,6 +140,9 @@ header {
                     }
                 }
             }
+        }
+        .nav__icon {
+            display: none;
         }
     }
 }
@@ -529,7 +548,64 @@ header.active {
 }
 
 .contact__home {
+    .content {
+        width: 50%;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        .title__home {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 36px;
+            font-style: italic;
+        }
+        .date__container {
+            margin-top: 70px;
+            .date {
+                margin-top: 20px;
+                border-bottom: 1px solid $borderInput;
+                padding-bottom: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .day {
+                    font-weight: 700;
+                }
+            }
+        }
+        .address__container {
+            margin-top: 50px;
+            .address {
+                margin-bottom: 15px;
+                .title {
+                    font-weight: 700;
+                }
+            }
+        }
+    }
     .map {
         height: 800px;
+    }
+}
+
+footer {
+    background: $darkColor2;
+    height: 150px;
+    color: $paperColor;
+    .footer__container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+        >img {
+            width: 120px;
+            height: 50px;
+        }
+        .icon__container {
+            svg {
+                margin-left: 10px;
+            }
+        }
     }
 }

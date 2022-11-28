@@ -34,11 +34,11 @@ const Index = () => {
               stagePadding: 0
             },
             600: {
-              items: 1,
+              items: 2,
               stagePadding: 0
             },
             1024: {
-              items: 2,
+              items: 3,
               stagePadding: 0
             },
             1300: {

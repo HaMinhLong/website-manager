@@ -1,8 +1,30 @@
-@media (max-width: 1440px) {}
+@import 'static/Foodie/css/main.scss';
+@media (max-width: 1440px) {
+    .slider__home {
+        .content {
+            .image__text--box {
+                p {
+                    font-size: 60px;
+                }
+            }
+            h1 {
+                font-size: 100px;
+            }
+        }
+    }
+}
 
 @media (max-width: 1240px) {
     .container {
         max-width: 1140px;
+    }
+    .contact__home {
+        .content {
+            margin-top: 50px;
+        }
+        .map {
+            margin-top: 50px;
+        }
     }
 }
 
@@ -10,11 +32,141 @@
     .container {
         max-width: 960px;
     }
+    .menu__home {
+        .menus {
+            .title__menu--orange {
+                margin-top: 20px;
+            }
+        }
+    }
+    .customer__home {
+        .customers {
+            .customer {
+                .content {
+                    .description {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
 }
 
 @media (max-width: 768px) {
     .container {
         max-width: 720px;
+    }
+    header {
+        .header__container {
+            .navigation {
+                position: absolute;
+                top: 100%;
+                right: -100%;
+                transition: 0.5s all ease;
+                width: 100%;
+                background: #232323;
+                ul {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: flex-start;
+                    padding: 10px 100px 0px;
+                    li {
+                        width: 100%;
+                        margin-left: 0px;
+                        a {
+                            display: inline-block;
+                            width: 100%;
+                            height: 40px;
+                            line-height: 40px;
+                            color: $paperColor;
+                            border-bottom: 1px solid #7b7b7b;
+                        }
+                        .search__icon {
+                            display: none;
+                        }
+                        svg {
+                            color: $paperColor;
+                        }
+                    }
+                    .icon {
+                        width: 33%;
+                        border: none;
+                        margin-top: 20px;
+                        text-align: center;
+                        a {
+                            margin-left: 0px;
+                            border-bottom: none;
+                        }
+                    }
+                    .form__search {
+                        display: initial;
+                        margin-top: 20px;
+                        form {
+                            display: flex;
+                            align-items: center;
+                            input {
+                                width: 90%;
+                                background: transparent;
+                                border: none;
+                                outline: none;
+                                border-bottom: 1px solid #7b7b7b;
+                                padding: 0px 5px;
+                                color: #7b7b7b;
+                            }
+                            button {
+                                background: transparent;
+                                width: 10%;
+                                border: none;
+                                outline: none;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+            .navigation.active {
+                right: 0;
+            }
+            .nav__icon {
+                display: inline-block;
+                svg {
+                    color: $darkColor2;
+                }
+            }
+        }
+    }
+    .slider__home {
+        height: 700px;
+        .content {
+            .image__text--box {
+                p {
+                    font-size: 40px;
+                }
+                img {
+                    width: 25px;
+                    width: 25px;
+                    top: -30px;
+                }
+            }
+            >p {
+                font-size: 10px;
+            }
+            h1 {
+                font-size: 80px;
+            }
+        }
+    }
+    .introduce__home {
+        .introduce {
+            .content {
+                margin-top: 15px;
+                text-align: center;
+                .description {
+                    width: 100%;
+                    padding: 0px 50px;
+                }
+            }
+        }
     }
 }
 

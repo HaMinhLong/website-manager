@@ -4,6 +4,7 @@ import { BackTop } from 'antd';
 
 // PROJECT IMPORT
 import Header from 'layout/Foodie/Header';
+import Footer from 'layout/Foodie/Footer';
 
 import Home from 'pages/Foodie/Home';
 
@@ -18,6 +19,8 @@ const MewShop = () => {
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
+      <Footer />
+
       <BackTop />
     </>
   );

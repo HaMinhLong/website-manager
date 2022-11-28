@@ -4,10 +4,42 @@ import { Grid } from '@mui/material';
 
 const Index = () => {
   return (
-    <section className="contact__home">
+    <section className="contact__home" id="contact">
       <Grid container>
         <Grid item xs={12} lg={6}>
-          1
+          <div className="content">
+            <h2 className="title__home">
+              How to Find <br />& Contact Us
+            </h2>
+            <div className="date__container">
+              <div className="date">
+                <div className="day">Monday - Thursday</div>
+                <div className="hour">10:00 - 22:00</div>
+              </div>
+              <div className="date">
+                <div className="day">Friday - Saturday</div>
+                <div className="hour">11:00 - 21:00</div>
+              </div>
+              <div className="date">
+                <div className="day">Sunday</div>
+                <div className="hour">Closed</div>
+              </div>
+            </div>
+            <div className="address__container">
+              <div className="address">
+                <div className="title">Postal Address:</div>
+                <div className="des">Mánatún 35 105 Reykjavík</div>
+              </div>
+              <div className="address">
+                <div className="title">Restaurant:</div>
+                <div className="des">Grafarvogur 69, ON K2P 0G1, Reykjavík</div>
+              </div>
+              <div className="address">
+                <div className="title">Business Phone:</div>
+                <div className="des">+1 844 295 0715</div>
+              </div>
+            </div>
+          </div>
         </Grid>
         <Grid item xs={12} lg={6} className="map">
           <iframe

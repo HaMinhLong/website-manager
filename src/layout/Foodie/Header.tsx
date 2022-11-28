@@ -2,6 +2,7 @@
 // THIRD IMPORT
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 // PROJECT IMPORT
 import LogoLight from 'static/Foodie/images/Home/logo.png';
@@ -12,11 +13,16 @@ import SearchIcon from '@mui/icons-material/Search';
 import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import DehazeIcon from '@mui/icons-material/Dehaze';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Header = () => {
+  const theme = useTheme();
   const location = useLocation();
 
   const [scrollDown, setScrollDown] = useState(false);
+  const [toggleNavigation, setToggleNavigation] = useState(false);
+  const matchDownMD = useMediaQuery(theme.breakpoints.down('md'));
 
   const handleClickScroll = (name: string) => {
     const element = document.getElementById(name);
@@ -39,17 +45,18 @@ const Header = () => {
   return (
     <>
       <div id="home" style={{ overflow: 'hidden' }}></div>
-      <header className={scrollDown ? 'active' : ''}>
+      <header className={scrollDown || matchDownMD ? 'active' : ''}>
         <div className="header__container container">
-          <div className="logo__box">
-            <img src={scrollDown ? LogoDark : LogoLight} alt="logo" />
+          <div className="logo__box" onClick={() => setToggleNavigation(false)}>
+            <img src={scrollDown || matchDownMD ? LogoDark : LogoLight} alt="logo" />
           </div>
-          <div className="navigation">
+          <div className={toggleNavigation ? 'navigation active' : 'navigation'}>
             <ul>
               <li>
                 <Link
                   onClick={() => {
                     handleClickScroll('home');
+                    setToggleNavigation(false);
                   }}
                   to="/#home"
                 >
@@ -60,6 +67,7 @@ const Header = () => {
                 <Link
                   onClick={() => {
                     handleClickScroll('about');
+                    setToggleNavigation(false);
                   }}
                   to="/#about"
                 >
@@ -70,6 +78,7 @@ const Header = () => {
                 <Link
                   onClick={() => {
                     handleClickScroll('menu');
+                    setToggleNavigation(false);
                   }}
                   to="/#menu"
                 >
@@ -80,6 +89,7 @@ const Header = () => {
                 <Link
                   onClick={() => {
                     handleClickScroll('reservation');
+                    setToggleNavigation(false);
                   }}
                   to="/#reservation"
                 >
@@ -90,6 +100,7 @@ const Header = () => {
                 <Link
                   onClick={() => {
                     handleClickScroll('contact');
+                    setToggleNavigation(false);
                   }}
                   to="/#contact"
                 >
@@ -97,18 +108,27 @@ const Header = () => {
                 </Link>
               </li>
               <li>
-                <SearchIcon />
+                <SearchIcon className="search__icon" />
               </li>
-              <li>
-                <FacebookOutlinedIcon />
+              <li className="icon">
+                <Link onClick={() => setToggleNavigation(false)} to="/">
+                  <FacebookOutlinedIcon />
+                </Link>
               </li>
-              <li>
-                <InstagramIcon />
+              <li className="icon">
+                <Link onClick={() => setToggleNavigation(false)} to="/">
+                  <InstagramIcon />
+                </Link>
               </li>
-              <li>
-                <TwitterIcon />
+              <li className="icon">
+                <Link onClick={() => setToggleNavigation(false)} to="/">
+                  <TwitterIcon />
+                </Link>
               </li>
             </ul>
+          </div>
+          <div className="nav__icon" onClick={() => setToggleNavigation(!toggleNavigation)}>
+            {toggleNavigation ? <CloseIcon /> : <DehazeIcon />}
           </div>
         </div>
       </header>
