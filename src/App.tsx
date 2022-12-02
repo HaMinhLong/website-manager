@@ -7,6 +7,7 @@ import 'aos/dist/aos.css';
 // PROJECT IMPORT
 
 import Foodie from 'website/Foodie';
+import Bauen from 'website/Bauen';
 
 const App = () => {
   AOS.init();
@@ -36,7 +37,7 @@ const App = () => {
   return (
     <Router>
       <NotificationContainer />
-      <Foodie />
+      <Bauen />
     </Router>
   );
 };
