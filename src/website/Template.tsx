@@ -6,8 +6,9 @@ import { BackTop } from 'antd';
 // import Header from 'layout/Template/Header';
 // import Footer from 'layout/Template/Footer';
 
-import Part1 from 'pages/Template/Home/Part1';
-import Part2 from 'pages/Template/Home/Part2';
+import MainHome from 'pages/Template/Home/Part1/MainHome';
+import Simple from 'pages/Template/Home/Part2/Simple';
+import AboutMe from 'pages/Template/Pages/About/AboutMe';
 
 // STATIC IMPORT
 import 'static/Template/scss/main.scss';
@@ -18,8 +19,9 @@ const MewShop = () => {
     <>
       {/* <Header /> */}
       <Routes>
-        <Route path="/" element={<Part1 />} />
-        <Route path="/home/part-2" element={<Part2 />} />
+        <Route path="/" element={<MainHome />} />
+        <Route path="/home/part-2/simple" element={<Simple />} />
+        <Route path="/pages/about/about-me" element={<AboutMe />} />
       </Routes>
       {/* <Footer /> */}
 
