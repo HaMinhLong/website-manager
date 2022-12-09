@@ -21,7 +21,7 @@ const Project = () => {
     {
       id: 2,
       title: 'European Lard Station',
-      year: '',
+      year: '2012',
       description:
         'Hemicycle and offices for the Headquarters of the European Parliament including: a 750-seat hemicycle, 1133 offices for members of Parliament, 18 commission halls and catering centre and service areas.',
       images: Project2
@@ -65,7 +65,19 @@ const Project = () => {
       <h2 className="title__section--large">Make it with passion.</h2>
       <div className="projects">
         {projects?.map((project, index) => (
-          <div className={index % 2 === 0 ? 'project' : 'project active'}>{project?.title}</div>
+          <div className={index % 2 === 0 ? 'project' : 'project active'}>
+            <div className="image__box">
+              <img src={project?.images} alt={project?.title} />
+              <div className="year__box">{project?.year}</div>
+            </div>
+            <div className="content">
+              <p className="title__project">{project?.title}</p>
+              <p className="description">{project?.description}</p>
+              <button className="button__custom--read">
+                Read <div className="to-right"></div>
+              </button>
+            </div>
+          </div>
         ))}
       </div>
     </section>

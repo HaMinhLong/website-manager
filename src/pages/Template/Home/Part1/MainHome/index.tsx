@@ -5,6 +5,7 @@ import { Fragment } from 'react';
 import Slider from 'pages/Template/Home/Part1/MainHome/Slider';
 import AboutUs from 'pages/Template/Home/Part1/MainHome/AboutUs';
 import Project from 'pages/Template/Home/Part1/MainHome/Project';
+import Testimonials from 'pages/Template/Home/Part1/MainHome/Testimonials';
 
 // STYLE IMPORT
 import 'static/Template/scss/Home/Part1/MainHome/index.scss';
@@ -15,6 +16,7 @@ const Index = () => {
       <Slider />
       <AboutUs />
       <Project />
+      <Testimonials />
     </Fragment>
   );
 };

@@ -93,5 +93,102 @@
     margin-top: 100px !important;
     .projects {
         margin-top: 50px;
+        .project {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 50px;
+            .image__box {
+                width: 60%;
+                height: 450px;
+                position: relative;
+                .year__box {
+                    position: absolute;
+                    top: 20px;
+                    right: -100px;
+                }
+                .year__box:after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: -110px;
+                    width: 100px;
+                    height: 0.5px;
+                    background: $darkColor;
+                }
+            }
+            .content {
+                width: 35%;
+                .title__project {
+                    font-weight: 700;
+                    font-size: 32px;
+                }
+                .description {
+                    color: $descriptionColor;
+                    margin-top: 20px;
+                    max-height: 80px;
+                }
+            }
+        }
+        .project.active {
+            flex-direction: row-reverse;
+            .image__box {
+                .year__box {
+                    left: -100px;
+                }
+                .year__box:after {
+                    left: 40px;
+                }
+            }
+        }
+    }
+}
+
+.testimonials__home--main {
+    .main__section {
+        margin-top: 50px;
+        .list {
+            height: 250px;
+            border: 1px solid $descriptionColor;
+            .testimonial__group {
+                position: relative;
+                width: fit-content;
+                top: -15px;
+                left: -5px;
+                background: #fff;
+                p {
+                    margin-top: 10px;
+                    color: $descriptionColor;
+                    cursor: pointer;
+                }
+            }
+        }
+        .detail__box {
+            padding-left: 100px;
+            .detail {
+                text-align: center;
+                height: 250px;
+                padding: 40px 50px;
+                background: #fff;
+                box-shadow: 10px 20px 50px 2px $descriptionColor;
+                border-radius: 8px;
+                svg {
+                    width: 30px;
+                    height: 30px;
+                }
+                .description {
+                    position: relative;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 60%;
+                    color: $descriptionColor;
+                }
+                .title {
+                    font-weight: 700;
+                    margin-top: 20px;
+                    font-size: 18px;
+                }
+            }
+        }
     }
 }
