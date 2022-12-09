@@ -17,7 +17,7 @@ import 'static/Template/scss/responsive.scss';
 const MewShop = () => {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       <Routes>
         <Route path="/" element={<MainHome />} />
         <Route path="/home/part-2/simple" element={<Simple />} />
