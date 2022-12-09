@@ -1,10 +1,7 @@
-// PROJECT IMPORT
 import React from 'react';
 
-// IMAGES IMPORT
-
 const Index = () => {
-  return <div>Slider</div>;
+  return <div>part2</div>;
 };
 
 export default Index;
