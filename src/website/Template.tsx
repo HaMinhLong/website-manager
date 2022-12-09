@@ -4,7 +4,7 @@ import { BackTop } from 'antd';
 
 // PROJECT IMPORT
 import Header from 'layout/Template/Header';
-// import Footer from 'layout/Template/Footer';
+import Footer from 'layout/Template/Footer';
 
 import MainHome from 'pages/Template/Home/Part1/MainHome';
 import Simple from 'pages/Template/Home/Part2/Simple';
@@ -23,7 +23,7 @@ const MewShop = () => {
         <Route path="/home/part-2/simple" element={<Simple />} />
         <Route path="/pages/about/about-me" element={<AboutMe />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
 
       <BackTop />
     </>
