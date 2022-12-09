@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { BackTop } from 'antd';
 
 // PROJECT IMPORT
-// import Header from 'layout/Template/Header';
+import Header from 'layout/Template/Header';
 // import Footer from 'layout/Template/Footer';
 
 import MainHome from 'pages/Template/Home/Part1/MainHome';
@@ -12,7 +12,7 @@ import AboutMe from 'pages/Template/Pages/About/AboutMe';
 
 // STATIC IMPORT
 import 'static/Template/scss/main.scss';
-// import 'static/Template/css/responsive.scss';
+import 'static/Template/scss/responsive.scss';
 
 const MewShop = () => {
   return (
