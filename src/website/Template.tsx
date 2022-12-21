@@ -9,6 +9,7 @@ import Footer from 'layout/Template/Footer';
 import MainHome from 'pages/Template/Home/Part1/MainHome';
 import Simple from 'pages/Template/Home/Part2/Simple';
 import AboutMe from 'pages/Template/Pages/About/AboutMe';
+import AboutUs from 'pages/Template/Pages/About/AboutUs';
 
 // STATIC IMPORT
 import 'static/Template/scss/main.scss';
@@ -22,6 +23,9 @@ const MewShop = () => {
         <Route path="/" element={<MainHome />} />
         <Route path="/home/part-2/simple" element={<Simple />} />
         <Route path="/pages/about/about-me" element={<AboutMe />} />
+
+        {/* PAGES */}
+        <Route path="/pages/about/about-us" element={<AboutUs />} />
       </Routes>
       <Footer />
 

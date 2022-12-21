@@ -1,4 +1,4 @@
-// PROJECT IMPORT
+// THIRD IMPORT
 import { Grid } from '@mui/material';
 
 // IMAGES IMPORT
