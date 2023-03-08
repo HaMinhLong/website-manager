@@ -6,7 +6,7 @@ import 'aos/dist/aos.css';
 
 // PROJECT IMPORT
 
-import Template from 'website/Template';
+import DailySupplies from 'website/DailySupplies';
 
 const App = () => {
   AOS.init();
@@ -36,7 +36,7 @@ const App = () => {
   return (
     <Router>
       <NotificationContainer />
-      <Template />
+      <DailySupplies />
     </Router>
   );
 };

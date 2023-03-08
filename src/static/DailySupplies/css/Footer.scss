@@ -1,0 +1,49 @@
+footer {
+    background: #000;
+    padding: 90px 30px;
+    p,
+    svg {
+        color: #fff;
+    }
+    .image__box {
+        margin-bottom: 20px;
+        width: 160px;
+        height: 30px;
+    }
+    .informatin__box {
+        display: flex;
+        margin-bottom: 20px;
+        svg {
+            margin-right: 10px;
+        }
+    }
+    .title__footer {
+        text-transform: uppercase;
+        font-weight: 500;
+        margin-bottom: 20px !important;
+        font-size: 16px;
+    }
+    a {
+        width: 100%;
+        display: inline-block;
+        color: #a8a8a8;
+        margin-top: 10px;
+    }
+    .des__payment {
+        margin-bottom: 20px !important;
+    }
+    .follow__me {
+        margin-top: 20px;
+        margin-bottom: 0px !important;
+    }
+    .divider {
+        height: 1px;
+        background: #a8a8a8;
+        margin-top: 50px;
+        margin-bottom: 20px;
+    }
+    .coppyright {
+        text-align: center;
+        color: #a8a8a8;
+    }
+}
