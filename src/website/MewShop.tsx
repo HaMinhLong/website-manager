@@ -1,26 +1,26 @@
 // THIRD IMPORT
-import { Route, Routes } from "react-router-dom";
-import { BackTop } from "antd";
+import { Route, Routes } from 'react-router-dom';
+import { BackTop } from 'antd';
 
 // PROJECT IMPORT
-import Header from "layout/MewShop/Header";
-import Footer from "layout/MewShop/Footer";
+import Header from 'layout/MewShop/Header';
+import Footer from 'layout/MewShop/Footer';
 
-import Home from "pages/MewShop/Home";
-import Introduce from "pages/MewShop/Introduce";
-import ArticleDetail from "pages/MewShop/ArticleDetail";
-import Products from "pages/MewShop/Products";
-import Article from "pages/MewShop/Article";
-import Location from "pages/MewShop/Location";
-import Contact from "pages/MewShop/Contact";
-import ProductDetail from "pages/MewShop/ProductDetail";
-import Cart from "pages/MewShop/Cart";
-import Checkout from "pages/MewShop/Checkout";
+import Home from 'pages/MewShop/Home';
+import Introduce from 'pages/MewShop/Introduce';
+import ArticleDetail from 'pages/MewShop/ArticleDetail';
+import Products from 'pages/MewShop/Products';
+import Article from 'pages/MewShop/Article';
+import Location from 'pages/MewShop/Location';
+import Contact from 'pages/MewShop/Contact';
+import ProductDetail from 'pages/MewShop/ProductDetail';
+import Cart from 'pages/MewShop/Cart';
+import Checkout from 'pages/MewShop/Checkout';
 
 // STATIC IMPORT
-import "static/MewShop/css/main.css";
-import "static/MewShop/css/responsive.css";
-import "static/MewShop/css/styles.css";
+import 'static/MewShop/css/main.css';
+import 'static/MewShop/css/responsive.css';
+import 'static/MewShop/css/styles.css';
 
 const MewShop = () => {
   return (

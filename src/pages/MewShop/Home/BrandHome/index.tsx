@@ -1,11 +1,11 @@
 // THIRD IMPORT
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import OwlCarousel from "react-owl-carousel";
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import OwlCarousel from 'react-owl-carousel';
 
 // PROJECT IMPORT
-import { CategoryType } from "types/category";
-import Loading from "components/Extended/Loading";
+import { CategoryType } from 'types/category';
+import Loading from 'components/Extended/Loading';
 
 const END_POINT = process.env.REACT_APP_SERVER;
 
@@ -21,17 +21,17 @@ const Index = () => {
 
   const getDetail = () => {
     dispatch({
-      type: "category/getOne",
-      payload: { id: 6 },
+      type: 'category/getOne',
+      payload: { id: 7 },
       callback: (res) => {
         setLoading(false);
         if (res?.success) {
           const {
-            results: { list },
+            results: { list }
           } = res;
           setDetail(list);
         }
-      },
+      }
     });
   };
 
@@ -54,24 +54,24 @@ const Index = () => {
           responsive={{
             0: {
               items: 4,
-              stagePadding: 0,
+              stagePadding: 0
             },
             600: {
               items: 6,
-              stagePadding: 0,
+              stagePadding: 0
             },
             1024: {
               items: 7,
-              stagePadding: 0,
+              stagePadding: 0
             },
             1300: {
               items: 10,
-              stagePadding: 0,
-            },
+              stagePadding: 0
+            }
           }}
           key={`carousel_article`}
         >
-          {detail?.images?.split(",").map((item, index) => (
+          {detail?.images?.split(',').map((item, index) => (
             <div data-aos="fade-left" data-aos-delay={(index + 1) * 50}>
               <img key={item} src={`${END_POINT}${item}`} alt="brand" />
             </div>
