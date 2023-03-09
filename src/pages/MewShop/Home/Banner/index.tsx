@@ -1,5 +1,5 @@
 // THIRD IMPORT
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import OwlCarousel from 'react-owl-carousel';
 
@@ -39,30 +39,35 @@ const Index = () => {
     });
   };
 
-  return (
-    <section className="banner_home">
-      <OwlCarousel
-        className="owl-theme"
-        dots={false}
-        items={1}
-        margin={10}
-        autoplay
-        loop
-        touchDrag={true}
-        responsive={{
-          0: {
-            items: 1,
-            stagePadding: 0
-          }
-        }}
-        key={`carousel_article`}
-      >
-        {detail?.images?.split(',')?.map((item) => (
-          <img src={`${END_POINT}${item}`} alt="banner" key={item} />
-        ))}
-      </OwlCarousel>
-    </section>
+  const banner = useMemo(
+    () => (
+      <section className="banner_home">
+        <OwlCarousel
+          className="owl-theme"
+          dots={false}
+          items={1}
+          margin={10}
+          autoplay
+          loop
+          touchDrag={true}
+          responsive={{
+            0: {
+              items: 1,
+              stagePadding: 0
+            }
+          }}
+          key={`carousel_article`}
+        >
+          {detail?.images?.split(',')?.map((item) => (
+            <img src={`${END_POINT}${item}`} alt="banner" key={item} />
+          ))}
+        </OwlCarousel>
+      </section>
+    ),
+    [detail]
   );
+
+  return banner;
 };
 
 export default Index;
