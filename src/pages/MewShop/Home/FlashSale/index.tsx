@@ -60,61 +60,63 @@ const Index = () => {
           </div>
           <p style={{ marginBottom: '5px', textAlign: 'center' }}>{category?.description}</p>
           <div className="list">
-            <OwlCarousel
-              className="owl-theme"
-              dots={false}
-              items={4}
-              margin={10}
-              autoplay
-              loop
-              touchDrag={true}
-              responsive={{
-                0: {
-                  items: 2,
-                  stagePadding: 0
-                },
-                600: {
-                  items: 2,
-                  stagePadding: 0
-                },
-                1024: {
-                  items: 2,
-                  stagePadding: 0
-                },
-                1300: {
-                  items: 3,
-                  stagePadding: 0
-                }
-              }}
-              key={`carousel_shirt`}
-            >
-              {products?.map((item) => (
-                <div style={{ width: '100%' }} className="product" key={item?.id}>
-                  <Link to={`${item?.category?.url}/${item?.url}`} className="image_box">
-                    <div className="ct">Chi tiết</div>
-                    <img src={`${END_POINT}${item?.images?.split(',')[0]}`} alt={item?.name} />
-                    <img src={`${END_POINT}${item?.images?.split(',')[1]}`} alt={item?.name} />
-                  </Link>
-                  {item?.isSale && (
-                    <div className="sale_box">
-                      <p>-{getSale(item?.price, item?.negotiablePrice)}%</p>
-                    </div>
-                  )}
-                  <div className="content">
-                    <Link to={`${item?.category?.url}/${item?.url}`}>{item?.name} </Link>
-                    <p className="price">
-                      {item?.isSale ? formatPrice(item?.negotiablePrice) : formatPrice(item?.price)}{' '}
-                      {item?.isSale && <del>{formatPrice(item?.price)}</del>}
-                    </p>
-                    <div className="status">
-                      <img style={{ width: '17px', height: '17px' }} src={hotSale} alt="" />
-                      <p>Sắp cháy hàng</p>
-                      <div className="bg"></div>
+            {products?.length > 0 && (
+              <OwlCarousel
+                className="owl-theme"
+                dots={false}
+                items={4}
+                margin={10}
+                autoplay
+                loop
+                touchDrag={true}
+                responsive={{
+                  0: {
+                    items: 2,
+                    stagePadding: 0
+                  },
+                  600: {
+                    items: 2,
+                    stagePadding: 0
+                  },
+                  1024: {
+                    items: 2,
+                    stagePadding: 0
+                  },
+                  1300: {
+                    items: 3,
+                    stagePadding: 0
+                  }
+                }}
+                key={`carousel_shirt`}
+              >
+                {products?.map((item) => (
+                  <div style={{ width: '100%' }} className="product" key={item?.id}>
+                    <Link to={`${item?.category?.url}/${item?.url}`} className="image_box">
+                      <div className="ct">Chi tiết</div>
+                      <img src={`${END_POINT}${item?.images?.split(',')[0]}`} alt={item?.name} />
+                      <img src={`${END_POINT}${item?.images?.split(',')[1]}`} alt={item?.name} />
+                    </Link>
+                    {item?.isSale && (
+                      <div className="sale_box">
+                        <p>-{getSale(item?.price, item?.negotiablePrice)}%</p>
+                      </div>
+                    )}
+                    <div className="content">
+                      <Link to={`${item?.category?.url}/${item?.url}`}>{item?.name} </Link>
+                      <p className="price">
+                        {item?.isSale ? formatPrice(item?.negotiablePrice) : formatPrice(item?.price)}{' '}
+                        {item?.isSale && <del>{formatPrice(item?.price)}</del>}
+                      </p>
+                      <div className="status">
+                        <img style={{ width: '17px', height: '17px' }} src={hotSale} alt="" />
+                        <p>Sắp cháy hàng</p>
+                        <div className="bg"></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </OwlCarousel>
+                ))}
+              </OwlCarousel>
+            )}
           </div>
           {/* <Link to={`/collection${category?.url}`} className="btn btn_more">
       Xem thêm

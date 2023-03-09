@@ -69,56 +69,58 @@ const Index = () => {
             </div>
           </div>
           <div className="list">
-            <OwlCarousel
-              className="owl-theme"
-              dots={false}
-              items={4}
-              margin={10}
-              autoplay
-              loop
-              touchDrag={true}
-              responsive={{
-                0: {
-                  items: 2,
-                  stagePadding: 0
-                },
-                600: {
-                  items: 2,
-                  stagePadding: 0
-                },
-                1024: {
-                  items: 2,
-                  stagePadding: 0
-                },
-                1300: {
-                  items: 3,
-                  stagePadding: 0
-                }
-              }}
-              key={`carousel_shirt`}
-            >
-              {products?.map((item) => (
-                <div className="product" style={{ width: '100%' }} key={item?.id}>
-                  <div className="image_box" onClick={() => navigate(`${category?.url}/${item?.url}`)}>
-                    <div className="ct">Chi tiết</div>
-                    <img src={`${END_POINT}${item?.images?.split(',')[0]}`} alt={item?.name} />
-                    <img src={`${END_POINT}${item?.images?.split(',')[1]}`} alt={item?.name} />
-                  </div>
-                  {item?.isSale && (
-                    <div className="sale_box">
-                      <p>-{getSale(item?.price, item?.negotiablePrice)}%</p>
+            {products?.length > 0 && (
+              <OwlCarousel
+                className="owl-theme"
+                dots={false}
+                items={4}
+                margin={10}
+                autoplay
+                loop
+                touchDrag={true}
+                responsive={{
+                  0: {
+                    items: 2,
+                    stagePadding: 0
+                  },
+                  600: {
+                    items: 2,
+                    stagePadding: 0
+                  },
+                  1024: {
+                    items: 2,
+                    stagePadding: 0
+                  },
+                  1300: {
+                    items: 3,
+                    stagePadding: 0
+                  }
+                }}
+                key={`carousel_shirt`}
+              >
+                {products?.map((item) => (
+                  <div className="product" style={{ width: '100%' }} key={item?.id}>
+                    <div className="image_box" onClick={() => navigate(`${category?.url}/${item?.url}`)}>
+                      <div className="ct">Chi tiết</div>
+                      <img src={`${END_POINT}${item?.images?.split(',')[0]}`} alt={item?.name} />
+                      <img src={`${END_POINT}${item?.images?.split(',')[1]}`} alt={item?.name} />
                     </div>
-                  )}
-                  <div className="content">
-                    <Link to={`${category?.url}/${item?.url}`}>{item?.name} </Link>
-                    <p className="price">
-                      {item?.isSale ? formatPrice(item?.negotiablePrice) : formatPrice(item?.price)}{' '}
-                      {item?.isSale && <del>{formatPrice(item?.price)}</del>}
-                    </p>
+                    {item?.isSale && (
+                      <div className="sale_box">
+                        <p>-{getSale(item?.price, item?.negotiablePrice)}%</p>
+                      </div>
+                    )}
+                    <div className="content">
+                      <Link to={`${category?.url}/${item?.url}`}>{item?.name} </Link>
+                      <p className="price">
+                        {item?.isSale ? formatPrice(item?.negotiablePrice) : formatPrice(item?.price)}{' '}
+                        {item?.isSale && <del>{formatPrice(item?.price)}</del>}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </OwlCarousel>
+                ))}
+              </OwlCarousel>
+            )}
           </div>
           <Link to={`/products${category?.url}`}>Xem thêm</Link>
         </div>
