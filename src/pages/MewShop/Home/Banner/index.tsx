@@ -23,7 +23,7 @@ const Index = () => {
       filter: JSON.stringify({ status: 1, websiteId: 1, categoryId: 6 }),
       range: JSON.stringify([0, 4]),
       sort: JSON.stringify(['createdAt', 'DESC']),
-      attributes: 'images'
+      attributes: 'images,description'
     };
 
     dispatch({
@@ -40,12 +40,14 @@ const Index = () => {
     });
   };
 
+  console.log('banner home');
+
   const banner = useMemo(
     () => (
       <section className="banner_home">
         <OwlCarousel
           className="owl-theme"
-          dots={false}
+          dots={true}
           items={1}
           margin={10}
           autoplay
@@ -64,8 +66,8 @@ const Index = () => {
           ))}
         </OwlCarousel>
         <div className="content__banner">
-          <p className="smallTitle__content--banner">Up to 50% off</p>
-          <p className="title__content--banner">Summer sale</p>
+          <p className="smallTitle__content--banner">{detail?.description?.split('//')?.[0]}</p>
+          <p className="title__content--banner">{detail?.description?.split('//')?.[1]}</p>
           <Link to="products/quan-ao">
             <span>Shop Now</span>
           </Link>

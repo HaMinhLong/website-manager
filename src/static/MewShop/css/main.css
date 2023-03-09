@@ -597,12 +597,13 @@ header.active {
 .banner_home {
   position: relative;
   width: 100%;
+  margin-bottom: 40px;
 }
 
 .banner__img {
   height: 85vh;
   min-height: 500px;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
 }
 
 .content__banner {
