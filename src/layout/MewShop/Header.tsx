@@ -14,11 +14,6 @@ import { ReactComponent as HomeIcon } from 'static/MewShop/images/home/home-icon
 import { ReactComponent as PhoneIcon } from 'static/MewShop/images/home/phone-icon.svg';
 import { ReactComponent as CartIcon } from 'static/MewShop/images/home/cart-icon.svg';
 import { ReactComponent as MenuIcon } from 'static/MewShop/images/home/menu-icon.svg';
-import iconMenu1 from 'static/MewShop/images/home/icon_menu_1.png';
-import iconMenu2 from 'static/MewShop/images/home/icon_menu_2.png';
-import iconMenu3 from 'static/MewShop/images/home/icon_menu_3.png';
-import iconMenu4 from 'static/MewShop/images/home/icon_menu_4.png';
-import iconMenu5 from 'static/MewShop/images/home/icon_menu_5.png';
 import { useSelector } from 'app/store';
 import { order, updateCart } from 'features/order/orderSlice';
 

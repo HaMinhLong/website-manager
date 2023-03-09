@@ -704,6 +704,7 @@ header.active {
   font-weight: 700;
   margin-bottom: 8px;
   color: #fff;
+  text-align: center;
 }
 
 .products_home .bg_home .introduce .title_type_2 {
@@ -1620,6 +1621,12 @@ footer .footer_license .container .image_box img {
 .article_details_page .details .descriptions span,
 .article_details_page .details .descriptions img {
   width: 100%;
+}
+
+.descriptions img {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .article_details_page .details .descriptions p {
