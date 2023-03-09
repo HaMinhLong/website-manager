@@ -1,14 +1,14 @@
 // THIRD IMPORT
-import React from "react";
+import React from 'react';
 
 // PROJECT IMPORT
-import Banner from "pages/MewShop/Home/Banner";
-import FlashSale from "pages/MewShop/Home/FlashSale";
-import ShirtHome from "pages/MewShop/Home/ShirtHome";
-import ShortHome from "pages/MewShop/Home/ShortHome";
-import TShirtHome from "pages/MewShop/Home/TShirtHome";
-import ArticleHome from "pages/MewShop/Home/ArticleHome";
-import BrandHome from "pages/MewShop/Home/BrandHome";
+import Banner from 'pages/MewShop/Home/Banner';
+import FlashSale from 'pages/MewShop/Home/FlashSale';
+import ShirtHome from 'pages/MewShop/Home/ShirtHome';
+import ShortHome from 'pages/MewShop/Home/ShortHome';
+import TShirtHome from 'pages/MewShop/Home/TShirtHome';
+import ArticleHome from 'pages/MewShop/Home/ArticleHome';
+import BrandHome from 'pages/MewShop/Home/BrandHome';
 
 const Home = () => {
   return (

@@ -1,23 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // THIRD IMPORT
-import { useState, useEffect } from "react";
-import { Row, Col, Radio, Space, Pagination } from "antd";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { Row, Col, Radio, Space, Pagination } from 'antd';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 // PROJECT IMPORT
-import BreadCrumb from "layout/MewShop/BreadCrumb";
-import article1 from "static/MewShop/images/home/articles-1.jpg";
-import article2 from "static/MewShop/images/home/articles-2.jpg";
-import article3 from "static/MewShop/images/home/articles-3.jpeg";
-import article4 from "static/MewShop/images/home/articles-4.jpg";
-import filter from "static/MewShop/images/product/filter.png";
-import closeFilter from "static/MewShop/images/product/filter_close.png";
-import { ProductType, PaginationType } from "types/product";
-import { CategoryType } from "types/category";
-import { ProducerType } from "types/producer";
-import { formatPrice, getSale } from "utils/utils";
-import { useDispatch } from "app/store";
-import Loading from "components/Extended/Loading";
+import BreadCrumb from 'layout/MewShop/BreadCrumb';
+import article1 from 'static/MewShop/images/home/articles-1.jpg';
+import article2 from 'static/MewShop/images/home/articles-2.jpg';
+import article3 from 'static/MewShop/images/home/articles-3.jpeg';
+import article4 from 'static/MewShop/images/home/articles-4.jpg';
+import filter from 'static/MewShop/images/product/filter.png';
+import closeFilter from 'static/MewShop/images/product/filter_close.png';
+import { ProductType, PaginationType } from 'types/product';
+import { CategoryType } from 'types/category';
+import { ProducerType } from 'types/producer';
+import { formatPrice, getSale } from 'utils/utils';
+import { useDispatch } from 'app/store';
+import Loading from 'components/Extended/Loading';
 
 const END_POINT = process.env.REACT_APP_SERVER;
 const PAGE_SIZE = 12;
@@ -27,10 +27,10 @@ const Products = () => {
   const dispatch = useDispatch();
   const params = useParams();
 
-  const [type, setType] = useState("");
-  const [price, setPrice] = useState("");
-  const [brand, setBrand] = useState("");
-  const [sort, setSort] = useState("");
+  const [type, setType] = useState('');
+  const [price, setPrice] = useState('');
+  const [brand, setBrand] = useState('');
+  const [sort, setSort] = useState('');
   const [openFilter, setOpenFilter] = useState(false);
   const [products, setProducts] = useState<ProductType[]>([]);
   const [category, setCategory] = useState<CategoryType>({});
@@ -39,7 +39,7 @@ const Products = () => {
   const [categoryChild, setCategoryChild] = useState<CategoryType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [filters, setFilters] = useState<any>({
-    page: 1,
+    page: 1
   });
 
   const { url, urlChild, collection } = params;
@@ -65,22 +65,23 @@ const Products = () => {
   const getDetailCategory = () => {
     setLoading(true);
     dispatch({
-      type: "category/getOneUrl",
+      type: 'category/getOneUrl',
       payload: {
         id: urlChild || url || collection,
-        params: { findChild: !collection },
+        params: { findChild: !collection }
       },
       callback: (res) => {
+        setLoading(false);
         if (res?.success) {
           const {
             results: {
-              list: { category, children },
-            },
+              list: { category, children }
+            }
           } = res;
           setCategory(category);
           setCategoryChild(children);
         }
-      },
+      }
     });
   };
 
@@ -89,29 +90,26 @@ const Products = () => {
       filter: JSON.stringify({
         status: 1,
         websiteId: 1,
-        categoryId: category?.id,
+        categoryId: category?.id
       }),
-      range: JSON.stringify([
-        filters?.page * PAGE_SIZE - PAGE_SIZE,
-        filters?.page * PAGE_SIZE,
-      ]),
-      sort: JSON.stringify(["createdAt", "DESC"]),
-      attributes: "id,name,price,isSale,images,negotiablePrice,createdAt,url",
+      range: JSON.stringify([filters?.page * PAGE_SIZE - PAGE_SIZE, filters?.page * PAGE_SIZE]),
+      sort: JSON.stringify(['createdAt', 'DESC']),
+      attributes: 'id,name,price,isSale,images,negotiablePrice,createdAt,url'
     };
 
     dispatch({
-      type: "product/fetch",
+      type: 'product/fetch',
       payload: params,
       callback: (res) => {
         setLoading(false);
         if (res?.success) {
           const {
-            results: { list, pagination },
+            results: { list, pagination }
           } = res;
           setProducts(list);
           setPagination(pagination);
         }
-      },
+      }
     });
   };
 
@@ -119,21 +117,22 @@ const Products = () => {
     let params = {
       filter: JSON.stringify({
         websiteId: 1,
-        categoryId: category.id,
-      }),
+        categoryId: category.id
+      })
     };
 
     dispatch({
-      type: "product/producer",
+      type: 'product/producer',
       payload: params,
       callback: (res) => {
+        setLoading(false);
         if (res?.success) {
           const {
-            results: { list },
+            results: { list }
           } = res;
           setProducers(list);
         }
-      },
+      }
     });
   };
 
@@ -146,27 +145,18 @@ const Products = () => {
         {!urlChild && (
           <div className="categories_box">
             {categoryChild?.map((item) => (
-              <div
-                className="category"
-                key={item?.id}
-                onClick={() =>
-                  navigate(`/products${category?.url}${item?.url}`)
-                }
-              >
+              <div className="category" key={item?.id} onClick={() => navigate(`/products${category?.url}${item?.url}`)}>
                 <p>{item?.text}</p>
               </div>
             ))}
           </div>
         )}
-        <div className="main_section" style={{ marginTop: "20px" }}>
+        <div className="main_section" style={{ marginTop: '20px' }}>
           <div className="left_side">
             <div className="filter_box">
               <div className="brand">
                 <p className="main_title">Thương hiệu</p>
-                <Radio.Group
-                  onChange={(e) => setBrand(e.target.value)}
-                  value={brand}
-                >
+                <Radio.Group onChange={(e) => setBrand(e.target.value)} value={brand}>
                   <Space direction="vertical">
                     <Radio value="">Tất cả</Radio>
                     {producers?.map((item) => (
@@ -180,10 +170,7 @@ const Products = () => {
 
               <div className="price">
                 <p className="main_title">Lọc giá</p>
-                <Radio.Group
-                  onChange={(e) => setPrice(e.target.value)}
-                  value={price}
-                >
+                <Radio.Group onChange={(e) => setPrice(e.target.value)} value={price}>
                   <Space direction="vertical">
                     <Radio value="">Tất cả</Radio>
                     <Radio value={1}>Giá dưới 100.000đ</Radio>
@@ -204,10 +191,7 @@ const Products = () => {
                   <img src={article4} alt="" />
                 </div>
                 <div className="content">
-                  <div className="article_title">
-                    Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và
-                    Hàn
-                  </div>
+                  <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
                   <p className="date">Ngày đăng: 05/05/2021</p>
                 </div>
               </div>
@@ -216,10 +200,7 @@ const Products = () => {
                   <img src={article1} alt="" />
                 </div>
                 <div className="content">
-                  <div className="article_title">
-                    Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và
-                    Hàn
-                  </div>
+                  <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
                   <p className="date">Ngày đăng: 05/05/2021</p>
                 </div>
               </div>
@@ -228,10 +209,7 @@ const Products = () => {
                   <img src={article3} alt="" />
                 </div>
                 <div className="content">
-                  <div className="article_title">
-                    Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và
-                    Hàn
-                  </div>
+                  <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
                   <p className="date">Ngày đăng: 05/05/2021</p>
                 </div>
               </div>
@@ -240,10 +218,7 @@ const Products = () => {
                   <img src={article2} alt="" />
                 </div>
                 <div className="content">
-                  <div className="article_title">
-                    Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và
-                    Hàn
-                  </div>
+                  <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
                   <p className="date">Ngày đăng: 05/05/2021</p>
                 </div>
               </div>
@@ -252,10 +227,7 @@ const Products = () => {
                   <img src={article3} alt="" />
                 </div>
                 <div className="content">
-                  <div className="article_title">
-                    Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và
-                    Hàn
-                  </div>
+                  <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
                   <p className="date">Ngày đăng: 05/05/2021</p>
                 </div>
               </div>
@@ -267,10 +239,7 @@ const Products = () => {
             <div className="sort">
               <p className="main_title">Sắp xếp: </p>
               <div className="box">
-                <Radio.Group
-                  onChange={(e) => setSort(e.target.value)}
-                  value={sort}
-                >
+                <Radio.Group onChange={(e) => setSort(e.target.value)} value={sort}>
                   <Radio value={1}>A ➞ Z</Radio>
                   <Radio value={2}>Z ➞ A</Radio>
                   <Radio value={3}>Giá tăng dần</Radio>
@@ -283,22 +252,11 @@ const Products = () => {
             <Row gutter={[32, 5]} className="products">
               {products?.map((item) => (
                 <Col xs={12} md={8} lg={8} xl={6} key={item?.id}>
-                  <div className="product" style={{ marginBottom: "10px" }}>
-                    <Link
-                      to={`${
-                        collection ? item?.category?.url : category?.url
-                      }/${item?.url}`}
-                      className="image_box"
-                    >
+                  <div className="product" style={{ marginBottom: '10px' }}>
+                    <Link to={`${collection ? item?.category?.url : category?.url}/${item?.url}`} className="image_box">
                       <div className="ct">Chi tiết</div>
-                      <img
-                        src={`${END_POINT}${item?.images?.split(",")[0]}`}
-                        alt={item?.name}
-                      />
-                      <img
-                        src={`${END_POINT}${item?.images?.split(",")[1]}`}
-                        alt={item?.name}
-                      />
+                      <img src={`${END_POINT}${item?.images?.split(',')[0]}`} alt={item?.name} />
+                      <img src={`${END_POINT}${item?.images?.split(',')[1]}`} alt={item?.name} />
                     </Link>
                     {item?.isSale && (
                       <div className="sale_box">
@@ -306,17 +264,9 @@ const Products = () => {
                       </div>
                     )}
                     <div className="content">
-                      <Link
-                        to={`${
-                          collection ? item?.category?.url : category?.url
-                        }/${item?.url}`}
-                      >
-                        {item?.name}{" "}
-                      </Link>
+                      <Link to={`${collection ? item?.category?.url : category?.url}/${item?.url}`}>{item?.name} </Link>
                       <p className="price">
-                        {item?.isSale
-                          ? formatPrice(item?.negotiablePrice)
-                          : formatPrice(item?.price)}{" "}
+                        {item?.isSale ? formatPrice(item?.negotiablePrice) : formatPrice(item?.price)}{' '}
                         {item?.isSale && <del>{formatPrice(item?.price)}</del>}
                       </p>
                     </div>
@@ -325,9 +275,7 @@ const Products = () => {
               ))}
               {products?.length === 0 && (
                 <Col xl={24} lg={24} md={24} xs={24}>
-                  <p style={{ textAlign: "center", color: "#ff0000" }}>
-                    Không có sản phẩm nào trong danh mục này.
-                  </p>
+                  <p style={{ textAlign: 'center', color: '#ff0000' }}>Không có sản phẩm nào trong danh mục này.</p>
                 </Col>
               )}
               {products?.length > 0 && (
@@ -338,28 +286,19 @@ const Products = () => {
                     pageSize={PAGE_SIZE}
                     total={pagination?.total}
                     className="paginationPage"
-                    style={{ marginTop: "30px" }}
+                    style={{ marginTop: '30px' }}
                     onChange={(page) => setFilters({ ...filters, page: page })}
                   />
                 </Col>
               )}
             </Row>
           </div>
-          <div
-            className={openFilter ? "filter_mobile active" : "filter_mobile"}
-          >
-            <img
-              src={openFilter ? closeFilter : filter}
-              alt=""
-              onClick={() => setOpenFilter(!openFilter)}
-            />
+          <div className={openFilter ? 'filter_mobile active' : 'filter_mobile'}>
+            <img src={openFilter ? closeFilter : filter} alt="" onClick={() => setOpenFilter(!openFilter)} />
             <div className="filter_box">
               <div className="brand">
                 <p className="main_title">Thương hiệu</p>
-                <Radio.Group
-                  onChange={(e) => setBrand(e.target.value)}
-                  value={brand}
-                >
+                <Radio.Group onChange={(e) => setBrand(e.target.value)} value={brand}>
                   <Space direction="vertical">
                     <Radio value="">Tất cả</Radio>
                     {producers?.map((item) => (
@@ -373,10 +312,7 @@ const Products = () => {
 
               <div className="price">
                 <p className="main_title">Lọc giá</p>
-                <Radio.Group
-                  onChange={(e) => setPrice(e.target.value)}
-                  value={price}
-                >
+                <Radio.Group onChange={(e) => setPrice(e.target.value)} value={price}>
                   <Space direction="vertical">
                     <Radio value={1}>Giá dưới 100.000đ</Radio>
                     <Radio value={2}>100.000đ - 200.000đ</Radio>
@@ -388,10 +324,7 @@ const Products = () => {
                 </Radio.Group>
               </div>
             </div>
-            <div
-              className={openFilter ? "bg active" : "bg"}
-              onClick={() => setOpenFilter(false)}
-            ></div>
+            <div className={openFilter ? 'bg active' : 'bg'} onClick={() => setOpenFilter(false)}></div>
           </div>
         </div>
       </section>

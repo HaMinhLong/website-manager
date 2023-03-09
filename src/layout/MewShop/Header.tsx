@@ -37,6 +37,8 @@ const Header = () => {
   const [toggleSearch, setToggleSearch] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
+  const [menuActive, setMenuActive] = useState('');
+
   const cart = useRef(JSON.parse(localStorage.getItem('cart') || '[]'));
 
   useEffect(() => {
@@ -235,26 +237,22 @@ const Header = () => {
         className="menu_res"
       >
         <ul>
-          <li className="active">
-            <img src={iconMenu1} alt="" />
-            <p>Áo thun</p>
-          </li>
-          <li>
-            <img src={iconMenu2} alt="" />
-            <p>Quần short</p>
-          </li>
-          <li>
-            <img src={iconMenu3} alt="" />
-            <p>Sơ mi dài tay</p>
-          </li>
-          <li>
-            <img src={iconMenu4} alt="" />
-            <p>Sơ mi ngắn tay</p>
-          </li>
-          <li>
-            <img src={iconMenu5} alt="" />
-            <p>Quần dài</p>
-          </li>
+          {menus
+            ?.find((item) => item?.url === '/products')
+            ?.children?.map((item) => (
+              <li className={item?.url === menuActive ? 'active' : ''}>
+                <Link
+                  to={`/products${item?.url}`}
+                  onClick={() => {
+                    setMenuActive(item?.url);
+                    setOpenMenu(false);
+                  }}
+                >
+                  <img src={item?.icon} alt={item?.text} />
+                  <p>{item?.text}</p>
+                </Link>
+              </li>
+            ))}
         </ul>
         <ul className="categories">
           <li>

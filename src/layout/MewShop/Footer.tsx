@@ -1,16 +1,16 @@
 // THIRD IMPORT
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 // PROJECT IMPORT
-import logo from "static/MewShop/images/home/logo.png";
-import facebook from "static/MewShop/images/home/facebook.png";
-import twitter from "static/MewShop/images/home/twitter.png";
-import instagram from "static/MewShop/images/home/instagram.png";
-import youtube from "static/MewShop/images/home/youtube.png";
-import shopee from "static/MewShop/images/home/shopee.png";
-import tiki from "static/MewShop/images/home/tiki.png";
-import lazada from "static/MewShop/images/home/lazada.png";
-import sendo from "static/MewShop/images/home/sendo.png";
+import logo from 'static/MewShop/images/home/logo.png';
+import facebook from 'static/MewShop/images/home/facebook.png';
+// import twitter from 'static/MewShop/images/home/twitter.png';
+// import instagram from 'static/MewShop/images/home/instagram.png';
+// import youtube from 'static/MewShop/images/home/youtube.png';
+import shopee from 'static/MewShop/images/home/shopee.png';
+import tiki from 'static/MewShop/images/home/tiki.png';
+import lazada from 'static/MewShop/images/home/lazada.png';
+import sendo from 'static/MewShop/images/home/sendo.png';
 
 const Footer = () => {
   return (
@@ -19,9 +19,8 @@ const Footer = () => {
         <div className="footer_logo">
           <img src={logo} alt="" />
           <p>
-            Chúng tôi được thành lập từ tháng 4 năm 2020, với sứ mệnh đem lại
-            những cảm giác hoàn toàn dị biệt khi lạc trong một vũ trụ cực kì
-            dark với tông màu chủ đạo cyberpunk là signature.
+            Chúng tôi được thành lập từ tháng 4 năm 2020, với sứ mệnh đem lại những cảm giác hoàn toàn dị biệt khi lạc trong một vũ trụ cực
+            kì dark với tông màu chủ đạo cyberpunk là signature.
           </p>
         </div>
         <ul className="footer_menu">
@@ -91,20 +90,22 @@ const Footer = () => {
           <p>Số điện thoại: 1800 6750</p>
           <p className="footer_title connect">Kết nối với chúng tôi</p>
           <div className="image_box">
-            <img src={facebook} alt="" />
-            <img src={twitter} alt="" />
+            <a href="https://www.facebook.com/profile.php?id=100034814550396" target="_blank">
+              <img src={facebook} alt="fabook icon" />
+            </a>
+            {/* <img src={twitter} alt="" />
             <img src={instagram} alt="" />
-            <img src={youtube} alt="" />
+            <img src={youtube} alt="" /> */}
           </div>
         </div>
       </div>
       <div className="footer_license">
         <div className="container">
           <p>
-            © 2021 fashion.vgasoft.vn. All Rights Reserved. Develop by{" "}
+            © 2021 fashion.vgasoft.vn. All Rights Reserved. Develop by{' '}
             <a target="_blank" href="https://vgasoft.vn/" rel="noreferrer">
               VGA SOFT
-            </a>{" "}
+            </a>{' '}
             Design
           </p>
           <div className="image_box">
