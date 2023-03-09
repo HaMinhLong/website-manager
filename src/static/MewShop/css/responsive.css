@@ -297,6 +297,20 @@
   .banner_home {
     margin-top: 50px;
   }
+  .content__banner {
+    top: 20%;
+    left: 20px;
+  }
+  .content__banner .smallTitle__content--banner {
+    font-size: 24px;
+  }
+  .content__banner .title__content--banner {
+    font-size: 32px;
+  }
+  .content__banner a {
+    height: 40px;
+    line-height: 40px;
+  }
   .menu_res .ant-drawer-header {
     padding: 10px 20px;
     background: #f5f5f5;
@@ -564,6 +578,22 @@
 @media (max-width: 540px) {
   body {
     overflow: auto !important;
+  }
+  .content__banner {
+    top: 20%;
+    left: 20px;
+  }
+  .content__banner .smallTitle__content--banner {
+    font-size: 18px;
+  }
+  .content__banner .title__content--banner {
+    font-size: 24px;
+  }
+  .content__banner a {
+    height: 30px;
+    width: 150px;
+    line-height: 30px;
+    font-size: 14px;
   }
   .article_short_description {
     height: 42px;

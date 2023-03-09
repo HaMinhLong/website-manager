@@ -1,5 +1,5 @@
 // THIRD IMPORT
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import OwlCarousel from 'react-owl-carousel';
 
@@ -59,85 +59,90 @@ const Index = () => {
     });
   };
 
-  return (
-    <section className="products_home active">
-      <div className="products_list">
-        <div className="header_box">
-          <div className="title_box">
-            <p className="main_title">{category?.text}</p>
+  const tShirtHome = useMemo(
+    () => (
+      <section className="products_home active">
+        <div className="products_list">
+          <div className="header_box">
+            <div className="title_box">
+              <p className="main_title">{category?.text}</p>
+            </div>
+          </div>
+          <div className="list">
+            <OwlCarousel
+              className="owl-theme"
+              dots={false}
+              items={4}
+              margin={10}
+              autoplay
+              loop
+              touchDrag={true}
+              responsive={{
+                0: {
+                  items: 2,
+                  stagePadding: 0
+                },
+                600: {
+                  items: 2,
+                  stagePadding: 0
+                },
+                1024: {
+                  items: 2,
+                  stagePadding: 0
+                },
+                1300: {
+                  items: 3,
+                  stagePadding: 0
+                }
+              }}
+              key={`carousel_shirt`}
+            >
+              {products?.map((item) => (
+                <div className="product" style={{ width: '100%' }} key={item?.id}>
+                  <div className="image_box" onClick={() => navigate(`${category?.url}/${item?.url}`)}>
+                    <div className="ct">Chi tiết</div>
+                    <img src={`${END_POINT}${item?.images?.split(',')[0]}`} alt={item?.name} />
+                    <img src={`${END_POINT}${item?.images?.split(',')[1]}`} alt={item?.name} />
+                  </div>
+                  {item?.isSale && (
+                    <div className="sale_box">
+                      <p>-{getSale(item?.price, item?.negotiablePrice)}%</p>
+                    </div>
+                  )}
+                  <div className="content">
+                    <Link to={`${category?.url}/${item?.url}`}>{item?.name} </Link>
+                    <p className="price">
+                      {item?.isSale ? formatPrice(item?.negotiablePrice) : formatPrice(item?.price)}{' '}
+                      {item?.isSale && <del>{formatPrice(item?.price)}</del>}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </OwlCarousel>
+          </div>
+          <Link to={`/products${category?.url}`}>Xem thêm</Link>
+        </div>
+        <div
+          className="bg_home"
+          style={{
+            backgroundImage: `url(${`${END_POINT}${category?.images?.split(',')[0]}`})`
+          }}
+        >
+          <div className="introduce">
+            <p className="title_type_1">THỜI TRANG</p>
+            <p className="title_type_2">{category?.text}</p>
+            <p className="short_description">{category?.description}</p>
+            <Link to={`/products${category?.url}`} className="btn btn_more">
+              Xem thêm
+            </Link>
           </div>
         </div>
-        <div className="list">
-          <OwlCarousel
-            className="owl-theme"
-            dots={false}
-            items={4}
-            margin={10}
-            autoplay
-            loop
-            touchDrag={true}
-            responsive={{
-              0: {
-                items: 2,
-                stagePadding: 0
-              },
-              600: {
-                items: 2,
-                stagePadding: 0
-              },
-              1024: {
-                items: 2,
-                stagePadding: 0
-              },
-              1300: {
-                items: 3,
-                stagePadding: 0
-              }
-            }}
-            key={`carousel_shirt`}
-          >
-            {products?.map((item) => (
-              <div className="product" style={{ width: '100%' }} key={item?.id}>
-                <div className="image_box" onClick={() => navigate(`${category?.url}/${item?.url}`)}>
-                  <div className="ct">Chi tiết</div>
-                  <img src={`${END_POINT}${item?.images?.split(',')[0]}`} alt={item?.name} />
-                  <img src={`${END_POINT}${item?.images?.split(',')[1]}`} alt={item?.name} />
-                </div>
-                {item?.isSale && (
-                  <div className="sale_box">
-                    <p>-{getSale(item?.price, item?.negotiablePrice)}%</p>
-                  </div>
-                )}
-                <div className="content">
-                  <Link to={`${category?.url}/${item?.url}`}>{item?.name} </Link>
-                  <p className="price">
-                    {item?.isSale ? formatPrice(item?.negotiablePrice) : formatPrice(item?.price)}{' '}
-                    {item?.isSale && <del>{formatPrice(item?.price)}</del>}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </OwlCarousel>
-        </div>
-        <Link to={`/products${category?.url}`}>Xem thêm</Link>
-      </div>
-      <div
-        className="bg_home"
-        style={{
-          backgroundImage: `url(${`${END_POINT}${category?.images?.split(',')[0]}`})`
-        }}
-      >
-        <div className="introduce">
-          <p className="title_type_1">THỜI TRANG</p>
-          <p className="title_type_2">{category?.text}</p>
-          <p className="short_description">{category?.description}</p>
-          <Link to={`/products${category?.url}`} className="btn btn_more">
-            Xem thêm
-          </Link>
-        </div>
-      </div>
-    </section>
+      </section>
+    ),
+    [category, products]
   );
+
+  return tShirtHome;
 };
 
 export default Index;

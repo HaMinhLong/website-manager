@@ -1,5 +1,5 @@
 // THIRD IMPORT
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import OwlCarousel from 'react-owl-carousel';
 
@@ -35,52 +35,57 @@ const Index = () => {
     });
   };
 
-  return (
-    <section className="brand_top container">
-      <div className="header_box">
-        <div className="title_box">
-          <p className="main_title">{detail?.text?.toUpperCase()}</p>
+  const brandHome = useMemo(
+    () => (
+      <section className="brand_top container">
+        <div className="header_box">
+          <div className="title_box">
+            <p className="main_title">{detail?.text?.toUpperCase()}</p>
+          </div>
         </div>
-      </div>
-      <div className="image_box">
-        <OwlCarousel
-          className="owl-theme"
-          dots={false}
-          items={4}
-          margin={10}
-          autoplay
-          loop
-          touchDrag={true}
-          responsive={{
-            0: {
-              items: 4,
-              stagePadding: 0
-            },
-            600: {
-              items: 6,
-              stagePadding: 0
-            },
-            1024: {
-              items: 7,
-              stagePadding: 0
-            },
-            1300: {
-              items: 10,
-              stagePadding: 0
-            }
-          }}
-          key={`carousel_article`}
-        >
-          {detail?.images?.split(',').map((item, index) => (
-            <div data-aos="fade-left" data-aos-delay={(index + 1) * 50}>
-              <img key={item} src={`${END_POINT}${item}`} alt="brand" />
-            </div>
-          ))}
-        </OwlCarousel>
-      </div>
-      <Loading loading={loading} />
-    </section>
+        <div className="image_box">
+          <OwlCarousel
+            className="owl-theme"
+            dots={false}
+            items={4}
+            margin={10}
+            autoplay
+            loop
+            touchDrag={true}
+            responsive={{
+              0: {
+                items: 4,
+                stagePadding: 0
+              },
+              600: {
+                items: 6,
+                stagePadding: 0
+              },
+              1024: {
+                items: 7,
+                stagePadding: 0
+              },
+              1300: {
+                items: 10,
+                stagePadding: 0
+              }
+            }}
+            key={`carousel_article`}
+          >
+            {detail?.images?.split(',').map((item, index) => (
+              <div data-aos="fade-left" data-aos-delay={(index + 1) * 50}>
+                <img key={item} src={`${END_POINT}${item}`} alt="brand" />
+              </div>
+            ))}
+          </OwlCarousel>
+        </div>
+        <Loading loading={loading} />
+      </section>
+    ),
+    [detail]
   );
+
+  return brandHome;
 };
 
 export default Index;

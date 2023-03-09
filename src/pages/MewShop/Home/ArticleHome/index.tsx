@@ -1,5 +1,5 @@
 // THIRD IMPORT
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
@@ -41,66 +41,71 @@ const Index = () => {
     });
   };
 
-  return (
-    <section className="articles_home container">
-      <div className="header_box">
-        <div className="title_box">
-          <p className="main_title">tin tức - sự kiện</p>
+  const articleHome = useMemo(
+    () => (
+      <section className="articles_home container">
+        <div className="header_box">
+          <div className="title_box">
+            <p className="main_title">tin tức - sự kiện</p>
+          </div>
         </div>
-      </div>
 
-      <div className="articles_container">
-        <OwlCarousel
-          className="owl-theme"
-          dots={false}
-          items={4}
-          margin={10}
-          autoplay
-          loop
-          touchDrag={true}
-          responsive={{
-            0: {
-              items: 1,
-              stagePadding: 0
-            },
-            600: {
-              items: 2,
-              stagePadding: 0
-            },
-            1024: {
-              items: 3,
-              stagePadding: 0
-            },
-            1300: {
-              items: 4,
-              stagePadding: 0
-            }
-          }}
-          key={`carousel_article`}
-        >
-          {article?.map((item, index) => (
-            <div className="article" key={item?.id} data-aos="fade-left" data-aos-delay={(index + 1) * 50} style={{ width: '100%' }}>
-              <div className="image_box" style={{ cursor: 'pointer' }}>
-                <img src={`${END_POINT}${item?.images?.split(',')[0]}`} alt={item?.title} />
-                <div className="overlay"></div>
+        <div className="articles_container">
+          <OwlCarousel
+            className="owl-theme"
+            dots={false}
+            items={4}
+            margin={10}
+            autoplay
+            loop
+            touchDrag={true}
+            responsive={{
+              0: {
+                items: 1,
+                stagePadding: 0
+              },
+              600: {
+                items: 2,
+                stagePadding: 0
+              },
+              1024: {
+                items: 3,
+                stagePadding: 0
+              },
+              1300: {
+                items: 4,
+                stagePadding: 0
+              }
+            }}
+            key={`carousel_article`}
+          >
+            {article?.map((item, index) => (
+              <div className="article" key={item?.id} data-aos="fade-left" data-aos-delay={(index + 1) * 50} style={{ width: '100%' }}>
+                <div className="image_box" style={{ cursor: 'pointer' }}>
+                  <img src={`${END_POINT}${item?.images?.split(',')[0]}`} alt={item?.title} />
+                  <div className="overlay"></div>
+                </div>
+                <div className="date_box">
+                  <div className="day">{moment(item?.createdAt).format('DD')}</div>
+                  <div className="year">{moment(item?.createdAt).format('MM/YYYY')}</div>
+                  <div className="icon"></div>
+                </div>
+                <div className="content">
+                  <Link to={`/article/${item?.url}`} className="article_title">
+                    {item?.title}
+                  </Link>
+                  <p className="article_short_description">{item?.description}</p>
+                </div>
               </div>
-              <div className="date_box">
-                <div className="day">{moment(item?.createdAt).format('DD')}</div>
-                <div className="year">{moment(item?.createdAt).format('MM/YYYY')}</div>
-                <div className="icon"></div>
-              </div>
-              <div className="content">
-                <Link to={`/article/${item?.url}`} className="article_title">
-                  {item?.title}
-                </Link>
-                <p className="article_short_description">{item?.description}</p>
-              </div>
-            </div>
-          ))}
-        </OwlCarousel>
-      </div>
-    </section>
+            ))}
+          </OwlCarousel>
+        </div>
+      </section>
+    ),
+    [article]
   );
+
+  return articleHome;
 };
 
 export default Index;

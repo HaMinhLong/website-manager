@@ -2,6 +2,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import OwlCarousel from 'react-owl-carousel';
+import { Link } from 'react-router-dom';
 
 // PROJECT IMPORT
 
@@ -62,6 +63,13 @@ const Index = () => {
             <img src={`${END_POINT}${item}`} alt="banner" key={item} />
           ))}
         </OwlCarousel>
+        <div className="content__banner">
+          <p className="smallTitle__content--banner">Up to 50% off</p>
+          <p className="title__content--banner">Summer sale</p>
+          <Link to="products/quan-ao">
+            <span>Shop Now</span>
+          </Link>
+        </div>
       </section>
     ),
     [detail]
