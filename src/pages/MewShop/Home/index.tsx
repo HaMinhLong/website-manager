@@ -23,7 +23,7 @@ const Home = () => {
   }, []);
 
   return (
-    <>
+    <section>
       <Banner />
       <FlashSale />
       <TShirtHome />
@@ -32,7 +32,7 @@ const Home = () => {
       <ArticleHome />
       <BrandHome />
       <Loading loading={loading} />
-    </>
+    </section>
   );
 };
 

@@ -599,8 +599,10 @@ header.active {
   width: 100%;
 }
 
-.banner_home img {
-  width: 100%;
+.banner__img {
+  height: 85vh;
+  min-height: 500px;
+  margin-bottom: 50px;
 }
 
 .content__banner {

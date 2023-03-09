@@ -129,6 +129,11 @@
 }
 
 @media (max-width: 1024px) {
+  .banner__img {
+    height: 40vh;
+    min-height: 500px;
+    margin-bottom: 50px;
+  }
   header .logo_header img {
     width: 130px;
   }
@@ -246,6 +251,11 @@
 }
 
 @media (max-width: 768px) {
+  .banner__img {
+    height: 40vh;
+    min-height: 300px;
+    margin-bottom: 50px;
+  }
   header {
     height: 50px;
     background: #fff;
@@ -576,6 +586,11 @@
 }
 
 @media (max-width: 540px) {
+  .banner__img {
+    height: 30vh;
+    min-height: 200px;
+    margin-bottom: 50px;
+  }
   body {
     overflow: auto !important;
   }

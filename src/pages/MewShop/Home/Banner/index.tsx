@@ -60,7 +60,7 @@ const Index = () => {
           key={`carousel_article`}
         >
           {detail?.images?.split(',')?.map((item) => (
-            <img src={`${END_POINT}${item}`} alt="banner" key={item} />
+            <img className="banner__img" src={`${END_POINT}${item}`} alt="banner" key={item} />
           ))}
         </OwlCarousel>
         <div className="content__banner">
