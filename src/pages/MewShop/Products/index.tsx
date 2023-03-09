@@ -18,6 +18,8 @@ import { ProducerType } from 'types/producer';
 import { formatPrice, getSale } from 'utils/utils';
 import { useDispatch } from 'app/store';
 import Loading from 'components/Extended/Loading';
+import { ArticleType } from 'types/articles';
+import moment from 'moment';
 
 const END_POINT = process.env.REACT_APP_SERVER;
 const PAGE_SIZE = 12;
@@ -41,11 +43,13 @@ const Products = () => {
   const [filters, setFilters] = useState<any>({
     page: 1
   });
+  const [article, setArticle] = useState<ArticleType[]>([]);
 
   const { url, urlChild, collection } = params;
 
   useEffect(() => {
     getDetailCategory();
+    getListArticle();
   }, [url, urlChild, collection]);
 
   useEffect(() => {
@@ -136,6 +140,34 @@ const Products = () => {
     });
   };
 
+  const getListArticle = () => {
+    let params = {
+      filter: JSON.stringify({
+        status: 1,
+        websiteId: 1,
+        url: '',
+        categoryId: 8
+      }),
+      range: JSON.stringify([0, 4]),
+      sort: JSON.stringify(['createdAt', 'DESC']),
+      attributes: 'id,title,images,description,createdAt,url'
+    };
+
+    dispatch({
+      type: 'article/fetch',
+      payload: params,
+      callback: (res) => {
+        setLoading(false);
+        if (res?.success) {
+          const {
+            results: { list }
+          } = res;
+          setArticle(list);
+        }
+      }
+    });
+  };
+
   return (
     <>
       <BreadCrumb node1={category?.text} />
@@ -185,52 +217,25 @@ const Products = () => {
             </div>
 
             <div className="articles_box">
-              <div className="main_title">BÀI VIẾT NỐI BẬT</div>
-              <div className="article">
-                <div className="image_box">
-                  <img src={article4} alt="" />
+              <div className="main_title">TIN TỨC MỚI NHẤT</div>
+              {article?.map((item) => (
+                <div className="article">
+                  <div
+                    className="image_box"
+                    onClick={() => {
+                      navigate(`/article/${item?.url}`);
+                    }}
+                  >
+                    <img src={`${END_POINT}${item?.images?.split(',')[0]}`} alt={item?.title} />
+                  </div>
+                  <div className="content">
+                    <Link to={`/article/${item?.url}`} className="article_title">
+                      {item?.title}
+                    </Link>
+                    <p className="date">{moment(item?.createdAt).format('DD/MM/YYYY')}</p>
+                  </div>
                 </div>
-                <div className="content">
-                  <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                  <p className="date">Ngày đăng: 05/05/2021</p>
-                </div>
-              </div>
-              <div className="article">
-                <div className="image_box">
-                  <img src={article1} alt="" />
-                </div>
-                <div className="content">
-                  <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                  <p className="date">Ngày đăng: 05/05/2021</p>
-                </div>
-              </div>
-              <div className="article">
-                <div className="image_box">
-                  <img src={article3} alt="" />
-                </div>
-                <div className="content">
-                  <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                  <p className="date">Ngày đăng: 05/05/2021</p>
-                </div>
-              </div>
-              <div className="article">
-                <div className="image_box">
-                  <img src={article2} alt="" />
-                </div>
-                <div className="content">
-                  <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                  <p className="date">Ngày đăng: 05/05/2021</p>
-                </div>
-              </div>
-              <div className="article">
-                <div className="image_box">
-                  <img src={article3} alt="" />
-                </div>
-                <div className="content">
-                  <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                  <p className="date">Ngày đăng: 05/05/2021</p>
-                </div>
-              </div>
+              ))}
               <Link to="/articles">Xem thêm</Link>
             </div>
           </div>

@@ -2,7 +2,7 @@
 // THIRD IMPORT
 import { useState, useEffect } from 'react';
 import BreadCrumb from 'layout/MewShop/BreadCrumb';
-import { Pagination, Row, Col } from 'antd';
+import { Pagination, Row, Col, Switch } from 'antd';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
@@ -71,6 +71,21 @@ const Index = () => {
     });
   };
 
+  const renderClassName = (index: number) => {
+    switch (index) {
+      case 0:
+        return 'article one';
+      case 1:
+        return 'article two';
+      case 2:
+        return 'article three';
+      case 3:
+        return 'article four';
+      default:
+        return 'article five';
+    }
+  };
+
   return (
     <>
       <BreadCrumb node1={'Tin tức'} />
@@ -122,92 +137,17 @@ const Index = () => {
               <p className="articles_page_title">Tin tức {'&'} sự kiện</p>
               <div className="divider"></div>
               <div className="articles_box">
-                <div className="article one">
-                  <div className="image_box"></div>
-                  <div className="content">
-                    <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                    <p className="date">Ngày đăng: 05/05/2021</p>
+                {article?.map((item, index) => (
+                  <div className={renderClassName(index)}>
+                    <div className="image_box"></div>
+                    <div className="content">
+                      <Link to={`/article/${item?.url}`} className="article_title">
+                        {item?.title}
+                      </Link>
+                      <p className="date">Ngày đăng: {moment(item?.createdAt).format('DD/MM/YYYY')}</p>
+                    </div>
                   </div>
-                </div>
-                <div className="article two">
-                  <div className="image_box"></div>
-                  <div className="content">
-                    <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                    <p className="date">Ngày đăng: 05/05/2021</p>
-                  </div>
-                </div>
-                <div className="article three">
-                  <div className="image_box"></div>
-                  <div className="content">
-                    <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                    <p className="date">Ngày đăng: 05/05/2021</p>
-                  </div>
-                </div>
-                <div className="article four">
-                  <div className="image_box"></div>
-                  <div className="content">
-                    <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                    <p className="date">Ngày đăng: 05/05/2021</p>
-                  </div>
-                </div>
-                <div className="article five">
-                  <div className="image_box"></div>
-                  <div className="content">
-                    <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                    <p className="date">Ngày đăng: 05/05/2021</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="part_two">
-              <p className="articles_page_title">Bài viết nổi bật</p>
-              <div className="divider"></div>
-              <div className="articles_box">
-                <div className="article">
-                  <div className="image_box">
-                    <img src={article4} alt="" />
-                  </div>
-                  <div className="content">
-                    <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                    <p className="date">Ngày đăng: 05/05/2021</p>
-                  </div>
-                </div>
-                <div className="article">
-                  <div className="image_box">
-                    <img src={article1} alt="" />
-                  </div>
-                  <div className="content">
-                    <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                    <p className="date">Ngày đăng: 05/05/2021</p>
-                  </div>
-                </div>
-                <div className="article">
-                  <div className="image_box">
-                    <img src={article3} alt="" />
-                  </div>
-                  <div className="content">
-                    <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                    <p className="date">Ngày đăng: 05/05/2021</p>
-                  </div>
-                </div>
-                <div className="article">
-                  <div className="image_box">
-                    <img src={article2} alt="" />
-                  </div>
-                  <div className="content">
-                    <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                    <p className="date">Ngày đăng: 05/05/2021</p>
-                  </div>
-                </div>
-                <div className="article">
-                  <div className="image_box">
-                    <img src={article3} alt="" />
-                  </div>
-                  <div className="content">
-                    <div className="article_title">Thời trang phim Vincenzo: Bản giao hưởng phong cách của Ý và Hàn</div>
-                    <p className="date">Ngày đăng: 05/05/2021</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </Col>

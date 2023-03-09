@@ -1255,6 +1255,11 @@ footer .footer_license .container .image_box img {
   background-position: 5px 0px;
 }
 
+.articles_page .part_one .articles_box .article .content,
+.article_details_page .part_one .articles_box .article .content {
+  width: 100%;
+}
+
 .articles_page .part_one .articles_box .article.two .image_box,
 .article_details_page .part_one .articles_box .article.two .image_box {
   background-position: -57px 0px;
@@ -1564,6 +1569,7 @@ footer .footer_license .container .image_box img {
 
 .products_page .main_section .left_side .articles_box .article .image_box {
   width: 35%;
+  height: 60px;
 }
 
 .products_page .main_section .left_side .articles_box .article .content {
