@@ -1,26 +1,29 @@
 // THIRD IMPORT
 import { Route, Routes } from 'react-router-dom';
 import { BackTop } from 'antd';
+import { lazy } from 'react';
+import Loadable from 'components/Loadable';
 
 // PROJECT IMPORT
-import Header from 'layout/MewShop/Header';
-import Footer from 'layout/MewShop/Footer';
-
-import Home from 'pages/MewShop/Home';
-import Introduce from 'pages/MewShop/Introduce';
-import ArticleDetail from 'pages/MewShop/ArticleDetail';
-import Products from 'pages/MewShop/Products';
-import Article from 'pages/MewShop/Article';
-import Location from 'pages/MewShop/Location';
-import Contact from 'pages/MewShop/Contact';
-import ProductDetail from 'pages/MewShop/ProductDetail';
-import Cart from 'pages/MewShop/Cart';
-import Checkout from 'pages/MewShop/Checkout';
 
 // STATIC IMPORT
 import 'static/MewShop/css/main.css';
 import 'static/MewShop/css/responsive.css';
 import 'static/MewShop/css/styles.css';
+
+const Header = Loadable(lazy(() => import('layout/MewShop/Header')));
+const Footer = Loadable(lazy(() => import('layout/MewShop/Footer')));
+
+const Home = Loadable(lazy(() => import('pages/MewShop/Home')));
+const Introduce = Loadable(lazy(() => import('pages/MewShop/Introduce')));
+const ArticleDetail = Loadable(lazy(() => import('pages/MewShop/ArticleDetail')));
+const ProductDetail = Loadable(lazy(() => import('pages/MewShop/ProductDetail')));
+const Products = Loadable(lazy(() => import('pages/MewShop/Products')));
+const Article = Loadable(lazy(() => import('pages/MewShop/Article')));
+const Location = Loadable(lazy(() => import('pages/MewShop/Location')));
+const Contact = Loadable(lazy(() => import('pages/MewShop/Contact')));
+const Cart = Loadable(lazy(() => import('pages/MewShop/Cart')));
+const Checkout = Loadable(lazy(() => import('pages/MewShop/Checkout')));
 
 const MewShop = () => {
   return (
