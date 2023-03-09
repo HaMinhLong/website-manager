@@ -22,8 +22,6 @@ const Index = () => {
     getDetailCategory();
   }, []);
 
-  console.log('products', products);
-
   const getDetailCategory = () => {
     dispatch({
       type: 'category/getOne',

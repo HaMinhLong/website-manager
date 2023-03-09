@@ -40,12 +40,12 @@ const Index = () => {
     });
   };
 
-  console.log('banner home');
+  console.log('banner home', detail);
 
   const banner = useMemo(
     () => (
       <section className="banner_home">
-        <OwlCarousel
+        {/* <OwlCarousel
           className="owl-theme"
           dots={true}
           items={1}
@@ -60,11 +60,11 @@ const Index = () => {
             }
           }}
           key={`carousel_article`}
-        >
-          {detail?.images?.split(',')?.map((item) => (
-            <img className="banner__img" src={`${END_POINT}${item}`} alt="banner" key={item} />
-          ))}
-        </OwlCarousel>
+        > */}
+        {detail?.images?.split(',')?.map((item) => (
+          <img className="banner__img" src={`${END_POINT}${item}`} alt="banner" key={item} />
+        ))}
+        {/* </OwlCarousel> */}
         <div className="content__banner">
           <p className="smallTitle__content--banner">{detail?.description?.split('//')?.[0]}</p>
           <p className="title__content--banner">{detail?.description?.split('//')?.[1]}</p>
