@@ -83,8 +83,6 @@ const Header = () => {
     else handleClickScroll('home');
   }, [location.pathname]);
 
-  console.log('menuActive', menuActive);
-
   return (
     <>
       <div id="home" style={{ overflow: 'hidden' }}></div>
@@ -96,61 +94,63 @@ const Header = () => {
             </Link>
           </div>
           <div className="part_2">
-            <ul className="navigation">
-              {menus?.map((item) => (
-                <li
-                  key={item?.id}
-                  className={
-                    (toggleChildNews && item?.url === '/articles') || (toggleChildProducts && item?.url === '/products') ? 'active' : ''
-                  }
-                  onMouseEnter={() => {
-                    if (item?.url === '/articles') setToggleChildNews(true);
-                    if (item?.url === '/products') setToggleChildProducts(true);
-                  }}
-                  onMouseLeave={() => {
-                    if (item?.url === '/articles') setToggleChildNews(false);
-                    if (item?.url === '/products') setToggleChildProducts(false);
-                  }}
-                >
-                  {item?.url !== '/products' ? <Link to={item?.url}>{item?.text}</Link> : <a>{item?.text}</a>}
+            {menus?.length > 0 && (
+              <ul className="navigation">
+                {menus?.map((item) => (
+                  <li
+                    key={item?.id}
+                    className={
+                      (toggleChildNews && item?.url === '/articles') || (toggleChildProducts && item?.url === '/products') ? 'active' : ''
+                    }
+                    onMouseEnter={() => {
+                      if (item?.url === '/articles') setToggleChildNews(true);
+                      if (item?.url === '/products') setToggleChildProducts(true);
+                    }}
+                    onMouseLeave={() => {
+                      if (item?.url === '/articles') setToggleChildNews(false);
+                      if (item?.url === '/products') setToggleChildProducts(false);
+                    }}
+                  >
+                    {item?.url !== '/products' ? <Link to={item?.url}>{item?.text}</Link> : <a>{item?.text}</a>}
 
-                  {item?.children?.length > 0 && item?.url === '/products' && (
-                    <ul className="child child_product">
-                      {item?.children?.map((child) => (
-                        <li key={child?.id}>
-                          <img src={child?.icon} alt="" />
-                          <Link to={`${item?.url}${child?.url}`} onClick={() => setToggleChildProducts(false)}>
-                            {child?.text}
-                          </Link>
-                          <ul>
-                            {child?.children?.map((grandchildren) => (
-                              <li key={grandchildren?.id}>
-                                <Link to={`${item?.url}${child?.url}${grandchildren?.url}`} onClick={() => setToggleChildProducts(false)}>
-                                  <ToRight />
-                                  {grandchildren?.text}
-                                </Link>
-                              </li>
-                            ))}
-                          </ul>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                    {item?.children?.length > 0 && item?.url === '/products' && (
+                      <ul className="child child_product">
+                        {item?.children?.map((child) => (
+                          <li key={child?.id}>
+                            <img src={child?.icon} alt="" />
+                            <Link to={`${item?.url}${child?.url}`} onClick={() => setToggleChildProducts(false)}>
+                              {child?.text}
+                            </Link>
+                            <ul>
+                              {child?.children?.map((grandchildren) => (
+                                <li key={grandchildren?.id}>
+                                  <Link to={`${item?.url}${child?.url}${grandchildren?.url}`} onClick={() => setToggleChildProducts(false)}>
+                                    <ToRight />
+                                    {grandchildren?.text}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
 
-                  {item?.children?.length > 0 && item?.url !== '/products' && (
-                    <ul className="child">
-                      {item?.children?.map((child) => (
-                        <li key={child?.id}>
-                          <Link to={`${item?.url}${child?.url}`} onClick={() => setToggleChildNews(false)}>
-                            {child?.text}
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul>
+                    {item?.children?.length > 0 && item?.url !== '/products' && (
+                      <ul className="child">
+                        {item?.children?.map((child) => (
+                          <li key={child?.id}>
+                            <Link to={`${item?.url}${child?.url}`} onClick={() => setToggleChildNews(false)}>
+                              {child?.text}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            )}
             <div className="search_cart_box">
               <div className="search_header">
                 <svg
@@ -242,22 +242,23 @@ const Header = () => {
         className="menu_res"
       >
         <ul>
-          {menus
-            ?.find((item) => item?.url === '/products')
-            ?.children?.map((item) => (
-              <li className={item?.url === menuActive?.url ? 'active' : ''}>
-                <div
-                  onClick={() => {
-                    setMenuActive(item);
-                  }}
-                >
-                  <img src={item?.icon} alt={item?.text} />
-                  <p>{item?.text}</p>
-                </div>
-              </li>
-            ))}
+          {menus?.length > 0 &&
+            menus
+              ?.find((item) => item?.url === '/products')
+              ?.children?.map((item) => (
+                <li className={item?.url === menuActive?.url ? 'active' : ''}>
+                  <div
+                    onClick={() => {
+                      setMenuActive(item);
+                    }}
+                  >
+                    <img src={item?.icon} alt={item?.text} />
+                    <p>{item?.text}</p>
+                  </div>
+                </li>
+              ))}
         </ul>
-        {menuActive?.children && (
+        {menuActive?.children?.length > 0 && (
           <ul className="categories">
             {menuActive?.children?.map((item) => (
               <li key={item?.id}>

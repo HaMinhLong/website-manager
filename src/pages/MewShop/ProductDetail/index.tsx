@@ -161,7 +161,7 @@ const ProductDetails = () => {
       setQuantity(quantity - 1);
     }
   };
-
+  //
   const renderPrice = (price?: boolean) => {
     if (colorSelected?.id === 0 || sizeSelected?.id === 0)
       return product?.isSale && !price ? formatPrice(product?.negotiablePrice) : formatPrice(product?.price);
