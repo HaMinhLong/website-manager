@@ -1,7 +1,7 @@
 // THIRD IMPORT
 import { useEffect, useRef, useState } from 'react';
 import { Drawer } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 // PROJECT IMPORT
@@ -23,6 +23,7 @@ import { Box } from '@mui/material';
 const Header = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const orderState = useSelector(order);
 
@@ -32,7 +33,7 @@ const Header = () => {
   const [toggleSearch, setToggleSearch] = useState<boolean>(false);
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
-  const [menuActive, setMenuActive] = useState('');
+  const [menuActive, setMenuActive] = useState<any>({});
 
   const cart = useRef(JSON.parse(localStorage.getItem('cart') || '[]'));
 
@@ -81,6 +82,8 @@ const Header = () => {
     if (location.hash) handleClickScroll(location.hash.split('#')[1]);
     else handleClickScroll('home');
   }, [location.pathname]);
+
+  console.log('menuActive', menuActive);
 
   return (
     <>
@@ -186,10 +189,17 @@ const Header = () => {
           </div>
           <div className={toggleSearch ? 'search_container active' : 'search_container'}>
             <div className={toggleSearch ? 'search_box active' : 'search_box'}>
-              <form>
-                <input type="text" placeholder="Nhập từ khóa tìm kiếm..." required />
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const search = e.target['search'].value;
+                  navigate(`/search?${search}`);
+                  setToggleSearch(false);
+                }}
+              >
+                <input type="search" placeholder="Nhập từ khóa tìm kiếm..." name="search" required id="search" />
                 <button type="submit">
-                  <img src={searchIcon} alt="" />
+                  <img src={searchIcon} alt="button submit" />
                 </button>
               </form>
               <div className="bg" onClick={() => setToggleSearch(false)}></div>
@@ -235,46 +245,30 @@ const Header = () => {
           {menus
             ?.find((item) => item?.url === '/products')
             ?.children?.map((item) => (
-              <li className={item?.url === menuActive ? 'active' : ''}>
-                <Link
-                  to={`/products${item?.url}`}
+              <li className={item?.url === menuActive?.url ? 'active' : ''}>
+                <div
                   onClick={() => {
-                    setMenuActive(item?.url);
-                    setOpenMenu(false);
+                    setMenuActive(item);
                   }}
                 >
                   <img src={item?.icon} alt={item?.text} />
                   <p>{item?.text}</p>
-                </Link>
+                </div>
               </li>
             ))}
         </ul>
-        <ul className="categories">
-          <li>
-            <Link to="/products" onClick={() => setOpenMenu(false)}>
-              <img src={quanDai} alt="" />
-              <p>Áo thun polo</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="/products" onClick={() => setOpenMenu(false)}>
-              <img src={quanDai} alt="" />
-              <p>Áo thun unisex</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="/products" onClick={() => setOpenMenu(false)}>
-              <img src={quanDai} alt="" />
-              <p>Áo thun trơn</p>
-            </Link>
-          </li>
-          <li>
-            <Link to="/products" onClick={() => setOpenMenu(false)}>
-              <img src={quanDai} alt="" />
-              <p>Áo thun t-shirt</p>
-            </Link>
-          </li>
-        </ul>
+        {menuActive?.children && (
+          <ul className="categories">
+            {menuActive?.children?.map((item) => (
+              <li key={item?.id}>
+                <Link to={`/products${menuActive?.url}${item?.url}`} onClick={() => setOpenMenu(false)}>
+                  <img src={item?.icon || quanDai} alt="" />
+                  <p>{item?.text}</p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </Drawer>
     </>
   );

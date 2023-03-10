@@ -24,6 +24,7 @@ const Location = Loadable(lazy(() => import('pages/MewShop/Location')));
 const Contact = Loadable(lazy(() => import('pages/MewShop/Contact')));
 const Cart = Loadable(lazy(() => import('pages/MewShop/Cart')));
 const Checkout = Loadable(lazy(() => import('pages/MewShop/Checkout')));
+const SearchProduct = Loadable(lazy(() => import('pages/MewShop/SearchProduct')));
 
 const MewShop = () => {
   return (
@@ -43,6 +44,7 @@ const MewShop = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/search" element={<SearchProduct />} />
       </Routes>
       <Footer></Footer>
       <BackTop />

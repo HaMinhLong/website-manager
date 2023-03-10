@@ -70,7 +70,7 @@ const Index = () => {
         <div className="content__banner">
           <p className="smallTitle__content--banner">{detail?.description?.split('//')?.[0]}</p>
           <p className="title__content--banner">{detail?.description?.split('//')?.[1]}</p>
-          <Link to="products/quan-ao">
+          <Link to={`products/${detail?.description?.split('//')?.[2] || 'quan-ao'}`}>
             <span>Shop Now</span>
           </Link>
         </div>

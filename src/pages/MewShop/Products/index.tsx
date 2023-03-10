@@ -3,23 +3,19 @@
 import { useState, useEffect } from 'react';
 import { Row, Col, Radio, Space, Pagination } from 'antd';
 import { Link, useParams, useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 // PROJECT IMPORT
 import BreadCrumb from 'layout/MewShop/BreadCrumb';
-import article1 from 'static/MewShop/images/home/articles-1.jpg';
-import article2 from 'static/MewShop/images/home/articles-2.jpg';
-import article3 from 'static/MewShop/images/home/articles-3.jpeg';
-import article4 from 'static/MewShop/images/home/articles-4.jpg';
 import filter from 'static/MewShop/images/product/filter.png';
 import closeFilter from 'static/MewShop/images/product/filter_close.png';
 import { ProductType, PaginationType } from 'types/product';
 import { CategoryType } from 'types/category';
 import { ProducerType } from 'types/producer';
 import { formatPrice, getSale } from 'utils/utils';
-import { useDispatch } from 'app/store';
 import Loading from 'components/Extended/Loading';
 import { ArticleType } from 'types/articles';
-import moment from 'moment';
+import { useDispatch } from 'app/store';
 
 const END_POINT = process.env.REACT_APP_SERVER;
 const PAGE_SIZE = 12;
@@ -64,7 +60,7 @@ const Products = () => {
 
   useEffect(() => {
     getList();
-  }, [filters]);
+  }, [filters, sort, brand, price]);
 
   const getDetailCategory = () => {
     setLoading(true);
@@ -94,10 +90,12 @@ const Products = () => {
       filter: JSON.stringify({
         status: 1,
         websiteId: 1,
-        categoryId: category?.id
+        categoryId: category?.id,
+        producerId: brand || '',
+        negotiablePrice: price || ''
       }),
       range: JSON.stringify([filters?.page * PAGE_SIZE - PAGE_SIZE, filters?.page * PAGE_SIZE]),
-      sort: JSON.stringify(['createdAt', 'DESC']),
+      sort: JSON.stringify(sort ? sort?.split(',') : ['createdAt', 'DESC']),
       attributes: 'id,name,price,isSale,images,negotiablePrice,createdAt,url'
     };
 
@@ -205,12 +203,12 @@ const Products = () => {
                 <Radio.Group onChange={(e) => setPrice(e.target.value)} value={price}>
                   <Space direction="vertical">
                     <Radio value="">Tất cả</Radio>
-                    <Radio value={1}>Giá dưới 100.000đ</Radio>
-                    <Radio value={2}>100.000đ - 200.000đ</Radio>
-                    <Radio value={3}>200.000đ - 500.000đ</Radio>
-                    <Radio value={4}>500.000đ - 1.000.000đ</Radio>
-                    <Radio value={5}>1.000.000đ - 2.000.000đ</Radio>
-                    <Radio value={6}>Giá trên 2.000.000đ</Radio>
+                    <Radio value={'0,100000'}>Giá dưới 100.000đ</Radio>
+                    <Radio value={'100000,200000'}>100.000đ - 200.000đ</Radio>
+                    <Radio value={'200000,500000'}>200.000đ - 500.000đ</Radio>
+                    <Radio value={'500000,1000000'}>500.000đ - 1.000.000đ</Radio>
+                    <Radio value={'1000000,2000000'}>1.000.000đ - 2.000.000đ</Radio>
+                    <Radio value={'2000000,90000000000'}>Giá trên 2.000.000đ</Radio>
                   </Space>
                 </Radio.Group>
               </div>
@@ -245,16 +243,16 @@ const Products = () => {
               <p className="main_title">Sắp xếp: </p>
               <div className="box">
                 <Radio.Group onChange={(e) => setSort(e.target.value)} value={sort}>
-                  <Radio value={1}>A ➞ Z</Radio>
-                  <Radio value={2}>Z ➞ A</Radio>
-                  <Radio value={3}>Giá tăng dần</Radio>
-                  <Radio value={4}>Giá giảm dần</Radio>
-                  <Radio value={5}>Hàng mới nhất</Radio>
-                  <Radio value={6}>Hàng cũ nhất</Radio>
+                  <Radio value={'name,ASC'}>A ➞ Z</Radio>
+                  <Radio value={'name,DESC'}>Z ➞ A</Radio>
+                  <Radio value={'negotiablePrice,ASC'}>Giá tăng dần</Radio>
+                  <Radio value={'negotiablePrice,DESC'}>Giá giảm dần</Radio>
+                  <Radio value={'createdAt,DESC'}>Hàng mới nhất</Radio>
+                  <Radio value={'createdAt,ASC'}>Hàng cũ nhất</Radio>
                 </Radio.Group>
               </div>
             </div>
-            <Row gutter={[32, 5]} className="products">
+            <Row gutter={[22, 5]} className="products">
               {products?.map((item) => (
                 <Col xs={12} md={8} lg={8} xl={6} key={item?.id}>
                   <div className="product" style={{ marginBottom: '10px' }}>
@@ -319,12 +317,13 @@ const Products = () => {
                 <p className="main_title">Lọc giá</p>
                 <Radio.Group onChange={(e) => setPrice(e.target.value)} value={price}>
                   <Space direction="vertical">
-                    <Radio value={1}>Giá dưới 100.000đ</Radio>
-                    <Radio value={2}>100.000đ - 200.000đ</Radio>
-                    <Radio value={3}>200.000đ - 500.000đ</Radio>
-                    <Radio value={4}>500.000đ - 1.000.000đ</Radio>
-                    <Radio value={5}>1.000.000đ - 2.000.000đ</Radio>
-                    <Radio value={6}>Giá trên 2.000.000đ</Radio>
+                    <Radio value="">Tất cả</Radio>
+                    <Radio value={'0,100000'}>Giá dưới 100.000đ</Radio>
+                    <Radio value={'100000,200000'}>100.000đ - 200.000đ</Radio>
+                    <Radio value={'200000,500000'}>200.000đ - 500.000đ</Radio>
+                    <Radio value={'500000,1000000'}>500.000đ - 1.000.000đ</Radio>
+                    <Radio value={'1000000,2000000'}>1.000.000đ - 2.000.000đ</Radio>
+                    <Radio value={'2000000,90000000000'}>Giá trên 2.000.000đ</Radio>
                   </Space>
                 </Radio.Group>
               </div>

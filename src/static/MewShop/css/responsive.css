@@ -335,33 +335,35 @@
     height: 80px;
     cursor: pointer;
   }
-  .menu_res .ant-drawer-body ul li a {
+  .menu_res .ant-drawer-body ul li a,
+  .menu_res .ant-drawer-body ul li div {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 80px;
   }
-  .menu_res .ant-drawer-body ul li a p {
+  .menu_res .ant-drawer-body ul li a p,
+  .menu_res .ant-drawer-body ul li div p {
     font-size: 12px;
     text-align: center;
     margin-top: 5px;
+    font-weight: 500;
   }
-  .menu_res .ant-drawer-body ul li a img {
+  .menu_res .ant-drawer-body ul li a img,
+  .menu_res .ant-drawer-body ul li div img {
     width: 50px;
     height: 30px;
   }
   .menu_res .ant-drawer-body ul li.active {
     background: #006fa2;
   }
-  .menu_res .ant-drawer-body ul li.active a img {
-    filter: invert(1);
-    -webkit-filter: invert(1);
-  }
-  .menu_res .ant-drawer-body ul li.active a p {
+  .menu_res .ant-drawer-body ul li.active a p,
+  .menu_res .ant-drawer-body ul li.active div p {
     color: #fff;
   }
   .menu_res .ant-drawer-body .categories {
+    z-index: 10;
     width: 250px;
     padding: 5px;
     overflow: scroll;
